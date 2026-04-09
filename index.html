@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÁUREA — NYC Show Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F0E8;--bg-warm:#EDE7DA;--card:#FFFFFF;--card-hover:#FAFAF5;
+  --border:#DDD5C8;--border-light:#E8E0D3;
+  --orange:#E85D26;--orange-soft:rgba(232,93,38,0.08);--orange-glow:rgba(232,93,38,0.15);
+  --green:#7BA355;--green-soft:rgba(123,163,85,0.1);--green-dark:#4B6B30;
+  --cream:#F0EAD8;--cream-dark:#D4CCBA;
+  --olive:#6B6B50;
+  --text:#2A2520;--text-dim:#7A7060;--text-muted:#A89E90;
+  --danger:#C0392B;--success:#5B8C3E;
+  --radius:10px;
+  --shadow:0 2px 8px rgba(42,37,32,0.06);
+  --shadow-hover:0 6px 20px rgba(42,37,32,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+.header{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--text)}.logo span{color:var(--orange)}
+.header-subtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);border-left:1px solid var(--border);padding-left:16px}
+.header-right{display:flex;gap:8px}
+.btn-sm{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-sm:hover{border-color:var(--orange);color:var(--orange)}
+
+.nav{display:flex;padding:0 24px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--card);scrollbar-width:none;-ms-overflow-style:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-tab{padding:14px 20px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;position:relative;transition:color .2s}
+.nav-tab:hover{color:var(--text-dim)}.nav-tab.active{color:var(--orange)}.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--orange)}
+
+.main{padding:24px;max-width:1200px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--text)}
+
+.btn{padding:10px 20px;border-radius:var(--radius);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--orange);color:#fff}.btn-primary:hover{background:#d04f1e}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+.btn-danger{background:transparent;border:1px solid var(--danger);color:var(--danger)}.btn-danger:hover{background:var(--danger);color:#fff}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);transition:all .2s}.card:hover{box-shadow:var(--shadow-hover)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color .2s}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--orange);background:#fff}
+.field textarea{resize:vertical;min-height:80px}
+.editable{padding:6px 10px;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;width:100%;transition:all .2s}
+.editable:hover{border-color:var(--border)}.editable:focus{outline:none;border-color:var(--orange);background:#fff}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* MOODBOARD */
+.mood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.mood-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .25s;box-shadow:var(--shadow)}
+.mood-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.mood-cover{width:100%;aspect-ratio:4/3;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.mood-cover img{width:100%;height:100%;object-fit:cover}
+.mood-cover-empty{color:var(--text-muted);font-size:48px}
+.mood-img-count{position:absolute;bottom:8px;right:8px;background:rgba(42,37,32,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;backdrop-filter:blur(4px)}
+.mood-card-body{padding:14px 16px}
+.mood-card-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.mood-card-sub{font-size:12px;color:var(--text-dim)}
+
+.mood-detail-overlay{display:none;position:fixed;inset:0;background:rgba(42,37,32,.92);z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.mood-detail-overlay.open{display:block}
+.mood-detail{max-width:800px;margin:0 auto;padding:24px;padding-top:80px}
+.mood-detail-close{position:fixed;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;z-index:301;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.mood-detail-close:hover{background:rgba(255,255,255,.25)}
+.mood-detail-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--cream);margin-bottom:8px}
+.mood-detail-source{font-size:13px;color:var(--orange);margin-bottom:24px}
+.mood-detail-source a{color:var(--orange);text-decoration:none}.mood-detail-source a:hover{text-decoration:underline}
+.mood-detail-images{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.mood-detail-images.single{grid-template-columns:1fr}
+.mood-detail-img{width:100%;border-radius:8px;aspect-ratio:1;object-fit:cover;background:var(--bg-warm);cursor:pointer;transition:opacity .2s}
+.mood-detail-img:hover{opacity:.85}
+.mood-detail-img.full-width{grid-column:1/-1;aspect-ratio:16/9}
+.mood-detail-section{margin-bottom:20px}
+.mood-detail-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cream-dark);margin-bottom:6px}
+.mood-detail-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,.7);white-space:pre-wrap}
+.mood-detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.mood-tag{padding:4px 12px;background:var(--green-soft);color:var(--green);font-size:12px;border-radius:20px;border:1px solid rgba(123,163,85,.2)}
+.mood-detail-actions{display:flex;gap:8px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+.mood-add-img-btn{width:100%;aspect-ratio:1;border-radius:8px;border:2px dashed rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.3);font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.mood-add-img-btn:hover{border-color:var(--orange);color:var(--orange)}
+
+.lightbox{display:none;position:fixed;inset:0;background:rgba(42,37,32,.95);z-index:400;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;border-radius:8px}
+
+/* OTHER SECTIONS */
+.checklist-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;transition:all .2s;box-shadow:var(--shadow)}
+.checklist-item.done{opacity:.5}.checklist-item.done .checklist-text{text-decoration:line-through}
+.checklist-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.checklist-check:hover{border-color:var(--green)}.checklist-check.checked{background:var(--green);border-color:var(--green)}.checklist-check.checked::after{content:'✓';color:#fff;font-size:12px}
+.checklist-text{flex:1;font-size:14px}
+.checklist-delete{color:var(--text-muted);cursor:pointer;font-size:18px;padding:0 4px;opacity:0;transition:all .2s}
+.checklist-item:hover .checklist-delete{opacity:1}.checklist-delete:hover{color:var(--danger)}
+.timeline-item{display:flex;gap:16px;margin-bottom:16px;position:relative}
+.timeline-dot{width:12px;height:12px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:4px;position:relative;z-index:1}
+.timeline-item:not(:last-child) .timeline-dot::after{content:'';position:absolute;top:12px;left:5px;width:2px;height:calc(100% + 16px);background:var(--border)}
+.timeline-content{flex:1}.timeline-date{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:4px}.timeline-text{font-size:14px}
+.link-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;transition:all .2s;box-shadow:var(--shadow)}
+.link-item:hover{box-shadow:var(--shadow-hover)}
+.link-icon{width:36px;height:36px;border-radius:8px;background:var(--green-soft);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.link-info{flex:1;min-width:0}.link-title{font-size:14px;font-weight:500}.link-url{font-size:12px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-actions{display:flex;gap:8px}.link-actions a,.link-actions span{font-size:12px;color:var(--text-dim);cursor:pointer;text-decoration:none;transition:color .2s}
+.link-actions a:hover{color:var(--orange)}.link-actions span:hover{color:var(--danger)}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all .2s;box-shadow:var(--shadow)}.contact-card:hover{box-shadow:var(--shadow-hover)}
+.contact-role{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green-dark);margin-bottom:8px;font-weight:600}.contact-name{font-size:16px;font-weight:500;margin-bottom:4px}
+.contact-detail{font-size:13px;color:var(--text-dim);margin-bottom:2px}
+.contact-delete{float:right;color:var(--text-muted);cursor:pointer;font-size:16px;transition:color .2s}.contact-delete:hover{color:var(--danger)}
+.budget-total{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--orange);margin-bottom:4px}
+.budget-label{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted)}
+.budget-cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:all .2s;box-shadow:var(--shadow)}
+.budget-cat-card:hover{box-shadow:var(--shadow-hover)}
+.budget-cat-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none}
+.budget-cat-header:hover{background:var(--bg-warm)}
+.budget-cat-name{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.budget-cat-arrow{font-size:12px;color:var(--text-muted);transition:transform .2s}
+.budget-cat-card.open .budget-cat-arrow{transform:rotate(90deg)}
+.budget-cat-subtotal{font-size:14px;font-weight:500;color:var(--orange);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:12px}
+.budget-cat-body{display:none;border-top:1px solid var(--border);padding:0 20px 12px}
+.budget-cat-card.open .budget-cat-body{display:block}
+.budget-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}.budget-row:last-child{border:none}
+.budget-item-name{flex:1;font-size:14px;color:var(--text-dim)}.budget-amount{font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+.budget-delete{color:var(--text-muted);cursor:pointer;font-size:16px;opacity:0;transition:all .2s}
+.budget-row:hover .budget-delete{opacity:1}.budget-delete:hover{color:var(--danger)}
+.budget-add-item{padding:8px 0;display:flex;gap:8px;margin-top:8px}
+.budget-add-item input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px}
+.budget-add-item input:focus{outline:none;border-color:var(--orange)}
+.budget-add-item button{padding:8px 14px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.budget-cat-delete{color:var(--text-muted);cursor:pointer;font-size:14px;transition:color .2s;padding:2px 6px}
+.budget-cat-delete:hover{color:var(--danger)}
+.note-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:all .2s;box-shadow:var(--shadow)}.note-card:hover{box-shadow:var(--shadow-hover)}
+.note-date{font-size:11px;color:var(--text-muted);margin-bottom:8px}.note-text{font-size:14px;line-height:1.6;white-space:pre-wrap}
+.note-delete{float:right;color:var(--text-muted);cursor:pointer;font-size:14px;transition:color .2s}.note-delete:hover{color:var(--danger)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(42,37,32,.6);z-index:200;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(42,37,32,.2)}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:20px;color:var(--text)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-muted)}.empty-icon{font-size:40px;margin-bottom:12px}.empty-text{font-size:14px}
+
+/* COLLECTION GRID */
+.collection-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.garment-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .2s;position:relative;box-shadow:var(--shadow)}
+.garment-card:hover{box-shadow:var(--shadow-hover)}
+.garment-card.done{opacity:.5}
+.garment-img{width:100%;aspect-ratio:3/4;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:36px;color:var(--text-muted)}
+.garment-img img{width:100%;height:100%;object-fit:cover}
+.garment-body{padding:12px}
+.garment-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.garment-cat{font-size:11px;color:var(--green-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.garment-note{font-size:12px;color:var(--text-dim)}
+.garment-actions{position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .2s}
+.garment-card:hover .garment-actions{opacity:1}
+.garment-action-btn{width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.garment-action-btn:hover{background:var(--orange)}
+.garment-check{position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(0,0,0,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:all .2s}
+.garment-check:hover{border-color:var(--orange)}
+.garment-check.checked{background:var(--green);border-color:var(--green)}
+.garment-check.checked::after{content:'✓';color:#fff;font-size:12px}
+
+/* CREATIVE PROCESS */
+.creative-editor{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);min-height:60vh;box-shadow:var(--shadow)}
+.creative-textarea{width:100%;min-height:60vh;padding:24px;background:transparent;border:none;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.9;resize:vertical}
+.creative-textarea:focus{outline:none}
+.creative-textarea::placeholder{color:var(--text-muted)}
+.creative-saved{font-size:11px;color:var(--text-muted);padding:8px 16px;text-align:right}
+
+/* MUSIC */
+.music-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:all .2s;box-shadow:var(--shadow)}
+.music-card:hover{box-shadow:var(--shadow-hover)}
+.music-icon{width:40px;height:40px;border-radius:8px;background:var(--green-soft);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.music-info{flex:1;min-width:0}
+.music-title{font-size:14px;font-weight:500;margin-bottom:2px}
+.music-artist{font-size:12px;color:var(--text-dim)}
+.music-note{font-size:12px;color:var(--text-muted);margin-top:2px}
+.music-actions{display:flex;gap:8px;align-items:center}
+.music-actions a{font-size:12px;color:var(--orange);text-decoration:none;white-space:nowrap}
+.music-actions a:hover{text-decoration:underline}
+.music-actions span{font-size:16px;color:var(--text-muted);cursor:pointer;transition:color .2s}
+.music-actions span:hover{color:var(--danger)}
+
+@media(max-width:768px){
+  .header{padding:10px 16px}
+  .header-subtitle{display:none}
+  .header-right .btn-sm{padding:5px 10px;font-size:11px}
+  .logo svg{height:22px}
+  .main{padding:12px}
+  .section-header{margin-bottom:16px;gap:8px}
+  .section-header>div:last-child{width:100%}
+  .section-header .btn{width:100%;text-align:center}
+  .section-header .btn-outline{flex:1}
+  .section-header .btn-primary{flex:2}
+  .section-title{font-size:24px}
+  .info-grid,.card-grid{grid-template-columns:1fr}
+  .mood-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .mood-detail{padding:16px;padding-top:70px}
+  .mood-detail-images{grid-template-columns:1fr 1fr;gap:6px}
+  .mood-detail-title{font-size:26px}
+  .mood-detail-close{top:14px;right:14px;width:36px;height:36px;font-size:18px}
+  .collection-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .garment-actions{opacity:1}
+  .garment-body{padding:10px}
+  .garment-name{font-size:13px}
+  .budget-total{font-size:36px}
+  .budget-cat-header{padding:14px 16px}
+  .budget-add-item{flex-wrap:wrap}
+  .budget-add-item input:first-child{min-width:0}
+  .nav{padding:0 8px;gap:0}
+  .nav-tab{padding:12px 12px;font-size:10px;letter-spacing:1px}
+  .card{padding:16px}
+  .field input,.field textarea,.field select{font-size:16px}
+  .editable{font-size:16px}
+  .modal{padding:20px;margin:8px;border-radius:12px;max-height:85vh}
+  .modal-title{font-size:22px}
+  .contact-card{padding:16px}
+  .link-item{padding:12px 14px}
+  .music-card{padding:14px}
+  .creative-textarea{padding:16px;font-size:16px;min-height:50vh}
+  .note-card{padding:14px}
+  .timeline-item{gap:12px}
+  .checklist-delete{opacity:1}
+  .budget-delete{opacity:1}
+  .lightbox img{border-radius:0}
+}
+@media(max-width:480px){
+  .mood-grid{grid-template-columns:1fr}
+  .collection-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .mood-detail-images{grid-template-columns:1fr}
+  .mood-detail-img{aspect-ratio:4/3}
+  .header-right{gap:4px}
+  .header-right .btn-sm{padding:5px 8px;font-size:10px}
+  .nav-tab{padding:10px 10px;font-size:9px;letter-spacing:0.5px}
+  .section-header{flex-direction:column;align-items:stretch}
+  .section-title{font-size:22px}
+  .budget-add-item input:first-child{flex:2}
+  .budget-add-item input[type="number"]{flex:1;max-width:none}
+}
+@media(max-width:360px){
+  .collection-grid{grid-template-columns:1fr}
+  .main{padding:8px}
+  .card{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left"><div class="logo"><svg viewBox="200 210 1100 300" style="height:28px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg"><path d="M790.67,424.58c5.97,6.81,13.74,9.05,21.81,10.41c7.83,1.32,15.56,1.38,22.66-3.24c0.87-0.57,2.85-0.01,4.03,0.59 c10.12,5.13,14.21,16.44,10.15,27.71c-4.9,13.59-19.33,22-36.14,21.29c-10.9-0.46-21.03-3.73-30.3-9.08 c-12.96-7.47-25.49-15.69-38.22-23.56c-3.96-2.45-7.94-4.87-11.99-7.18c-6.64-3.8-13.73-5.66-21.47-5.38 c-7.8,0.28-15.63,0.06-24.09,0.06c0,15,0,29.71,0,44.82c-15.87,0-31.09,0-46.67,0c0-66.11,0-132.16,0-198.57 c1.8-0.09,3.42-0.25,5.04-0.25c26.66-0.01,53.33-0.12,79.99,0.03c21.82,0.12,43.17,3.05,62.97,12.92 c21.4,10.67,37.24,26.36,42.47,50.5c6.55,30.29-8.35,61.73-35.65,76.41C793.84,422.83,792.43,423.62,790.67,424.58z M687.08,390.27c20.02-0.53,39.48-0.6,58.87-1.72c10.6-0.61,21.05-3.18,30-9.63c8.92-6.42,12.51-16.97,9.03-27.38 c-3.69-11.04-12.88-15.71-23.1-18.49c-24.35-6.61-49.28-3.51-74-3.93c-0.25,0-0.5,0.39-0.8,0.64 C687.08,349.51,687.08,369.3,687.08,390.27z" fill="currentColor"/><path d="M995.09,358.21c0,15.94,0,31.02,0,46.59c-27.41,0-54.5,0-81.88,0c0,10.06,0,19.62,0,29.74c40.25,0,80.33,0,120.75,0 c0,15.62,0,30.68,0,46.07c-55.85,0-111.57,0-167.57,0c0-66.13,0-132.03,0-198.24c56.08,0,111.98,0,168.22,0 c0,15.29,0,30.51,0,46.19c-40.39,0-80.66,0-121.32,0c0,9.99,0,19.54,0,29.65C940.4,358.21,967.47,358.21,995.09,358.21z" fill="currentColor"/><path d="M1286.44,480.99c-10.9,0-21.33,0.05-31.75-0.02c-6.46-0.04-14.25,1.89-19.01-1.03c-4.54-2.79-5.95-10.71-8.69-16.4 c-2.75-5.69-5.58-11.34-8.09-17.13c-1.19-2.74-2.86-3.48-5.73-3.48c-32.99,0.1-65.99,0.11-98.98-0.02 c-3.17-0.01-4.71,1.06-5.98,3.83c-4.71,10.28-9.54,20.5-14.59,30.61c-0.78,1.56-2.92,3.46-4.45,3.48 c-15.98,0.25-31.97,0.16-48.76,0.16c0.85-1.91,1.43-3.36,2.11-4.75c30.63-63.1,61.3-126.19,91.84-189.33 c1.65-3.41,3.41-4.91,7.45-4.84c15.33,0.29,30.66,0.17,45.99,0.07c2.76-0.02,4.47,0.56,5.8,3.33 c30.54,64.25,61.18,128.45,91.8,192.67C1285.72,478.86,1285.94,479.63,1286.44,480.99z M1195.14,396.71 c-10.4-21.83-20.46-42.94-30.97-64.98c-10.77,22.24-21.01,43.38-31.48,64.98C1153.79,396.71,1174.06,396.71,1195.14,396.71z" fill="currentColor"/><path d="M442.32,479.99c-16.5,0-32.63,0.07-48.75-0.14c-1.27-0.02-3.01-1.71-3.68-3.05c-4.96-9.97-9.88-19.96-14.42-30.13 c-1.59-3.57-3.45-4.79-7.42-4.78c-48.81,0.16-97.62,0.1-146.44,0.1c-1.99,0-3.99,0-6.53,0c0.54-1.47,0.86-2.66,1.39-3.75 c24.81-51.13,49.67-102.24,74.41-153.4c1.38-2.85,3.03-3.75,6.1-3.72c15.66,0.14,31.32,0.11,46.98,0.03 c2.54-0.01,4.19,0.4,5.45,3.05c30.61,64.38,61.33,128.71,92.02,193.05C441.78,477.96,441.93,478.77,442.32,479.99z M351.1,395.68 c-10.29-21.63-20.37-42.81-30.92-64.96c-10.73,22.15-21.02,43.38-31.47,64.96C309.86,395.68,330.12,395.68,351.1,395.68z" fill="currentColor"/><path d="M425.34,282.29c15.73,0,30.84,0,46.56,0c0,2.18,0,4.12,0,6.06c0.02,34.49-0.11,68.97,0.2,103.46 c0.06,6.9,1.45,13.86,2.88,20.66c1.73,8.27,7.2,13.58,14.95,16.78c11.35,4.68,23.32,5.21,35.3,5.21c6.8,0,13.64-0.59,20.4-1.41 c21.12-2.57,31.11-13.35,31.33-34.76c0.38-36.65,0.27-73.3,0.36-109.95c0-1.95,0-3.9,0-6.06c15.77,0,30.87,0,46.36,0 c0.11,1.5,0.3,2.94,0.3,4.37c0,35.15,0.32,70.31-0.22,105.45c-0.17,10.7-1.65,21.64-4.36,32c-6.51,24.86-22.73,41.63-47.03,49.53 c-31.39,10.21-63.26,10.36-94.71,0.27c-29.56-9.49-45.63-30.96-50.44-61.08c-1.44-9-1.95-18.22-2.01-27.35 c-0.23-32.82-0.1-65.64-0.09-98.46C425.11,285.55,425.25,284.09,425.34,282.29z" fill="currentColor"/><path d="M372.93,218.15c-3.7,7.9-7.33,15.69-10.97,23.47c-3.02,6.47-5.94,12.99-9.16,19.36c-0.66,1.31-2.48,2.86-3.78,2.88 c-15.98,0.17-31.97,0.08-47.95,0.04c-0.27,0-0.53-0.27-1.24-0.65c3.12-6.53,6.22-13.08,9.36-19.61 c3.67-7.64,7.25-15.32,11.15-22.84c0.75-1.44,2.79-3.1,4.26-3.12c15.48-0.21,30.97-0.11,46.45-0.07 C371.51,217.61,371.97,217.87,372.93,218.15z" fill="currentColor"/></svg></div><div class="header-subtitle">NYC Show Dashboard <span id="sync-status" style="color:var(--green);font-size:9px;margin-left:6px"></span></div></div>
+  <div class="header-right">
+    <button class="btn-sm" id="lang-toggle" onclick="toggleLang()" style="font-weight:600">EN</button>
+    <button class="btn-sm" onclick="exportData()">Exportar</button>
+    <button class="btn-sm" onclick="document.getElementById('importFile').click()">Importar</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-tab active" onclick="showSection('info',this)" data-i18n="nav_info">Info General</button>
+  <button class="nav-tab" onclick="showSection('moodboard',this)">Moodboard</button>
+  <button class="nav-tab" onclick="showSection('collection',this)" data-i18n="nav_collection">Colección</button>
+  <button class="nav-tab" onclick="showSection('timeline',this)">Timeline</button>
+  <button class="nav-tab" onclick="showSection('contacts',this)" data-i18n="nav_team">Equipo</button>
+  <button class="nav-tab" onclick="showSection('links',this)">Links</button>
+  <button class="nav-tab" onclick="showSection('music',this)" data-i18n="nav_music">Música</button>
+  <button class="nav-tab" onclick="showSection('budget',this)">Budget</button>
+  <button class="nav-tab" onclick="showSection('creative',this)" data-i18n="nav_creative">Proceso Creativo</button>
+  <button class="nav-tab" onclick="showSection('notes',this)" data-i18n="nav_notes">Notas</button>
+</div>
+
+<div class="main">
+
+<div class="section active" id="sec-info">
+  <div class="section-header"><div class="section-title" data-i18n="info_title">Info General</div></div>
+  <div class="card"><div class="info-grid">
+    <div class="field"><label data-i18n="info_name">Nombre del desfile</label><input class="editable" id="info-name" placeholder="Ej: ÁUREA NYC SS27" oninput="saveInfo()"></div>
+    <div class="field"><label data-i18n="info_date">Fecha</label><input class="editable" type="date" id="info-date" oninput="saveInfo()"></div>
+    <div class="field"><label data-i18n="info_venue">Venue / Locación</label><input class="editable" id="info-venue" placeholder="Nombre y dirección" oninput="saveInfo()"></div>
+    <div class="field"><label data-i18n="info_time">Horario</label><input class="editable" id="info-time" placeholder="Doors 7PM / Show 8PM" oninput="saveInfo()"></div>
+    <div class="field"><label data-i18n="info_looks">Cantidad de looks</label><input class="editable" id="info-looks" placeholder="12 looks" oninput="saveInfo()"></div>
+    <div class="field"><label data-i18n="info_duration">Duración estimada</label><input class="editable" id="info-duration" placeholder="15 minutos" oninput="saveInfo()"></div>
+  </div>
+  <div class="field" style="margin-top:8px"><label data-i18n="info_notes">Notas generales</label>
+    <textarea class="editable" id="info-notes" rows="3" placeholder="Cualquier dato relevante..." oninput="saveInfo()" style="width:100%;resize:vertical;min-height:80px;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px"></textarea>
+  </div></div>
+</div>
+
+<div class="section" id="sec-moodboard">
+  <div class="section-header"><div class="section-title">Moodboard</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_board">Nuevo board</span></button></div>
+  <div class="mood-grid" id="moodboard-grid"></div>
+  <div class="empty-state" id="mood-empty"><div class="empty-icon">🎨</div><div class="empty-text" data-i18n="mood_empty">Creá tableros visuales con imágenes, referencias y notas</div></div>
+</div>
+
+<div class="mood-detail-overlay" id="mood-detail-overlay">
+  <button class="mood-detail-close" onclick="closeMoodDetail()">✕</button>
+  <div class="mood-detail" id="mood-detail-content"></div>
+</div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img" src=""></div>
+
+<div class="section" id="sec-collection">
+  <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('collection')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div></div>
+  <div class="collection-grid" id="collection-list"></div><div class="empty-state" id="collection-empty"><div class="empty-icon">👗</div><div class="empty-text" data-i18n="collection_empty">Listá las prendas y looks del desfile</div></div>
+</div>
+
+<div class="section" id="sec-timeline">
+  <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('timeline')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div></div>
+  <div id="timeline-list"></div><div class="empty-state" id="timeline-empty"><div class="empty-icon">📅</div><div class="empty-text" data-i18n="timeline_empty">Armá el cronograma del desfile</div></div>
+</div>
+
+<div class="section" id="sec-contacts">
+  <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('contacts')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div></div>
+  <div class="card-grid" id="contacts-grid"></div><div class="empty-state" id="contacts-empty"><div class="empty-icon">👥</div><div class="empty-text" data-i18n="team_empty">Sumá modelos, makeup, styling, producción...</div></div>
+</div>
+
+<div class="section" id="sec-links">
+  <div class="section-header"><div class="section-title" data-i18n="links_title">Links Útiles</div><button class="btn btn-primary" onclick="openModal('link')">+ <span data-i18n="add_link">Agregar link</span></button></div>
+  <div id="links-list"></div><div class="empty-state" id="links-empty"><div class="empty-icon">🔗</div><div class="empty-text" data-i18n="links_empty">Guardá links a carpetas de Drive, proveedores, etc.</div></div>
+</div>
+
+<div class="section" id="sec-budget">
+  <div class="section-header"><div class="section-title">Budget</div><button class="btn btn-primary" onclick="openModal('budget-cat')">+ <span data-i18n="add_category">Nueva categoría</span></button></div>
+  <div class="card" style="margin-bottom:20px"><div class="budget-label" data-i18n="budget_total">Total general</div><div class="budget-total" id="budget-total">USD $0</div></div>
+  <div id="budget-categories"></div>
+  <div class="empty-state" id="budget-empty"><div class="empty-icon">💰</div><div class="empty-text" data-i18n="budget_empty">Creá categorías (materiales, modelos, venue...) y agregá gastos dentro de cada una</div></div>
+</div>
+
+<div class="section" id="sec-music">
+  <div class="section-header"><div class="section-title" data-i18n="music">Música</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('music')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('music')">+ <span data-i18n="add_track">Agregar track</span></button></div></div>
+  <div id="music-list"></div>
+  <div class="empty-state" id="music-empty"><div class="empty-icon">🎵</div><div class="empty-text" data-i18n="music_empty">Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show</div></div>
+</div>
+
+<div class="section" id="sec-creative">
+  <div class="section-header"><div class="section-title" data-i18n="creative_title">Proceso Creativo</div><div class="creative-saved" id="creative-status"></div></div>
+  <div class="creative-editor">
+    <textarea class="creative-textarea" id="creative-text" data-placeholder-es="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." data-placeholder-en="Write freely... ideas, concepts, inspiring phrases, the show narrative, the looks order, anything you need to capture for the creative process..." placeholder="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." oninput="saveCreative()"></textarea>
+  </div>
+</div>
+
+<div class="section" id="sec-notes">
+  <div class="section-header"><div class="section-title" data-i18n="nav_notes">Notas</div><button class="btn btn-primary" onclick="openModal('note')">+ <span data-i18n="add_note">Nueva nota</span></button></div>
+  <div id="notes-list"></div><div class="empty-state" id="notes-empty"><div class="empty-icon">📝</div><div class="empty-text" data-i18n="notes_empty">Anotaciones rápidas, ideas, pendientes...</div></div>
+</div>
+
+</div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal"><div class="modal-title" id="modal-title"></div><div id="modal-body"></div>
+  <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="modal-save">Guardar</button></div></div>
+</div>
+
+<input type="file" id="moodAddImgInput" accept="image/*" multiple style="display:none">
+
+<!-- Firebase SDK -->
+<script src="js/firebase-app-compat.js"></script>
+<script src="js/firebase-firestore-compat.js"></script>
+<script src="js/firebase-storage-compat.js"></script>
+
+<script>
+// ============ FIREBASE INIT ============
+const firebaseConfig = {
+  apiKey: "AIzaSyA4Q5eS3vY4LxX-KBEj7pOk5RQXWoln8t8",
+  authDomain: "nyfashionshow-aurea-dashboard.firebaseapp.com",
+  projectId: "nyfashionshow-aurea-dashboard",
+  storageBucket: "nyfashionshow-aurea-dashboard.firebasestorage.app",
+  messagingSenderId: "305604409828",
+  appId: "1:305604409828:web:70a1eb655ba9056b482ff1"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// ============ DATA LAYER (Firebase + localStorage cache) ============
+const STORAGE_KEY='aurea_nyc_dashboard';
+const DOC_REF = db.collection('dashboards').doc('main');
+
+function defaultData(){return {info:{},moodboard:[],collection:[],timeline:[],contacts:[],links:[],budget:[],notes:[],music:[],creative:'',budgetCategories:[]};}
+
+// Load from localStorage first (instant), then sync from Firebase
+function loadDataLocal(){const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):defaultData();}
+function saveDataLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
+
+let data=loadDataLocal();
+let saving=false;
+
+// Save to Firebase (debounced)
+let saveTimeout;
+function saveData(d){
+  saveDataLocal(d);
+  clearTimeout(saveTimeout);
+  saveTimeout=setTimeout(()=>{
+    if(saving)return;
+    saving=true;
+    // Clone data but remove large base64 images for Firestore (they go to Storage)
+    const cleanData = JSON.parse(JSON.stringify(d));
+    DOC_REF.set(cleanData).then(()=>{saving=false;}).catch(err=>{console.error('Firebase save error:',err);saving=false;});
+  },1000);
+}
+
+// Listen for real-time changes from Firebase (sync across devices)
+DOC_REF.onSnapshot(doc=>{
+  if(doc.exists && !saving){
+    const remoteData = doc.data();
+    // Only update if remote is different
+    const localStr = JSON.stringify(data);
+    const remoteStr = JSON.stringify(remoteData);
+    if(localStr !== remoteStr){
+      data = remoteData;
+      saveDataLocal(data);
+      loadInfo();
+      loadCreative();
+      renderAll();
+      console.log('Synced from Firebase');
+    }
+  }
+}, err=>console.error('Firebase listen error:',err));
+
+// Initial load from Firebase
+DOC_REF.get().then(doc=>{
+  if(doc.exists){
+    data=doc.data();
+    saveDataLocal(data);
+    loadInfo();
+    loadCreative();
+    renderAll();
+  } else {
+    // First time: push local data to Firebase
+    saveData(data);
+  }
+}).catch(err=>console.error('Firebase initial load error:',err));
+
+function showSection(id,tab){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(tab)tab.classList.add('active');}
+
+function loadInfo(){const i=data.info||{};['name','date','venue','time','looks','duration'].forEach(k=>{document.getElementById('info-'+k).value=i[k]||'';});document.getElementById('info-notes').value=i.notes||'';}
+function saveInfo(){data.info={};['name','date','venue','time','looks','duration'].forEach(k=>{data.info[k]=document.getElementById('info-'+k).value;});data.info.notes=document.getElementById('info-notes').value;saveData(data);}
+
+// IMAGE COMPRESSION
+function fileToBase64(file){return new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const MAX=1200;let w=img.width,h=img.height;if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX}else{w=Math.round(w*MAX/h);h=MAX}}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',0.7));};img.src=reader.result;};reader.readAsDataURL(file);});}
+
+// ============ MOODBOARD ============
+function renderMoodboard(){
+  const grid=document.getElementById('moodboard-grid'),empty=document.getElementById('mood-empty');
+  if(!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  grid.innerHTML=data.moodboard.map((m,i)=>{
+    const cover=m.images&&m.images.length?m.images[m.cover||0]:null;
+    const cnt=m.images?m.images.length:0;
+    const tagStr=m.tags&&m.tags.length?m.tags.slice(0,2).join(' · '):'';
+    return `<div class="mood-card" onclick="openMoodDetail(${i})">
+      <div class="mood-cover">${cover?`<img src="${cover}">`:`<span class="mood-cover-empty">+</span>`}${cnt>1?`<span class="mood-img-count">${cnt} fotos</span>`:''}</div>
+      <div class="mood-card-body"><div class="mood-card-title">${esc(m.title)}</div><div class="mood-card-sub">${esc(tagStr||m.source||'')}</div></div>
+    </div>`;
+  }).join('');
+}
+
+function openMoodDetail(i){
+  const m=data.moodboard[i],overlay=document.getElementById('mood-detail-overlay'),content=document.getElementById('mood-detail-content');
+  const imgs=m.images||[],gc=imgs.length<=1?'single':'';
+  content.innerHTML=`
+    <div class="mood-detail-title">${esc(m.title)}</div>
+    ${m.source?`<div class="mood-detail-source">Fuente: ${m.sourceUrl?`<a href="${esc(m.sourceUrl)}" target="_blank">${esc(m.source)}</a>`:esc(m.source)}</div>`:''}
+    ${m.tags&&m.tags.length?`<div class="mood-detail-tags">${m.tags.map(t=>`<span class="mood-tag">${esc(t)}</span>`).join('')}</div>`:''}
+    <div class="mood-detail-images ${gc}">
+      ${imgs.map(img=>`<img class="mood-detail-img${imgs.length===1?' full-width':''}" src="${img}" onclick="openLightbox(this.src)">`).join('')}
+      <button class="mood-add-img-btn" onclick="event.stopPropagation();addImageToMood(${i})">+</button>
+    </div>
+    ${m.notes?`<div class="mood-detail-section"><div class="mood-detail-label">Notas / Qué me inspira</div><div class="mood-detail-text">${esc(m.notes)}</div></div>`:''}
+    ${m.highlights?`<div class="mood-detail-section"><div class="mood-detail-label">Partes visuales destacadas</div><div class="mood-detail-text">${esc(m.highlights)}</div></div>`:''}
+    <div class="mood-detail-actions">
+      <button class="btn btn-outline" onclick="editMoodBoard(${i})">Editar info</button>
+      <button class="btn btn-danger" onclick="if(confirm('¿Eliminar este board?')){deleteMood(${i});closeMoodDetail();}">Eliminar</button>
+    </div>`;
+  overlay.classList.add('open');document.body.style.overflow='hidden';
+}
+
+function closeMoodDetail(){document.getElementById('mood-detail-overlay').classList.remove('open');document.body.style.overflow='';}
+
+function addImageToMood(i){
+  const input=document.getElementById('moodAddImgInput');
+  input.onchange=async(e)=>{
+    for(const f of Array.from(e.target.files)){
+      const b64=await fileToBase64(f);
+      if(!data.moodboard[i].images)data.moodboard[i].images=[];
+      data.moodboard[i].images.push(b64);
+    }
+    saveData(data);renderMoodboard();openMoodDetail(i);input.value='';
+  };input.click();
+}
+
+function editMoodBoard(i){closeMoodDetail();setTimeout(()=>openModal('mood-edit',data.moodboard[i],i),200);}
+function deleteMood(i){data.moodboard.splice(i,1);saveData(data);renderMoodboard();}
+function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
+
+// OTHER RENDERS
+function renderCollection(){const l=document.getElementById('collection-list'),e=document.getElementById('collection-empty');if(!data.collection.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';l.innerHTML=data.collection.map((g,i)=>`<div class="garment-card${g.ready?' done':''}">
+  <div class="garment-check${g.ready?' checked':''}" onclick="toggleGarment(${i})"></div>
+  <div class="garment-actions"><span class="garment-action-btn" onclick="deleteGarment(${i})">×</span></div>
+  <div class="garment-img">${g.image?`<img src="${g.image}">`:'👗'}</div>
+  <div class="garment-body"><div class="garment-cat">${esc(g.category||'')}</div><div class="garment-name">${esc(g.name)}</div>${g.note?`<div class="garment-note">${esc(g.note)}</div>`:''}</div>
+</div>`).join('');}
+function toggleGarment(i){data.collection[i].ready=!data.collection[i].ready;saveData(data);renderCollection();}
+function deleteGarment(i){data.collection.splice(i,1);saveData(data);renderCollection();}
+
+function renderTimeline(){const l=document.getElementById('timeline-list'),e=document.getElementById('timeline-empty');if(!data.timeline.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';const s=data.timeline.map((t,i)=>({...t,_i:i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));l.innerHTML=s.map(t=>`<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-date">${esc(t.date||'Sin fecha')}</div><div class="timeline-text">${esc(t.text)}</div></div><span class="checklist-delete" onclick="deleteTimeline(${t._i})" style="opacity:.5">×</span></div>`).join('');}
+function deleteTimeline(i){data.timeline.splice(i,1);saveData(data);renderTimeline();}
+
+function renderContacts(){const g=document.getElementById('contacts-grid'),e=document.getElementById('contacts-empty');if(!data.contacts.length){g.innerHTML='';e.style.display='';return;}e.style.display='none';g.innerHTML=data.contacts.map((c,i)=>`<div class="contact-card"><span class="contact-delete" onclick="deleteContact(${i})">×</span><div class="contact-role">${esc(c.role)}</div><div class="contact-name">${esc(c.name)}</div>${c.phone?`<div class="contact-detail">📱 ${esc(c.phone)}</div>`:''}${c.email?`<div class="contact-detail">✉️ ${esc(c.email)}</div>`:''}${c.ig?`<div class="contact-detail">@ ${esc(c.ig)}</div>`:''}${c.note?`<div class="contact-detail" style="margin-top:8px;color:var(--text-dim)">${esc(c.note)}</div>`:''}</div>`).join('');}
+function deleteContact(i){data.contacts.splice(i,1);saveData(data);renderContacts();}
+
+function renderLinks(){const l=document.getElementById('links-list'),e=document.getElementById('links-empty');if(!data.links.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';const ic={drive:'📁',doc:'📄',sheet:'📊',ig:'📸',web:'🌐',other:'🔗'};l.innerHTML=data.links.map((x,i)=>`<div class="link-item"><div class="link-icon">${ic[x.type]||ic.other}</div><div class="link-info"><div class="link-title">${esc(x.title)}</div><div class="link-url">${esc(x.url)}</div></div><div class="link-actions"><a href="${esc(x.url)}" target="_blank">Abrir</a><span onclick="deleteLink(${i})">×</span></div></div>`).join('');}
+function deleteLink(i){data.links.splice(i,1);saveData(data);renderLinks();}
+
+function renderBudget(){
+  const container=document.getElementById('budget-categories'),empty=document.getElementById('budget-empty');
+  // Migrate old flat budget to new format if needed
+  if(data.budget&&data.budget.length&&!data.budgetCategories){
+    data.budgetCategories=[{name:'General',items:data.budget.map(b=>({name:b.category,amount:parseFloat(b.amount)||0}))}];
+    delete data.budget;saveData(data);
+  }
+  if(!data.budgetCategories)data.budgetCategories=[];
+  const cats=data.budgetCategories;
+  if(!cats.length){container.innerHTML='';empty.style.display='';document.getElementById('budget-total').textContent='USD $0';return;}
+  empty.style.display='none';
+  let grandTotal=0;
+  container.innerHTML=cats.map((cat,ci)=>{
+    const subtotal=cat.items.reduce((s,it)=>s+(parseFloat(it.amount)||0),0);
+    grandTotal+=subtotal;
+    return `<div class="budget-cat-card${cat.open?' open':''}" id="bcat-${ci}">
+      <div class="budget-cat-header" onclick="toggleBudgetCat(${ci})">
+        <div class="budget-cat-name"><span class="budget-cat-arrow">▶</span>${esc(cat.name)}</div>
+        <div class="budget-cat-subtotal">$${subtotal.toLocaleString('en-US')}<span class="budget-cat-delete" onclick="event.stopPropagation();deleteBudgetCat(${ci})" title="Eliminar categoría">×</span></div>
+      </div>
+      <div class="budget-cat-body">
+        ${cat.items.map((it,ii)=>`<div class="budget-row"><div class="budget-item-name">${esc(it.name)}</div><div class="budget-amount">$${parseFloat(it.amount).toLocaleString('en-US')}</div><span class="budget-delete" onclick="deleteBudgetItem(${ci},${ii})">×</span></div>`).join('')}
+        <div class="budget-add-item">
+          <input id="bi-name-${ci}" placeholder="Concepto" onkeydown="if(event.key==='Enter')addBudgetItem(${ci})">
+          <input id="bi-amount-${ci}" type="number" placeholder="USD" style="max-width:100px" onkeydown="if(event.key==='Enter')addBudgetItem(${ci})">
+          <button onclick="addBudgetItem(${ci})">+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('budget-total').textContent=`USD $${grandTotal.toLocaleString('en-US')}`;
+}
+function toggleBudgetCat(ci){if(!data.budgetCategories[ci])return;data.budgetCategories[ci].open=!data.budgetCategories[ci].open;saveData(data);renderBudget();}
+function addBudgetItem(ci){const name=document.getElementById('bi-name-'+ci).value.trim(),amount=document.getElementById('bi-amount-'+ci).value.trim();if(!name||!amount)return;data.budgetCategories[ci].items.push({name,amount:parseFloat(amount)});data.budgetCategories[ci].open=true;saveData(data);renderBudget();}
+function deleteBudgetItem(ci,ii){data.budgetCategories[ci].items.splice(ii,1);saveData(data);renderBudget();}
+function deleteBudgetCat(ci){if(!confirm('¿Eliminar categoría "'+data.budgetCategories[ci].name+'" y todos sus gastos?'))return;data.budgetCategories.splice(ci,1);saveData(data);renderBudget();}
+
+function renderNotes(){const l=document.getElementById('notes-list'),e=document.getElementById('notes-empty');if(!data.notes.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';l.innerHTML=data.notes.slice().reverse().map((n,ri)=>{const i=data.notes.length-1-ri;return `<div class="note-card"><span class="note-delete" onclick="deleteNote(${i})">×</span><div class="note-date">${esc(n.date)}</div><div class="note-text">${esc(n.text)}</div></div>`;}).join('');}
+function deleteNote(i){data.notes.splice(i,1);saveData(data);renderNotes();}
+
+// MUSIC
+function renderMusic(){const l=document.getElementById('music-list'),e=document.getElementById('music-empty');if(!data.music||!data.music.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';
+  l.innerHTML=data.music.map((m,i)=>{
+    let icon='🎵';
+    if(m.url){if(m.url.includes('spotify'))icon='🟢';else if(m.url.includes('youtube')||m.url.includes('youtu.be'))icon='🔴';else if(m.url.includes('soundcloud'))icon='🟠';else if(m.url.includes('apple'))icon='🍎';}
+    return `<div class="music-card"><div class="music-icon">${icon}</div><div class="music-info"><div class="music-title">${esc(m.title)}</div>${m.artist?`<div class="music-artist">${esc(m.artist)}</div>`:''}${m.note?`<div class="music-note">${esc(m.note)}</div>`:''}</div><div class="music-actions">${m.url?`<a href="${esc(m.url)}" target="_blank">Escuchar</a>`:''}<span onclick="deleteMusic(${i})">×</span></div></div>`;
+  }).join('');}
+function deleteMusic(i){data.music.splice(i,1);saveData(data);renderMusic();}
+
+// CREATIVE PROCESS
+function loadCreative(){document.getElementById('creative-text').value=data.creative||'';}
+let creativeSaveTimeout;
+function saveCreative(){data.creative=document.getElementById('creative-text').value;clearTimeout(creativeSaveTimeout);document.getElementById('creative-status').textContent='Guardando...';creativeSaveTimeout=setTimeout(()=>{saveData(data);document.getElementById('creative-status').textContent='Guardado ✓';setTimeout(()=>{document.getElementById('creative-status').textContent='';},2000);},500);}
+
+// ============ MODALS ============
+function openModal(type,editData,editIdx){
+  const modal=document.getElementById('modal'),title=document.getElementById('modal-title'),body=document.getElementById('modal-body'),saveBtn=document.getElementById('modal-save');
+  let html='',onSave=()=>{};
+
+  if(type==='mood'||type==='mood-edit'){
+    const isEdit=type==='mood-edit',m=editData||{};
+    title.textContent=isEdit?'Editar Board':'Nuevo Board';
+    html=`
+      <div class="field"><label>Título del board</label><input id="m-title" value="${esc(m.title||'')}" placeholder="Ej: Inspo Iluminación, Paleta Color..."></div>
+      <div class="field"><label>Fuente / De dónde sacaste las refs</label><input id="m-source" value="${esc(m.source||'')}" placeholder="Pinterest, IG de @xxx, Vogue..."></div>
+      <div class="field"><label>Link de la fuente (opcional)</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
+      <div class="field"><label>Tags (separados por coma)</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="iluminación, color, styling, texturas"></div>
+      <div class="field"><label>Notas / Qué te inspira</label><textarea id="m-notes" rows="3" placeholder="Qué es lo que te gusta, a qué te remonta...">${esc(m.notes||'')}</textarea></div>
+      <div class="field"><label>Partes visuales destacadas</label><textarea id="m-highlights" rows="2" placeholder="Texturas, combinaciones de color, siluetas...">${esc(m.highlights||'')}</textarea></div>
+      ${!isEdit?'<div class="field"><label>Imágenes (podés agregar más después)</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>':''}`;
+    onSave=async()=>{
+      const tags=document.getElementById('m-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+      const item={title:v('m-title'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
+      if(!item.title)return;
+      if(!isEdit){const fi=document.getElementById('m-images');if(fi&&fi.files.length)for(const f of Array.from(fi.files))item.images.push(await fileToBase64(f));data.moodboard.push(item);}
+      else{data.moodboard[editIdx]=item;}
+      saveData(data);renderMoodboard();closeModal();
+    };
+  }
+  else if(type==='garment'){title.textContent='Nueva Prenda';html=`<div class="field"><label>Nombre</label><input id="m-gname" placeholder="The Lace Set - Grey"></div><div class="field"><label>Categoría</label><select id="m-gcat"><option value="Top">Top</option><option value="Bottom">Bottom</option><option value="Set">Set</option><option value="Accesorio">Accesorio</option><option value="Zapatos">Zapatos</option><option value="Otro">Otro</option></select></div><div class="field"><label>Nota</label><input id="m-gnote" placeholder="Look #, combinación..."></div><div class="field"><label>Imagen de la prenda</label><input type="file" id="m-gimage" accept="image/*" style="padding:8px"></div>`;onSave=async()=>{const item={name:v('m-gname'),category:v('m-gcat'),note:v('m-gnote'),ready:false,image:null};if(!item.name)return;const fi=document.getElementById('m-gimage');if(fi&&fi.files.length)item.image=await fileToBase64(fi.files[0]);data.collection.push(item);saveData(data);renderCollection();closeModal();};}
+  else if(type==='music'){title.textContent='Agregar Track';html=`<div class="field"><label>Título / Nombre del tema</label><input id="m-mtitle" placeholder="Ej: Runaway"></div><div class="field"><label>Artista</label><input id="m-martist" placeholder="Ej: Kanye West"></div><div class="field"><label>Link (Spotify, YouTube, SoundCloud...)</label><input id="m-murl" placeholder="https://open.spotify.com/track/..."></div><div class="field"><label>Nota (para qué momento, qué mood)</label><input id="m-mnote" placeholder="Para la apertura, mood dramático..."></div>`;onSave=()=>{const item={title:v('m-mtitle'),artist:v('m-martist'),url:v('m-murl'),note:v('m-mnote')};if(!item.title)return;if(!data.music)data.music=[];data.music.push(item);saveData(data);renderMusic();closeModal();};}
+  else if(type==='timeline'){title.textContent='Nuevo Evento';html=`<div class="field"><label>Fecha / Momento</label><input id="m-tdate" placeholder="15 Sep 2026 o D-30"></div><div class="field"><label>Descripción</label><textarea id="m-ttext" rows="2" placeholder="Qué pasa..."></textarea></div>`;onSave=()=>{const item={date:v('m-tdate'),text:v('m-ttext')};if(!item.text)return;data.timeline.push(item);saveData(data);renderTimeline();closeModal();};}
+  else if(type==='contact'){title.textContent='Nuevo Contacto';html=`<div class="field"><label>Rol</label><input id="m-crole" placeholder="Modelo, MUA, Fotógrafo..."></div><div class="field"><label>Nombre</label><input id="m-cname" placeholder="Nombre completo"></div><div class="field"><label>Teléfono</label><input id="m-cphone" placeholder="+1 ..."></div><div class="field"><label>Email</label><input id="m-cemail" placeholder="email@..."></div><div class="field"><label>Instagram</label><input id="m-cig" placeholder="@usuario"></div><div class="field"><label>Nota</label><input id="m-cnote" placeholder="Disponibilidad, talles..."></div>`;onSave=()=>{const item={role:v('m-crole'),name:v('m-cname'),phone:v('m-cphone'),email:v('m-cemail'),ig:v('m-cig'),note:v('m-cnote')};if(!item.name)return;data.contacts.push(item);saveData(data);renderContacts();closeModal();};}
+  else if(type==='link'){title.textContent='Nuevo Link';html=`<div class="field"><label>Título</label><input id="m-ltitle" placeholder="Carpeta de Drive - Fotos"></div><div class="field"><label>URL</label><input id="m-lurl" placeholder="https://..."></div><div class="field"><label>Tipo</label><select id="m-ltype"><option value="drive">Google Drive</option><option value="doc">Documento</option><option value="sheet">Planilla</option><option value="ig">Instagram</option><option value="web">Web</option><option value="other">Otro</option></select></div>`;onSave=()=>{const item={title:v('m-ltitle'),url:v('m-lurl'),type:v('m-ltype')};if(!item.title||!item.url)return;data.links.push(item);saveData(data);renderLinks();closeModal();};}
+  else if(type==='budget-cat'){title.textContent='Nueva Categoría';html=`<div class="field"><label>Nombre de la categoría</label><input id="m-bcatname" placeholder="Ej: Materiales, Modelos, Venue, Styling..."></div>`;onSave=()=>{const name=v('m-bcatname');if(!name)return;if(!data.budgetCategories)data.budgetCategories=[];data.budgetCategories.push({name,items:[],open:true});saveData(data);renderBudget();closeModal();};}
+  else if(type==='note'){title.textContent='Nueva Nota';html=`<div class="field"><label>Nota</label><textarea id="m-ntext" rows="5" placeholder="Escribí lo que necesites..."></textarea></div>`;onSave=()=>{const text=v('m-ntext');if(!text)return;const now=new Date();const date=now.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});data.notes.push({text,date});saveData(data);renderNotes();closeModal();};}
+
+  body.innerHTML=html;saveBtn.onclick=onSave;modal.classList.add('open');
+  setTimeout(()=>{const f=body.querySelector('input,textarea');if(f)f.focus();},100);
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+function v(id){return document.getElementById(id).value.trim();}
+function esc(s){if(!s)return '';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+function exportData(){const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aurea_nyc_dashboard_backup.json';a.click();}
+function importData(event){const file=event.target.files[0];if(!file)return;const r=new FileReader();r.onload=(e)=>{try{data=JSON.parse(e.target.result);saveData(data);loadInfo();loadCreative();renderAll();alert('Datos importados y sincronizados ✓');}catch(err){alert('Archivo inválido');}};r.readAsText(file);event.target.value='';}
+
+function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderNotes();}
+loadInfo();loadCreative();renderAll();
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('lightbox').classList.contains('open'))document.getElementById('lightbox').classList.remove('open');else if(document.getElementById('mood-detail-overlay').classList.contains('open'))closeMoodDetail();else closeModal();}});
+
+// ============ LANGUAGE / i18n ============
+let currentLang = 'es';
+const i18n = {
+  es: {
+    // Nav
+    nav_info:'Info General', nav_collection:'Colección', nav_team:'Equipo', nav_music:'Música',
+    nav_creative:'Proceso Creativo', nav_notes:'Notas',
+    // Info
+    info_title:'Info General', info_name:'Nombre del desfile', info_date:'Fecha',
+    info_venue:'Venue / Locación', info_time:'Horario', info_looks:'Cantidad de looks',
+    info_duration:'Duración estimada', info_notes:'Notas generales',
+    // Moodboard
+    add_board:'Nuevo board', mood_empty:'Creá tableros visuales con imágenes, referencias y notas',
+    // Collection
+    collection:'Colección', add_garment:'Agregar prenda',
+    collection_empty:'Listá las prendas y looks del desfile',
+    // Timeline
+    timeline:'Timeline', add_event:'Agregar evento',
+    timeline_empty:'Armá el cronograma del desfile',
+    // Team
+    team:'Equipo', add_contact:'Agregar contacto',
+    team_empty:'Sumá modelos, makeup, styling, producción...',
+    // Links
+    links_title:'Links Útiles', add_link:'Agregar link',
+    links_empty:'Guardá links a carpetas de Drive, proveedores, etc.',
+    // Music
+    music:'Música', add_track:'Agregar track',
+    music_empty:'Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show',
+    // Budget
+    add_category:'Nueva categoría', budget_total:'Total general',
+    budget_empty:'Creá categorías (materiales, modelos, venue...) y agregá gastos dentro de cada una',
+    // Creative
+    creative_title:'Proceso Creativo',
+    // Notes
+    add_note:'Nueva nota', notes_empty:'Anotaciones rápidas, ideas, pendientes...'
+  },
+  en: {
+    nav_info:'General Info', nav_collection:'Collection', nav_team:'Team', nav_music:'Music',
+    nav_creative:'Creative Process', nav_notes:'Notes',
+    info_title:'General Info', info_name:'Show name', info_date:'Date',
+    info_venue:'Venue / Location', info_time:'Schedule', info_looks:'Number of looks',
+    info_duration:'Estimated duration', info_notes:'General notes',
+    add_board:'New board', mood_empty:'Create visual boards with images, references and notes',
+    collection:'Collection', add_garment:'Add garment',
+    collection_empty:'List the garments and looks for the show',
+    timeline:'Timeline', add_event:'Add event',
+    timeline_empty:'Build the show schedule',
+    team:'Team', add_contact:'Add contact',
+    team_empty:'Add models, MUA, styling, production...',
+    links_title:'Useful Links', add_link:'Add link',
+    links_empty:'Save links to Drive folders, vendors, etc.',
+    music:'Music', add_track:'Add track',
+    music_empty:'Add links from Spotify, YouTube, SoundCloud to build the show soundtrack',
+    add_category:'New category', budget_total:'Grand total',
+    budget_empty:'Create categories (materials, models, venue...) and add expenses to each one',
+    creative_title:'Creative Process',
+    add_note:'New note', notes_empty:'Quick notes, ideas, to-dos...'
+  }
+};
+function toggleLang(){
+  currentLang = currentLang==='es'?'en':'es';
+  document.getElementById('lang-toggle').textContent = currentLang==='es'?'EN':'ES';
+  // Update all data-i18n text elements
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
+  });
+  // Update placeholders on creative textarea
+  const ct = document.getElementById('creative-text');
+  if(ct) ct.placeholder = ct.getAttribute('data-placeholder-'+currentLang) || ct.placeholder;
+  // Update header subtitle
+  document.querySelector('.header-subtitle').textContent = currentLang==='en'?'NYC Show Dashboard':'NYC Show Dashboard';
+}
+
+// ============ DOWNLOAD SECTION AS HTML/PDF ============
+function downloadSection(sectionId){
+  const lang = currentLang;
+  const showName = data.info?.name || 'ÁUREA NYC Show';
+  const date = data.info?.date || '';
+  let title = '', content = '';
+
+  if(sectionId==='collection'){
+    title = lang==='en'?'Collection':'Colección';
+    const items = data.collection||[];
+    content = items.map(g => `
+      <div style="display:inline-block;width:220px;margin:8px;vertical-align:top;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#fff">
+        ${g.image?`<div style="width:220px;height:280px;overflow:hidden"><img src="${g.image}" style="width:100%;height:100%;object-fit:cover"></div>`:`<div style="width:220px;height:280px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:40px;color:#ccc">👗</div>`}
+        <div style="padding:12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#E85D26;margin-bottom:4px">${esc(g.category||'')}</div>
+          <div style="font-size:14px;font-weight:600">${esc(g.name)}</div>
+          ${g.note?`<div style="font-size:12px;color:#888;margin-top:4px">${esc(g.note)}</div>`:''}
+          ${g.ready?`<div style="font-size:11px;color:#4CAF50;margin-top:4px">✓ ${lang==='en'?'Ready':'Lista'}</div>`:''}
+        </div>
+      </div>`).join('');
+  }
+  else if(sectionId==='timeline'){
+    title = 'Timeline';
+    const items = (data.timeline||[]).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+    content = `<table style="width:100%;border-collapse:collapse">
+      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Date':'Fecha'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Description':'Descripción'}</th></tr>
+      ${items.map(t=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-weight:500;font-size:13px;white-space:nowrap;vertical-align:top">${esc(t.date||'—')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:14px">${esc(t.text)}</td></tr>`).join('')}
+    </table>`;
+  }
+  else if(sectionId==='contacts'){
+    title = lang==='en'?'Team':'Equipo';
+    const items = data.contacts||[];
+    content = `<table style="width:100%;border-collapse:collapse">
+      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Role':'Rol'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Name':'Nombre'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Phone':'Teléfono'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Email</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Instagram</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
+      ${items.map(c=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-size:12px;text-transform:uppercase">${esc(c.role)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(c.name)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.phone||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.email||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.ig||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(c.note||'')}</td></tr>`).join('')}
+    </table>`;
+  }
+  else if(sectionId==='music'){
+    title = lang==='en'?'Music / Soundtrack':'Música / Soundtrack';
+    const items = data.music||[];
+    content = `<table style="width:100%;border-collapse:collapse">
+      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">#</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Track':'Tema'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Artist':'Artista'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Link</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
+      ${items.map((m,i)=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#888;font-size:13px">${i+1}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(m.title)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(m.artist||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:12px">${m.url?`<a href="${esc(m.url)}" style="color:#E85D26">${esc(m.url)}</a>`:''}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(m.note||'')}</td></tr>`).join('')}
+    </table>`;
+  }
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ÁUREA — ${title}</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;padding:40px;color:#222;max-width:1100px;margin:0 auto}
+    @media print{body{padding:20px}@page{margin:15mm}}</style>
+  </head><body>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #E85D26;padding-bottom:16px;margin-bottom:30px">
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px">ÁUREA</div>
+      <div style="font-size:13px;color:#888;margin-top:2px">${esc(showName)}${date?' — '+esc(date):''}</div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#E85D26">${title}</div>
+    </div>
+    ${content}
+    <div style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:11px;color:#aaa;text-align:center">ÁUREA Argentina — The Design & Upcycling Experience — www.aureaargentina.com</div>
+  </body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const w = window.open(url,'_blank');
+  if(w){w.onload=()=>{setTimeout(()=>w.print(),500);};}
+  else{const a=document.createElement('a');a.href=url;a.download=`AUREA_${sectionId}_${lang}.html`;a.click();}
+}
+</script>
+</body>
+</html>
