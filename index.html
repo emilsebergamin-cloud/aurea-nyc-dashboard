@@ -189,7 +189,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .music-actions span{font-size:16px;color:var(--text-muted);cursor:pointer;transition:color .2s}
 .music-actions span:hover{color:var(--danger)}
 
-@media(max-width:768px){
+/* PHONES */
+@media(max-width:600px){
   .header{padding:10px 16px}
   .header-subtitle{display:none}
   .header-right .btn-sm{padding:5px 10px;font-size:11px}
@@ -208,7 +209,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .mood-detail-title{font-size:26px}
   .mood-detail-close{top:14px;right:14px;width:36px;height:36px;font-size:18px}
   .collection-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .garment-actions{opacity:1}
   .garment-body{padding:10px}
   .garment-name{font-size:13px}
   .budget-total{font-size:36px}
@@ -218,16 +218,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .nav{padding:0 8px;gap:0}
   .nav-tab{padding:12px 12px;font-size:10px;letter-spacing:1px}
   .card{padding:16px}
-  .field input,.field textarea,.field select{font-size:16px}
-  .editable{font-size:16px}
   .modal{padding:20px;margin:8px;border-radius:12px;max-height:85vh}
   .modal-title{font-size:22px}
   .contact-card{padding:16px}
   .link-item{padding:12px 14px}
   .music-card{padding:14px}
-  .creative-textarea{padding:16px;font-size:16px;min-height:50vh}
+  .creative-textarea{padding:16px;min-height:50vh}
   .note-card{padding:14px}
   .timeline-item{gap:12px}
+}
+
+/* IPAD / TABLET */
+@media(min-width:601px) and (max-width:1024px){
+  .header{padding:14px 20px}
+  .main{padding:20px;max-width:100%}
+  .section-title{font-size:30px}
+  .nav{padding:0 16px}
+  .nav-tab{padding:14px 14px;font-size:11px;letter-spacing:1.2px}
+  .info-grid{grid-template-columns:1fr 1fr;gap:18px}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .mood-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .collection-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+  .card{padding:18px}
+  .modal{max-width:600px;padding:26px}
+  .modal-title{font-size:24px}
+  .mood-detail{max-width:720px;padding:24px;padding-top:80px}
+  .mood-detail-title{font-size:32px}
+  .mood-detail-images{grid-template-columns:1fr 1fr;gap:8px}
+  .budget-total{font-size:42px}
+  .creative-textarea{padding:20px;min-height:55vh}
+  .contact-card{padding:18px}
+}
+
+/* TOUCH-FRIENDLY (phones + tablets): always-visible action buttons, 16px inputs to prevent iOS zoom */
+@media(max-width:1024px){
+  .field input,.field textarea,.field select{font-size:16px}
+  .editable{font-size:16px}
+  .creative-textarea{font-size:16px}
+  .budget-add-item input{font-size:16px}
+  .garment-actions{opacity:1}
   .checklist-delete{opacity:1}
   .budget-delete{opacity:1}
   .lightbox img{border-radius:0}
