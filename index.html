@@ -10,6 +10,7 @@
   --bg:#F5F0E8;--bg-warm:#EDE7DA;--card:#FFFFFF;--card-hover:#FAFAF5;
   --border:#DDD5C8;--border-light:#E8E0D3;
   --orange:#E85D26;--orange-soft:rgba(232,93,38,0.08);--orange-glow:rgba(232,93,38,0.15);
+  --yellow:#D9A800;--yellow-soft:rgba(217,168,0,0.12);
   --green:#7BA355;--green-soft:rgba(123,163,85,0.1);--green-dark:#4B6B30;
   --cream:#F0EAD8;--cream-dark:#D4CCBA;
   --olive:#6B6B50;
@@ -303,7 +304,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 .topbar{position:sticky;top:0;z-index:80;background:rgba(245,240,232,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .topbar-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0}
-.greeting{font-family:'Playfair Display',serif;font-size:26px;letter-spacing:0;font-weight:500;color:var(--orange);font-style:italic}
+.greeting{font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:0;font-weight:400;color:var(--orange);font-style:italic;line-height:1}
 .countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1.5px solid var(--orange);border-radius:20px;font-size:12px;font-weight:600;color:var(--orange);letter-spacing:0.3px;white-space:nowrap;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .countdown:hover{background:var(--orange-soft)}
 .countdown svg{width:13px;height:13px;stroke-width:2.2}
@@ -376,7 +377,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .task-row.done .task-text{text-decoration:line-through;color:var(--text-dim)}
 .task-circle{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:inline-block;border:2px solid transparent}
 .task-circle.status-pending{border-color:var(--danger);background:#fff}
-.task-circle.status-progress{border-color:var(--orange);background:var(--orange)}
+.task-circle.status-progress{border-color:var(--yellow);background:var(--yellow)}
 .task-circle.status-done{border-color:var(--success);background:var(--success);position:relative}
 .task-circle.status-done::after{content:'';width:5px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);position:absolute;left:50%;top:46%;margin-left:-3px;margin-top:-5px}
 .task-text{flex:1;font-size:14px;color:var(--text);word-break:break-word;min-width:0}
@@ -396,9 +397,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .home-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-light)}
 .home-card-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
 .home-card-dot.red{background:var(--danger)}
-.home-card-dot.orange{background:var(--orange)}
+.home-card-dot.yellow{background:var(--yellow)}
 .home-card-dot.green{background:var(--success)}
-.home-card-title{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:0;font-weight:500;color:var(--text);flex:1;font-style:italic}
+.home-card-title{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1.6px;font-weight:600;color:var(--text);flex:1;text-transform:uppercase}
 .home-card-count{font-size:12px;color:var(--text-muted);font-weight:500}
 .home-card-body{min-height:120px}
 .home-empty{text-align:center;padding:24px 16px;color:var(--text-muted);font-size:13px}
@@ -414,6 +415,47 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   .home-grid{gap:12px}
   .home-card{padding:14px}
 }
+
+/* Looks (horizontal cards on home) */
+.looks-strip{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+.looks-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.looks-add-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--text-dim);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:all .15s;margin-left:auto}
+.looks-add-btn:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft)}
+.looks-add-btn svg{width:14px;height:14px}
+.looks-list{display:flex;flex-direction:column;gap:6px;min-height:30px}
+.look-item{display:flex;align-items:center;gap:12px;padding:9px 12px;background:#fff;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s}
+.look-item:hover{border-color:var(--orange);box-shadow:var(--shadow-hover);transform:translateX(2px)}
+.look-thumb{width:32px;height:42px;border-radius:5px;background:var(--bg-warm);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:14px}
+.look-thumb img{width:100%;height:100%;object-fit:cover}
+.look-name{flex:1;font-size:14px;font-weight:500;color:var(--text);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.look-img-count{font-size:11px;color:var(--text-muted);background:var(--bg-warm);padding:3px 9px;border-radius:10px;font-weight:500}
+.looks-empty{color:var(--text-muted);font-size:13px;padding:8px 0;text-align:center}
+
+/* Look detail overlay */
+.look-detail-overlay{display:none;position:fixed;inset:0;background:rgba(42,37,32,.55);z-index:300;padding:24px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.look-detail-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.look-detail-card{background:var(--card);border-radius:16px;width:100%;max-width:760px;padding:28px;margin:40px 0 60px;box-shadow:0 30px 80px rgba(42,37,32,0.4)}
+@media(max-width:600px){.look-detail-card{padding:18px;margin:24px 0 60px;border-radius:12px}}
+.look-detail-title-input{width:100%;background:transparent;border:none;font-family:'Playfair Display',serif;font-size:34px;font-weight:500;font-style:italic;color:var(--text);padding:0;margin-bottom:8px}
+.look-detail-title-input:focus{outline:none;border-bottom:1px dashed var(--border)}
+.look-detail-status-row{display:flex;gap:8px;margin-bottom:22px}
+.look-status-btn{padding:7px 16px;border-radius:14px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:11px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.look-status-btn:hover{border-color:var(--text-dim)}
+.look-status-btn.active.progress{background:var(--yellow);color:#fff;border-color:var(--yellow)}
+.look-status-btn.active.done{background:var(--success);color:#fff;border-color:var(--success)}
+.look-images-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.look-image-item{position:relative}
+.look-image-item img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;background:var(--bg-warm);display:block;cursor:zoom-in}
+.look-image-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.look-tag-pill{padding:3px 9px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.look-tag-pill:hover{border-color:var(--orange);color:var(--orange)}
+.look-tag-pill.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.look-image-remove{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;background:rgba(42,37,32,0.7);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(2px);opacity:0;transition:opacity .15s}
+.look-image-item:hover .look-image-remove{opacity:1}
+@media(hover:none){.look-image-remove{opacity:1}}
+.look-add-image-btn{aspect-ratio:3/4;border:2px dashed var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.look-add-image-btn:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft)}
+.look-detail-actions{display:flex;justify-content:space-between;gap:8px;padding-top:16px;border-top:1px solid var(--border-light)}
 </style>
 </head>
 <body>
@@ -497,7 +539,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     </div>
     <div class="home-card">
       <div class="home-card-header">
-        <span class="home-card-dot orange"></span>
+        <span class="home-card-dot yellow"></span>
         <span class="home-card-title" data-i18n="home_progress">En proceso</span>
         <span class="home-card-count" id="home-progress-count">0</span>
       </div>
@@ -512,7 +554,34 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
       <div class="home-card-body" id="home-done-list"></div>
     </div>
   </div>
+
+  <div class="looks-strip">
+    <div class="looks-card">
+      <div class="home-card-header">
+        <span class="home-card-dot yellow"></span>
+        <span class="home-card-title" data-i18n="looks_progress_title">Looks en proceso</span>
+        <span class="home-card-count" id="looks-progress-count">0</span>
+        <button class="looks-add-btn" onclick="addLook('progress')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="looks-list" id="looks-progress-list"></div>
+    </div>
+    <div class="looks-card">
+      <div class="home-card-header">
+        <span class="home-card-dot green"></span>
+        <span class="home-card-title" data-i18n="looks_done_title">Looks terminados</span>
+        <span class="home-card-count" id="looks-done-count">0</span>
+        <button class="looks-add-btn" onclick="addLook('done')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="looks-list" id="looks-done-list"></div>
+    </div>
+  </div>
 </div>
+
+<div class="look-detail-overlay" id="look-detail-overlay">
+  <button class="mood-detail-close" onclick="closeLookDetail()">✕</button>
+  <div class="look-detail-card" id="look-detail-card"></div>
+</div>
+<input type="file" id="lookAddImgInput" accept="image/*" multiple style="display:none">
 
 <div class="section" id="sec-info">
   <div class="section-header"><div class="section-title" data-i18n="info_title">Info General</div></div>
@@ -542,7 +611,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img" src=""></div>
 
 <div class="section" id="sec-collection">
-  <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('collection')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div></div>
+  <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div>
   <div class="mood-filters">
     <button class="mood-filter-pill active" data-cat="all" onclick="setCollectionFilter('all')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'')"><span data-i18n="cat_all">Todas</span></button>
     <button class="mood-filter-pill" data-cat="Top" onclick="setCollectionFilter('Top')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Top')">Top</button>
@@ -555,12 +624,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </div>
 
 <div class="section" id="sec-timeline">
-  <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('timeline')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div></div>
+  <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div>
   <div id="timeline-list"></div><div class="empty-state" id="timeline-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div class="empty-text" data-i18n="timeline_empty">Armá el cronograma del desfile</div></div>
 </div>
 
 <div class="section" id="sec-contacts">
-  <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('contacts')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div></div>
+  <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div>
   <div class="card-grid" id="contacts-grid"></div><div class="empty-state" id="contacts-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="empty-text" data-i18n="team_empty">Sumá modelos, makeup, styling, producción...</div></div>
 </div>
 
@@ -577,7 +646,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </div>
 
 <div class="section" id="sec-music">
-  <div class="section-header"><div class="section-title" data-i18n="music">Música</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('music')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('music')">+ <span data-i18n="add_track">Agregar track</span></button></div></div>
+  <div class="section-header"><div class="section-title" data-i18n="music">Música</div><button class="btn btn-primary" onclick="openModal('music')">+ <span data-i18n="add_track">Agregar track</span></button></div>
   <div id="music-list"></div>
   <div class="empty-state" id="music-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="empty-text" data-i18n="music_empty">Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show</div></div>
 </div>
@@ -658,7 +727,7 @@ const DOC_REF = db.collection('dashboards').doc('main');
 // ============ DATA LAYER (Firestore + localStorage cache) ============
 const STORAGE_KEY='aurea_nyc_dashboard';
 
-function defaultData(){return {info:{},moodboard:[],collection:[],timeline:[],contacts:[],links:[],budget:[],notes:[],music:[],creative:'',budgetCategories:[],pendingTasks:[]};}
+function defaultData(){return {info:{},moodboard:[],collection:[],timeline:[],contacts:[],links:[],budget:[],notes:[],music:[],creative:'',budgetCategories:[],pendingTasks:[],looks:[]};}
 
 function loadDataLocal(){const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):defaultData();}
 function saveDataLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
@@ -1053,7 +1122,7 @@ function esc(s){if(!s)return '';const d=document.createElement('div');d.textCont
 
 async function exportData(){
   if(typeof html2canvas==='undefined'){alert('No se cargó la librería de exportación. Verificá tu conexión.');return;}
-  const target=document.querySelector('.app-shell');
+  const target=document.querySelector('.main-area');
   if(!target)return;
   const sec=document.querySelector('.section.active');
   const sectionId=sec?sec.id.replace('sec-',''):'export';
@@ -1085,7 +1154,7 @@ async function exportData(){
   }
 }
 
-function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderNotes();renderTasks();updateGreeting();updateCountdown();}
+function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderNotes();renderTasks();renderLooks();updateGreeting();updateCountdown();}
 loadInfo();loadCreative();renderAll();
 updateGreeting();
 setInterval(updateGreeting,60000);
@@ -1223,6 +1292,151 @@ function taskRowHTML(t){
 
 function tasksByStatus(s){return data.pendingTasks.filter(t=>(t.status||'pending')===s);}
 
+// ============ LOOKS ============
+function ensureLooks(){
+  if(!Array.isArray(data.looks))data.looks=[];
+  data.looks.forEach(l=>{
+    if(!l.id)l.id='l_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+    if(!l.status)l.status='progress';
+    if(!Array.isArray(l.images))l.images=[];
+  });
+}
+function looksByStatus(s){ensureLooks();return data.looks.filter(l=>l.status===s);}
+function findLook(id){ensureLooks();return data.looks.find(l=>l.id===id);}
+
+function addLook(status){
+  ensureLooks();
+  const next=data.looks.length+1;
+  data.looks.push({
+    id:'l_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
+    name:'Look '+next,
+    status:status||'progress',
+    images:[]
+  });
+  saveData(data);renderLooks();
+  // Auto-open the new look so user can immediately add images
+  const newLook=data.looks[data.looks.length-1];
+  setTimeout(()=>openLookDetail(newLook.id),100);
+}
+
+function renameLook(id,name){
+  const l=findLook(id);if(!l)return;
+  l.name=name||'Look';
+  saveData(data);renderLooks();
+}
+
+function setLookStatus(id,status){
+  const l=findLook(id);if(!l)return;
+  l.status=status;
+  saveData(data);renderLooks();openLookDetail(id);
+}
+
+function deleteLook(id){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this look?':'¿Eliminar este look?'))return;
+  data.looks=data.looks.filter(l=>l.id!==id);
+  saveData(data);renderLooks();closeLookDetail();
+}
+
+function addImageToLook(lookId){
+  const input=document.getElementById('lookAddImgInput');
+  input.onchange=async(e)=>{
+    const l=findLook(lookId);
+    if(!l){input.value='';return;}
+    try{
+      for(const f of Array.from(e.target.files)){
+        const url=await uploadImage(f,'looks');
+        l.images.push({url,tag:''});
+      }
+      saveData(data);renderLooks();openLookDetail(lookId);
+    }catch(err){
+      console.error('Look image upload failed:',err);
+      alert(currentLang==='en'?'Image upload failed.':'No se pudo subir la imagen.');
+    }finally{input.value='';}
+  };
+  input.click();
+}
+
+function setLookImageTag(lookId,imgIdx,tag){
+  const l=findLook(lookId);
+  if(!l||!l.images[imgIdx])return;
+  l.images[imgIdx].tag=(l.images[imgIdx].tag===tag?'':tag);
+  saveData(data);openLookDetail(lookId);
+}
+
+function removeLookImage(lookId,imgIdx){
+  const l=findLook(lookId);if(!l)return;
+  l.images.splice(imgIdx,1);
+  saveData(data);renderLooks();openLookDetail(lookId);
+}
+
+function openLookDetail(id){
+  const l=findLook(id);if(!l)return;
+  const en=currentLang==='en';
+  const card=document.getElementById('look-detail-card');
+  const tagsDef=[
+    {value:'top',label:'Top'},
+    {value:'bottom',label:'Bottom'},
+    {value:'accesorio',label:en?'Accessory':'Accesorio'}
+  ];
+  const imgsHTML=(l.images||[]).map((img,idx)=>`
+    <div class="look-image-item">
+      <img src="${esc(img.url)}" onclick="openLightbox('${esc(img.url)}')">
+      <button class="look-image-remove" onclick="event.stopPropagation();removeLookImage('${esc(l.id)}',${idx})">×</button>
+      <div class="look-image-tags">
+        ${tagsDef.map(t=>`<button class="look-tag-pill${img.tag===t.value?' active':''}" onclick="setLookImageTag('${esc(l.id)}',${idx},'${t.value}')">${t.label}</button>`).join('')}
+      </div>
+    </div>
+  `).join('');
+  card.innerHTML=`
+    <input class="look-detail-title-input" value="${esc(l.name)}" oninput="renameLook('${esc(l.id)}',this.value)">
+    <div class="look-detail-status-row">
+      <button class="look-status-btn progress${l.status==='progress'?' active':''}" onclick="setLookStatus('${esc(l.id)}','progress')">${en?'In progress':'En proceso'}</button>
+      <button class="look-status-btn done${l.status==='done'?' active':''}" onclick="setLookStatus('${esc(l.id)}','done')">${en?'Done':'Terminado'}</button>
+    </div>
+    <div class="look-images-grid">
+      ${imgsHTML}
+      <button class="look-add-image-btn" onclick="addImageToLook('${esc(l.id)}')">+</button>
+    </div>
+    <div class="look-detail-actions">
+      <button class="btn btn-danger" onclick="deleteLook('${esc(l.id)}')">${en?'Delete look':'Eliminar look'}</button>
+      <button class="btn btn-outline" onclick="closeLookDetail()">${en?'Close':'Cerrar'}</button>
+    </div>
+  `;
+  document.getElementById('look-detail-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeLookDetail(){
+  document.getElementById('look-detail-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function lookItemHTML(l){
+  const cover=l.images&&l.images.length?l.images[0].url:null;
+  const cnt=l.images?l.images.length:0;
+  return `<div class="look-item" onclick="openLookDetail('${esc(l.id)}')">
+    <div class="look-thumb">${cover?`<img src="${esc(cover)}">`:'+'}</div>
+    <div class="look-name">${esc(l.name)}</div>
+    ${cnt?`<div class="look-img-count">${cnt}</div>`:''}
+  </div>`;
+}
+
+function renderLooks(){
+  ensureLooks();
+  const prog=looksByStatus('progress');
+  const done=looksByStatus('done');
+  const pl=document.getElementById('looks-progress-list');
+  const dl=document.getElementById('looks-done-list');
+  const pc=document.getElementById('looks-progress-count');
+  const dc=document.getElementById('looks-done-count');
+  if(pc)pc.textContent=prog.length;
+  if(dc)dc.textContent=done.length;
+  const en=currentLang==='en';
+  if(pl)pl.innerHTML=prog.length?prog.map(lookItemHTML).join(''):`<div class="looks-empty">${en?'No looks in progress':'No hay looks en proceso'}</div>`;
+  if(dl)dl.innerHTML=done.length?done.map(lookItemHTML).join(''):`<div class="looks-empty">${en?'No completed looks':'No hay looks terminados'}</div>`;
+}
+
 function renderHome(){
   ensureTasks();
   const pending=tasksByStatus('pending');
@@ -1302,6 +1516,7 @@ const i18n = {
     home_pending:'Pendientes', home_progress:'En proceso', home_done:'Terminado',
     home_pending_empty:'Sin tareas pendientes', home_progress_empty:'Nada en proceso', home_done_empty:'Aún no terminaste nada',
     progress_empty:'No hay tareas en proceso — pasá una desde Pendientes', export_btn:'Exportar imagen',
+    looks_progress_title:'Looks en proceso', looks_done_title:'Looks terminados',
     task_placeholder:'Agregar tarea...', task_done_placeholder:'Agregar tarea ya completada...', task_add:'+ Agregar',
     pending_empty:'Sin tareas pendientes — agregá la primera arriba',
     done_empty:'Las tareas que vayas marcando como hechas aparecen acá',
@@ -1344,6 +1559,7 @@ const i18n = {
     home_pending:'To do', home_progress:'In progress', home_done:'Done',
     home_pending_empty:'No pending tasks', home_progress_empty:'Nothing in progress', home_done_empty:'Nothing done yet',
     progress_empty:'Nothing in progress — move one from Pending', export_btn:'Export image',
+    looks_progress_title:'Looks in progress', looks_done_title:'Completed looks',
     task_placeholder:'Add task...', task_done_placeholder:'Log a completed task...', task_add:'+ Add',
     pending_empty:'No pending tasks — add the first one above',
     done_empty:'Tasks you mark as done show up here',
@@ -1391,72 +1607,6 @@ function toggleLang(){
   renderHome();
 }
 
-// ============ DOWNLOAD SECTION AS HTML/PDF ============
-function downloadSection(sectionId){
-  const lang = currentLang;
-  const showName = data.info?.name || 'ÁUREA NYC Show';
-  const date = data.info?.date || '';
-  let title = '', content = '';
-
-  if(sectionId==='collection'){
-    title = lang==='en'?'Collection':'Colección';
-    const items = data.collection||[];
-    content = items.map(g => `
-      <div style="display:inline-block;width:220px;margin:8px;vertical-align:top;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#fff">
-        ${g.image?`<div style="width:220px;height:280px;overflow:hidden"><img src="${g.image}" style="width:100%;height:100%;object-fit:cover"></div>`:`<div style="width:220px;height:280px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:40px;color:#ccc">👗</div>`}
-        <div style="padding:12px">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#E85D26;margin-bottom:4px">${esc(g.category||'')}</div>
-          <div style="font-size:14px;font-weight:600">${esc(g.name)}</div>
-          ${g.note?`<div style="font-size:12px;color:#888;margin-top:4px">${esc(g.note)}</div>`:''}
-          ${g.ready?`<div style="font-size:11px;color:#4CAF50;margin-top:4px">✓ ${lang==='en'?'Ready':'Lista'}</div>`:''}
-        </div>
-      </div>`).join('');
-  }
-  else if(sectionId==='timeline'){
-    title = 'Timeline';
-    const items = (data.timeline||[]).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Date':'Fecha'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Description':'Descripción'}</th></tr>
-      ${items.map(t=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-weight:500;font-size:13px;white-space:nowrap;vertical-align:top">${esc(t.date||'—')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:14px">${esc(t.text)}</td></tr>`).join('')}
-    </table>`;
-  }
-  else if(sectionId==='contacts'){
-    title = lang==='en'?'Team':'Equipo';
-    const items = data.contacts||[];
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Role':'Rol'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Name':'Nombre'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Phone':'Teléfono'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Email</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Instagram</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
-      ${items.map(c=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-size:12px;text-transform:uppercase">${esc(c.role)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(c.name)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.phone||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.email||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.ig||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(c.note||'')}</td></tr>`).join('')}
-    </table>`;
-  }
-  else if(sectionId==='music'){
-    title = lang==='en'?'Music / Soundtrack':'Música / Soundtrack';
-    const items = data.music||[];
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">#</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Track':'Tema'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Artist':'Artista'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Link</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
-      ${items.map((m,i)=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#888;font-size:13px">${i+1}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(m.title)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(m.artist||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:12px">${m.url?`<a href="${esc(m.url)}" style="color:#E85D26">${esc(m.url)}</a>`:''}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(m.note||'')}</td></tr>`).join('')}
-    </table>`;
-  }
-
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ÁUREA — ${title}</title>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap');
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;padding:40px;color:#222;max-width:1100px;margin:0 auto}
-    @media print{body{padding:20px}@page{margin:15mm}}</style>
-  </head><body>
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #E85D26;padding-bottom:16px;margin-bottom:30px">
-      <div><div style="font-family:'Playfair Display',sans-serif;font-size:42px;letter-spacing:3px">ÁUREA</div>
-      <div style="font-size:13px;color:#888;margin-top:2px">${esc(showName)}${date?' — '+esc(date):''}</div></div>
-      <div style="font-family:'Playfair Display',sans-serif;font-size:24px;letter-spacing:2px;color:#E85D26">${title}</div>
-    </div>
-    ${content}
-    <div style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:11px;color:#aaa;text-align:center">ÁUREA Argentina — The Design & Upcycling Experience — www.aureaargentina.com</div>
-  </body></html>`;
-
-  const blob = new Blob([html],{type:'text/html'});
-  const url = URL.createObjectURL(blob);
-  const w = window.open(url,'_blank');
-  if(w){w.onload=()=>{setTimeout(()=>w.print(),500);};}
-  else{const a=document.createElement('a');a.href=url;a.download=`AUREA_${sectionId}_${lang}.html`;a.click();}
-}
 </script>
 </body>
 </html>
