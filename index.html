@@ -467,6 +467,25 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .look-add-image-btn{aspect-ratio:3/4;border:2px dashed var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .look-add-image-btn:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft)}
 .look-detail-actions{display:flex;justify-content:space-between;gap:8px;padding-top:16px;border-top:1px solid var(--border-light)}
+
+/* Role-based visibility: when body has .role-collaborator, hide all owner-only items */
+body.role-collaborator [data-owner-only]{display:none !important}
+
+/* Login overlay */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.login-overlay[style*="display:flex"],.login-overlay.open{display:flex !important}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:42px 36px;max-width:400px;width:100%;box-shadow:0 30px 80px rgba(42,37,32,0.15);text-align:center}
+.login-logo{color:var(--text);margin-bottom:24px;display:flex;justify-content:center}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;font-style:italic;color:var(--orange);margin-bottom:6px;line-height:1}
+.login-subtitle{font-size:13px;color:var(--text-dim);margin-bottom:26px}
+.login-tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--bg);border-radius:10px;padding:4px}
+.login-tab{flex:1;padding:8px 12px;border:none;background:transparent;color:var(--text-dim);font-size:11px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;border-radius:6px;transition:all .15s}
+.login-tab.active{background:var(--card);color:var(--orange);box-shadow:var(--shadow)}
+.login-card form{display:flex;flex-direction:column;gap:10px}
+.login-card input{padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .15s}
+.login-card input:focus{outline:none;border-color:var(--orange);background:#fff}
+.login-card button[type="submit"]{margin-top:6px;padding:12px}
+.login-error{font-size:12px;color:var(--danger);margin-top:14px;min-height:18px;text-align:center}
 </style>
 </head>
 <body>
@@ -482,7 +501,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="nav-group">
       <button class="nav-item active" onclick="showSection('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/></svg><span data-i18n="nav_home">Inicio</span></button>
     </div>
-    <div class="nav-group">
+    <div class="nav-group" data-owner-only>
       <div class="nav-group-label" data-i18n="group_show">Show</div>
       <button class="nav-item" onclick="showSection('info',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg><span data-i18n="nav_info">Info General</span></button>
       <button class="nav-item" onclick="showSection('timeline',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-i18n="nav_timeline">Timeline</span></button>
@@ -490,12 +509,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="nav-group">
       <div class="nav-group-label" data-i18n="group_creative">Creativo</div>
       <button class="nav-item" onclick="showSection('moodboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span data-i18n="nav_references">Referencias</span></button>
-      <button class="nav-item" onclick="showSection('looks',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"/><path d="M4 4h16v16H4z" style="display:none"/><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="nav_looks">Looks</span></button>
-      <button class="nav-item" onclick="showSection('collection',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span data-i18n="nav_collection">Colección</span></button>
+      <button class="nav-item" onclick="showSection('looks',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="nav_looks">Looks</span></button>
+      <button class="nav-item" onclick="showSection('collection',this)" data-owner-only><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span data-i18n="nav_collection">Colección</span></button>
       <button class="nav-item" onclick="showSection('music',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span data-i18n="nav_music">Música</span></button>
-      <button class="nav-item" onclick="showSection('creative',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span data-i18n="nav_creative">Proceso Creativo</span></button>
+      <button class="nav-item" onclick="showSection('creative',this)" data-owner-only><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span data-i18n="nav_creative">Proceso Creativo</span></button>
     </div>
-    <div class="nav-group">
+    <div class="nav-group" data-owner-only>
       <div class="nav-group-label" data-i18n="group_production">Producción</div>
       <button class="nav-item" onclick="showSection('contacts',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="nav_team">Equipo</span></button>
       <button class="nav-item" onclick="showSection('budget',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget</span></button>
@@ -510,7 +529,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   </nav>
   <div class="sidebar-footer">
     <button class="btn-sm" id="lang-toggle" onclick="toggleLang()" style="font-weight:600">EN</button>
-    <button class="btn-sm" onclick="exportData()" data-i18n="export_btn">Exportar imagen</button>
+    <button class="btn-sm" onclick="exportData()" data-i18n="export_btn" title="Descarga un JPG de la sección actual">Exportar imagen</button>
+    <button class="btn-sm" onclick="exportJSON()" data-i18n="backup_btn" title="Descarga un archivo de respaldo con todos los datos. Guardalo en tu compu como seguro contra fallas o errores.">Backup (JSON)</button>
+    <button class="btn-sm" onclick="document.getElementById('importFile').click()" data-i18n="restore_btn" title="Restaurá el dashboard desde un archivo de backup previo">Restaurar backup</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="btn-sm" id="logout-btn" onclick="doLogout()" data-i18n="logout_btn" style="display:none;margin-top:8px;border-color:rgba(192,57,43,0.3);color:rgba(232,224,211,0.5)">Cerrar sesión</button>
   </div>
 </aside>
 
@@ -594,7 +617,30 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </div>
 <input type="file" id="lookAddImgInput" accept="image/*" multiple style="display:none">
 
-<div class="section" id="sec-info">
+<!-- Login overlay (shown when REQUIRE_AUTH is on and the user is not signed in) -->
+<div class="login-overlay" id="login-overlay" style="display:none">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="200 210 1100 300" xmlns="http://www.w3.org/2000/svg" style="height:32px"><path d="M790.67,424.58c5.97,6.81,13.74,9.05,21.81,10.41c7.83,1.32,15.56,1.38,22.66-3.24c0.87-0.57,2.85-0.01,4.03,0.59 c10.12,5.13,14.21,16.44,10.15,27.71c-4.9,13.59-19.33,22-36.14,21.29c-10.9-0.46-21.03-3.73-30.3-9.08 c-12.96-7.47-25.49-15.69-38.22-23.56c-3.96-2.45-7.94-4.87-11.99-7.18c-6.64-3.8-13.73-5.66-21.47-5.38 c-7.8,0.28-15.63,0.06-24.09,0.06c0,15,0,29.71,0,44.82c-15.87,0-31.09,0-46.67,0c0-66.11,0-132.16,0-198.57 c1.8-0.09,3.42-0.25,5.04-0.25c26.66-0.01,53.33-0.12,79.99,0.03c21.82,0.12,43.17,3.05,62.97,12.92 c21.4,10.67,37.24,26.36,42.47,50.5c6.55,30.29-8.35,61.73-35.65,76.41C793.84,422.83,792.43,423.62,790.67,424.58z M687.08,390.27c20.02-0.53,39.48-0.6,58.87-1.72c10.6-0.61,21.05-3.18,30-9.63c8.92-6.42,12.51-16.97,9.03-27.38 c-3.69-11.04-12.88-15.71-23.1-18.49c-24.35-6.61-49.28-3.51-74-3.93c-0.25,0-0.5,0.39-0.8,0.64 C687.08,349.51,687.08,369.3,687.08,390.27z" fill="currentColor"/><path d="M995.09,358.21c0,15.94,0,31.02,0,46.59c-27.41,0-54.5,0-81.88,0c0,10.06,0,19.62,0,29.74c40.25,0,80.33,0,120.75,0 c0,15.62,0,30.68,0,46.07c-55.85,0-111.57,0-167.57,0c0-66.13,0-132.03,0-198.24c56.08,0,111.98,0,168.22,0 c0,15.29,0,30.51,0,46.19c-40.39,0-80.66,0-121.32,0c0,9.99,0,19.54,0,29.65C940.4,358.21,967.47,358.21,995.09,358.21z" fill="currentColor"/><path d="M1286.44,480.99c-10.9,0-21.33,0.05-31.75-0.02c-6.46-0.04-14.25,1.89-19.01-1.03c-4.54-2.79-5.95-10.71-8.69-16.4 c-2.75-5.69-5.58-11.34-8.09-17.13c-1.19-2.74-2.86-3.48-5.73-3.48c-32.99,0.1-65.99,0.11-98.98-0.02 c-3.17-0.01-4.71,1.06-5.98,3.83c-4.71,10.28-9.54,20.5-14.59,30.61c-0.78,1.56-2.92,3.46-4.45,3.48 c-15.98,0.25-31.97,0.16-48.76,0.16c0.85-1.91,1.43-3.36,2.11-4.75c30.63-63.1,61.3-126.19,91.84-189.33 c1.65-3.41,3.41-4.91,7.45-4.84c15.33,0.29,30.66,0.17,45.99,0.07c2.76-0.02,4.47,0.56,5.8,3.33 c30.54,64.25,61.18,128.45,91.8,192.67C1285.72,478.86,1285.94,479.63,1286.44,480.99z M1195.14,396.71 c-10.4-21.83-20.46-42.94-30.97-64.98c-10.77,22.24-21.01,43.38-31.48,64.98C1153.79,396.71,1174.06,396.71,1195.14,396.71z" fill="currentColor"/><path d="M442.32,479.99c-16.5,0-32.63,0.07-48.75-0.14c-1.27-0.02-3.01-1.71-3.68-3.05c-4.96-9.97-9.88-19.96-14.42-30.13 c-1.59-3.57-3.45-4.79-7.42-4.78c-48.81,0.16-97.62,0.1-146.44,0.1c-1.99,0-3.99,0-6.53,0c0.54-1.47,0.86-2.66,1.39-3.75 c24.81-51.13,49.67-102.24,74.41-153.4c1.38-2.85,3.03-3.75,6.1-3.72c15.66,0.14,31.32,0.11,46.98,0.03 c2.54-0.01,4.19,0.4,5.45,3.05c30.61,64.38,61.33,128.71,92.02,193.05C441.78,477.96,441.93,478.77,442.32,479.99z M351.1,395.68 c-10.29-21.63-20.37-42.81-30.92-64.96c-10.73,22.15-21.02,43.38-31.47,64.96C309.86,395.68,330.12,395.68,351.1,395.68z" fill="currentColor"/><path d="M425.34,282.29c15.73,0,30.84,0,46.56,0c0,2.18,0,4.12,0,6.06c0.02,34.49-0.11,68.97,0.2,103.46 c0.06,6.9,1.45,13.86,2.88,20.66c1.73,8.27,7.2,13.58,14.95,16.78c11.35,4.68,23.32,5.21,35.3,5.21c6.8,0,13.64-0.59,20.4-1.41 c21.12-2.57,31.11-13.35,31.33-34.76c0.38-36.65,0.27-73.3,0.36-109.95c0-1.95,0-3.9,0-6.06c15.77,0,30.87,0,46.36,0 c0.11,1.5,0.3,2.94,0.3,4.37c0,35.15,0.32,70.31-0.22,105.45c-0.17,10.7-1.65,21.64-4.36,32c-6.51,24.86-22.73,41.63-47.03,49.53 c-31.39,10.21-63.26,10.36-94.71,0.27c-29.56-9.49-45.63-30.96-50.44-61.08c-1.44-9-1.95-18.22-2.01-27.35 c-0.23-32.82-0.1-65.64-0.09-98.46C425.11,285.55,425.25,284.09,425.34,282.29z" fill="currentColor"/><path d="M372.93,218.15c-3.7,7.9-7.33,15.69-10.97,23.47c-3.02,6.47-5.94,12.99-9.16,19.36c-0.66,1.31-2.48,2.86-3.78,2.88 c-15.98,0.17-31.97,0.08-47.95,0.04c-0.27,0-0.53-0.27-1.24-0.65c3.12-6.53,6.22-13.08,9.36-19.61 c3.67-7.64,7.25-15.32,11.15-22.84c0.75-1.44,2.79-3.1,4.26-3.12c15.48-0.21,30.97-0.11,46.45-0.07 C371.51,217.61,371.97,217.87,372.93,218.15z" fill="currentColor"/></svg>
+    </div>
+    <h2 class="login-title" id="login-card-title">Bienvenida</h2>
+    <p class="login-subtitle" id="login-card-subtitle">Iniciá sesión para acceder al dashboard</p>
+    <div class="login-tabs">
+      <button class="login-tab active" id="login-tab-signin" onclick="showLoginTab('signin')">Iniciar sesión</button>
+      <button class="login-tab" id="login-tab-register" onclick="showLoginTab('register')">Crear cuenta</button>
+    </div>
+    <form id="login-form" onsubmit="event.preventDefault();doAuthSubmit();">
+      <input type="text" id="login-name" placeholder="Tu nombre" autocomplete="given-name" style="display:none">
+      <input type="text" id="login-role" placeholder="Tu rol (estilista, ayudante de taller, modelo...)" style="display:none">
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email" required>
+      <input type="password" id="login-password" placeholder="Contraseña" autocomplete="current-password" required>
+      <button type="submit" id="login-btn" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+    <p class="login-error" id="login-error"></p>
+  </div>
+</div>
+
+<div class="section" id="sec-info" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="info_title">Info General</div></div>
   <div class="card"><div class="info-grid">
     <div class="field"><label data-i18n="info_name">Nombre del desfile</label><input class="editable" id="info-name" placeholder="Ej: ÁUREA NYC SS27" oninput="saveInfo()"></div>
@@ -621,7 +667,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </div>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img" src=""></div>
 
-<div class="section" id="sec-collection">
+<div class="section" id="sec-collection" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div>
   <div class="mood-filters">
     <button class="mood-filter-pill active" data-cat="all" onclick="setCollectionFilter('all')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'')"><span data-i18n="cat_all">Todas</span></button>
@@ -634,22 +680,22 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <div class="collection-grid" id="collection-list"></div><div class="empty-state" id="collection-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="empty-text" data-i18n="collection_empty">Listá las prendas y looks del desfile</div></div>
 </div>
 
-<div class="section" id="sec-timeline">
+<div class="section" id="sec-timeline" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div>
   <div id="timeline-list"></div><div class="empty-state" id="timeline-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div class="empty-text" data-i18n="timeline_empty">Armá el cronograma del desfile</div></div>
 </div>
 
-<div class="section" id="sec-contacts">
+<div class="section" id="sec-contacts" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div>
   <div class="card-grid" id="contacts-grid"></div><div class="empty-state" id="contacts-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="empty-text" data-i18n="team_empty">Sumá modelos, makeup, styling, producción...</div></div>
 </div>
 
-<div class="section" id="sec-links">
+<div class="section" id="sec-links" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="links_title">Links Útiles</div><button class="btn btn-primary" onclick="openModal('link')">+ <span data-i18n="add_link">Agregar link</span></button></div>
   <div id="links-list"></div><div class="empty-state" id="links-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><div class="empty-text" data-i18n="links_empty">Guardá links a carpetas de Drive, proveedores, etc.</div></div>
 </div>
 
-<div class="section" id="sec-budget">
+<div class="section" id="sec-budget" data-owner-only>
   <div class="section-header"><div class="section-title">Budget</div><button class="btn btn-primary" onclick="openModal('budget-cat')">+ <span data-i18n="add_category">Nueva categoría</span></button></div>
   <div class="card" style="margin-bottom:20px"><div class="budget-label" data-i18n="budget_total">Total general</div><div class="budget-total" id="budget-total">USD $0</div></div>
   <div id="budget-categories"></div>
@@ -662,7 +708,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <div class="empty-state" id="music-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="empty-text" data-i18n="music_empty">Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show</div></div>
 </div>
 
-<div class="section" id="sec-creative">
+<div class="section" id="sec-creative" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="creative_title">Proceso Creativo</div><div class="creative-saved" id="creative-status"></div></div>
   <div class="creative-editor">
     <textarea class="creative-textarea" id="creative-text" data-placeholder-es="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." data-placeholder-en="Write freely... ideas, concepts, inspiring phrases, the show narrative, the looks order, anything you need to capture for the creative process..." placeholder="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." oninput="saveCreative()"></textarea>
@@ -740,6 +786,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 <script src="js/firebase-app-compat.js"></script>
 <script src="js/firebase-firestore-compat.js"></script>
 <script src="js/firebase-storage-compat.js"></script>
+<!-- Firebase Auth (loaded from CDN since not bundled locally) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <!-- html2canvas for screenshot export -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- SortableJS for drag-reorder of looks (works on desktop + touch) -->
@@ -759,6 +807,172 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const storage = firebase.storage();
 const DOC_REF = db.collection('dashboards').doc('main');
+
+// ============ AUTH ============
+// Set REQUIRE_AUTH=true once you've completed these steps in Firebase Console:
+//   1. Authentication → Sign-in method → enable Email/Password
+//   2. Firestore → Rules → set: allow read, write: if request.auth != null;
+//   3. Storage → Rules → set: allow read, write: if request.auth != null;
+// Until then, the dashboard works without login (current open behavior)
+const REQUIRE_AUTH = false;
+
+// Owners get full access. Anyone else who registers becomes a "collaborator"
+// and only sees Inicio / Referencias / Looks / Tareas. Edit this list with the
+// real owner emails before turning on REQUIRE_AUTH.
+const OWNER_EMAILS = [
+  'mili@aureaargentina.com',
+  'manuelamendari@gmail.com',
+  'emilsebergamin@gmail.com'
+];
+
+let auth = null;
+let dataLayerStarted = false;
+let currentRole = 'owner'; // 'owner' or 'collaborator' — defaults to owner when auth is off
+
+try { if (firebase.auth) auth = firebase.auth(); } catch (e) { console.warn('Firebase Auth not loaded:', e); }
+
+function showLoginOverlay(show){
+  const ov = document.getElementById('login-overlay');
+  if (!ov) return;
+  ov.style.display = show ? 'flex' : 'none';
+  document.body.style.overflow = show ? 'hidden' : '';
+}
+
+function showLogoutBtn(show){
+  const b = document.getElementById('logout-btn');
+  if (b) b.style.display = show ? 'block' : 'none';
+}
+
+let _loginMode = 'signin'; // 'signin' or 'register'
+function showLoginTab(mode){
+  _loginMode = mode;
+  const en = currentLang==='en';
+  document.getElementById('login-tab-signin').classList.toggle('active', mode==='signin');
+  document.getElementById('login-tab-register').classList.toggle('active', mode==='register');
+  const nameInput = document.getElementById('login-name');
+  const roleInput = document.getElementById('login-role');
+  nameInput.style.display = mode==='register' ? '' : 'none';
+  roleInput.style.display = mode==='register' ? '' : 'none';
+  nameInput.required = mode==='register';
+  document.getElementById('login-btn').textContent = mode==='register' ? (en?'Create account':'Crear cuenta') : (en?'Sign in':'Iniciar sesión');
+  document.getElementById('login-card-title').textContent = mode==='register' ? (en?'Welcome':'Bienvenida') : (en?'Welcome back':'Bienvenida de nuevo');
+  document.getElementById('login-card-subtitle').textContent = mode==='register' ? (en?'Create your account to access the dashboard':'Creá tu cuenta para acceder al dashboard') : (en?'Sign in to access the dashboard':'Iniciá sesión para acceder al dashboard');
+  document.getElementById('login-error').textContent = '';
+}
+
+function doAuthSubmit(){
+  if (_loginMode === 'register') return doRegister();
+  return doLogin();
+}
+
+async function doRegister(){
+  const name = document.getElementById('login-name').value.trim();
+  const role = document.getElementById('login-role').value.trim();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
+  const en = currentLang==='en';
+  if (!name || !email || !password) { errEl.textContent = en?'Fill name, email and password':'Completá nombre, email y contraseña'; return; }
+  if (password.length < 6) { errEl.textContent = en?'Password must be at least 6 characters':'La contraseña debe tener al menos 6 caracteres'; return; }
+  errEl.textContent = '';
+  btn.disabled = true; btn.textContent = en?'Creating...':'Creando...';
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    await cred.user.updateProfile({ displayName: name });
+    // Save profile (name + free-form role) in a separate Firestore doc
+    try {
+      await db.collection('profiles').doc(cred.user.uid).set({
+        name, role: role || '', email: cred.user.email, createdAt: new Date().toISOString()
+      });
+    } catch (perr) { console.warn('Profile save failed:', perr); }
+    document.getElementById('login-password').value = '';
+    // onAuthStateChanged will hide the overlay and start the data layer
+  } catch (err) {
+    console.error('Register failed', err);
+    let msg = err.message || 'Error';
+    if (err.code === 'auth/email-already-in-use') msg = en?'That email is already registered — switch to Sign in':'Ese email ya tiene cuenta — pasate a Iniciar sesión';
+    else if (err.code === 'auth/weak-password') msg = en?'Password too weak (min 6 chars)':'Contraseña muy débil (mín. 6 caracteres)';
+    else if (err.code === 'auth/invalid-email') msg = en?'Invalid email':'Email inválido';
+    else if (err.code === 'auth/operation-not-allowed') msg = en?'Email/Password sign-in is not enabled in Firebase Console':'El método Email/Password no está habilitado en Firebase Console';
+    errEl.textContent = msg;
+  } finally {
+    btn.disabled = false; btn.textContent = en?'Create account':'Crear cuenta';
+  }
+}
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
+  const en = currentLang==='en';
+  if (!email || !password) { errEl.textContent = en?'Enter email and password':'Ingresá email y contraseña'; return; }
+  errEl.textContent = '';
+  btn.disabled = true; btn.textContent = en?'Signing in...':'Iniciando sesión...';
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    document.getElementById('login-password').value = '';
+  } catch (err) {
+    console.error('Login failed', err);
+    let msg = err.message || 'Error';
+    if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') msg = en?'Wrong email or password':'Email o contraseña incorrectos';
+    else if (err.code === 'auth/operation-not-allowed') msg = en?'Email/Password sign-in is not enabled in Firebase Console':'El método Email/Password no está habilitado en Firebase Console';
+    else if (err.code === 'auth/network-request-failed') msg = en?'Network error':'Error de conexión';
+    errEl.textContent = msg;
+  } finally {
+    btn.disabled = false; btn.textContent = en?'Sign in':'Iniciar sesión';
+  }
+}
+
+async function doLogout(){
+  const en = currentLang==='en';
+  if (!confirm(en?'Sign out?':'¿Cerrar sesión?')) return;
+  try { await auth.signOut(); } catch (e) { console.error('Logout failed', e); }
+}
+
+// Sections only owners can see/access. Collaborators see Inicio + Referencias + Looks + Música + Tareas (pendientes/proceso/done)
+const OWNER_ONLY_SECTIONS = ['info','timeline','collection','contacts','budget','links','creative'];
+// (Music is intentionally not in this list — everyone can see it)
+
+function applyRoleVisibility(){
+  document.body.classList.toggle('role-collaborator', currentRole === 'collaborator');
+  // If a collaborator was viewing an owner-only section when their role kicks in, bounce to Inicio
+  if (currentRole === 'collaborator') {
+    const active = document.querySelector('.section.active');
+    if (active) {
+      const id = active.id.replace('sec-','');
+      if (OWNER_ONLY_SECTIONS.includes(id)){
+        const homeBtn = Array.from(document.querySelectorAll('.nav-item')).find(b => (b.getAttribute('onclick')||'').includes("'home'"));
+        showSection('home', homeBtn);
+      }
+    }
+  }
+}
+
+if (REQUIRE_AUTH && auth) {
+  showLoginOverlay(true);
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      const email = (user.email||'').toLowerCase();
+      currentRole = OWNER_EMAILS.map(e=>e.toLowerCase()).includes(email) ? 'owner' : 'collaborator';
+      applyRoleVisibility();
+      showLoginOverlay(false);
+      showLogoutBtn(true);
+      if (!dataLayerStarted) startDataLayer();
+      updateGreeting();
+    } else {
+      currentRole = 'owner'; // reset
+      applyRoleVisibility();
+      showLogoutBtn(false);
+      showLoginOverlay(true);
+    }
+  });
+} else {
+  // Auth disabled — start data layer right away (owner mode)
+  currentRole = 'owner';
+  setTimeout(() => { if (!dataLayerStarted) startDataLayer(); }, 0);
+}
 
 // ============ DATA LAYER (Firestore + localStorage cache) ============
 const STORAGE_KEY='aurea_nyc_dashboard';
@@ -801,44 +1015,50 @@ function saveData(d){
   },1000);
 }
 
-// Real-time sync from Firestore (other devices)
-DOC_REF.onSnapshot(doc=>{
-  if(doc.exists && !saving && !saveDirty){
-    const remoteData=doc.data();
-    if(JSON.stringify(data)!==JSON.stringify(remoteData)){
-      data=remoteData;
+function startDataLayer(){
+  if (dataLayerStarted) return;
+  dataLayerStarted = true;
+
+  // Real-time sync from Firestore (other devices)
+  DOC_REF.onSnapshot(doc=>{
+    if(doc.exists && !saving && !saveDirty){
+      const remoteData=doc.data();
+      if(JSON.stringify(data)!==JSON.stringify(remoteData)){
+        data=remoteData;
+        saveDataLocal(data);
+        loadInfo();
+        loadCreative();
+        renderAll();
+        setSyncStatus('Sincronizado','var(--green)');
+      }
+    }
+  },err=>{
+    console.error('Firebase listen error:',err);
+    setSyncStatus('Sin conexión','var(--danger)');
+  });
+
+  // Initial load from Firestore
+  DOC_REF.get().then(doc=>{
+    if(doc.exists){
+      data=doc.data();
       saveDataLocal(data);
+      if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
       loadInfo();
       loadCreative();
       renderAll();
       setSyncStatus('Sincronizado','var(--green)');
+    } else {
+      if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
+      saveData(data);
     }
-  }
-},err=>{
-  console.error('Firebase listen error:',err);
-  setSyncStatus('Sin conexión','var(--danger)');
-});
-
-// Initial load from Firestore
-DOC_REF.get().then(doc=>{
-  if(doc.exists){
-    data=doc.data();
-    saveDataLocal(data);
-    if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
-    loadInfo();
-    loadCreative();
-    renderAll();
-    setSyncStatus('Sincronizado','var(--green)');
-  } else {
-    if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
-    saveData(data);
-  }
-}).catch(err=>{
-  console.error('Firebase initial load error:',err);
-  setSyncStatus('Sin conexión','var(--danger)');
-});
+  }).catch(err=>{
+    console.error('Firebase initial load error:',err);
+    setSyncStatus('Sin conexión','var(--danger)');
+  });
+} // end startDataLayer
 
 function showSection(id,tab){
+  if(currentRole==='collaborator' && OWNER_ONLY_SECTIONS.includes(id))return; // guard
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
   const sec=document.getElementById('sec-'+id);
@@ -960,7 +1180,15 @@ function addImageToMood(i){
 }
 
 function editMoodBoard(i){closeMoodDetail();setTimeout(()=>openModal('mood-edit',data.moodboard[i],i),200);}
-function deleteMood(i){data.moodboard.splice(i,1);saveData(data);renderMoodboard();}
+function deleteMood(i){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this reference board and all its images?':'¿Eliminar este tablero de referencias y todas sus imágenes?'))return;
+  const m=data.moodboard[i];
+  if(m&&Array.isArray(m.images))m.images.forEach(u=>deleteStorageImage(u));
+  data.moodboard.splice(i,1);
+  saveData(data);renderMoodboard();
+  closeMoodDetail();
+}
 function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
 
 // OTHER RENDERS
@@ -1035,7 +1263,14 @@ function renderCollection(){
   </div>`).join('');
 }
 function toggleGarment(i){data.collection[i].ready=!data.collection[i].ready;saveData(data);renderCollection();}
-function deleteGarment(i){data.collection.splice(i,1);saveData(data);renderCollection();}
+function deleteGarment(i){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this garment?':'¿Eliminar esta prenda?'))return;
+  const g=data.collection[i];
+  if(g&&g.image)deleteStorageImage(g.image);
+  data.collection.splice(i,1);
+  saveData(data);renderCollection();
+}
 
 function renderTimeline(){const l=document.getElementById('timeline-list'),e=document.getElementById('timeline-empty');if(!data.timeline.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';const s=data.timeline.map((t,i)=>({...t,_i:i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));l.innerHTML=s.map(t=>`<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-date">${esc(t.date||'Sin fecha')}</div><div class="timeline-text">${esc(t.text)}</div></div><span class="checklist-delete" onclick="deleteTimeline(${t._i})" style="opacity:.5">×</span></div>`).join('');}
 function deleteTimeline(i){data.timeline.splice(i,1);saveData(data);renderTimeline();}
@@ -1204,6 +1439,57 @@ async function exportData(){
   }
 }
 
+// JSON backup: full snapshot of all dashboard data. Useful as a safety net
+// (Firebase corruption, accidental wipe, "rollback to last week"). Stored
+// locally on the user's machine — does not replace Firebase, complements it.
+function exportJSON(){
+  const date=new Date().toISOString().slice(0,10);
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`aurea-backup-${date}.json`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  setSyncStatus('Backup descargado','var(--green)');
+}
+
+function importJSON(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const en=currentLang==='en';
+  if(!confirm(en?'This will overwrite ALL current data with the contents of the file. Continue?':'Esto va a SOBRESCRIBIR todos los datos actuales con el contenido del archivo. ¿Continuar?')){
+    event.target.value='';return;
+  }
+  const r=new FileReader();
+  r.onload=(e)=>{
+    try{
+      const parsed=JSON.parse(e.target.result);
+      if(typeof parsed!=='object'||!parsed)throw new Error('not an object');
+      data=parsed;
+      saveData(data);
+      loadInfo();loadCreative();renderAll();
+      alert(en?'Backup imported and synced ✓':'Backup importado y sincronizado ✓');
+    }catch(err){
+      alert(en?'Invalid file':'Archivo inválido');
+    }
+  };
+  r.readAsText(file);
+  event.target.value='';
+}
+
+// Delete an image from Firebase Storage given its download URL
+async function deleteStorageImage(url){
+  if(!url||typeof url!=='string')return;
+  if(!url.includes('firebasestorage'))return;
+  try{
+    const ref=storage.refFromURL(url);
+    await ref.delete();
+  }catch(err){
+    // Object may already be gone, or URL format unexpected — non-fatal
+    console.warn('Storage cleanup skipped for',url,err&&err.code);
+  }
+}
+
 function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderTasks();renderLooks();updateGreeting();updateCountdown();}
 loadInfo();loadCreative();renderAll();
 updateGreeting();
@@ -1295,6 +1581,9 @@ function deleteTaskById(id){
   ensureTasks();
   const i=data.pendingTasks.findIndex(x=>x.createdAt===id);
   if(i<0)return;
+  const en=currentLang==='en';
+  const txt=data.pendingTasks[i].text||'';
+  if(!confirm((en?'Delete task: ':'¿Eliminar tarea: ')+'"'+txt.slice(0,60)+(txt.length>60?'...':'')+'"?'))return;
   data.pendingTasks.splice(i,1);
   saveData(data);renderTasks();
 }
@@ -1401,8 +1690,10 @@ function setLookStatus(id,status){
 
 function deleteLook(id){
   const en=currentLang==='en';
-  if(!confirm(en?'Delete this look?':'¿Eliminar este look?'))return;
-  data.looks=data.looks.filter(l=>l.id!==id);
+  if(!confirm(en?'Delete this look and all its images?':'¿Eliminar este look y todas sus imágenes?'))return;
+  const l=findLook(id);
+  if(l&&Array.isArray(l.images))l.images.forEach(img=>deleteStorageImage(img&&img.url));
+  data.looks=data.looks.filter(x=>x.id!==id);
   saveData(data);renderLooks();closeLookDetail();
 }
 
@@ -1443,6 +1734,8 @@ function setLookImageDesc(lookId,imgIdx,text){
 
 function removeLookImage(lookId,imgIdx){
   const l=findLook(lookId);if(!l)return;
+  const img=l.images[imgIdx];
+  if(img&&img.url)deleteStorageImage(img.url);
   l.images.splice(imgIdx,1);
   saveData(data);renderLooks();openLookDetail(lookId);
 }
@@ -1621,7 +1914,15 @@ function updateGreeting(){
   if(h<12)g=currentLang==='en'?'Good morning':'Buenos días';
   else if(h<19)g=currentLang==='en'?'Good afternoon':'Buenas tardes';
   else g=currentLang==='en'?'Good evening':'Buenas noches';
-  el.textContent=`${g}, Mila`;
+  let name='Mila';
+  try {
+    if (auth && auth.currentUser){
+      const dn = auth.currentUser.displayName;
+      if (dn) name = dn.split(' ')[0]; // first name only
+      else if (auth.currentUser.email) name = auth.currentUser.email.split('@')[0];
+    }
+  } catch(e){}
+  el.textContent=`${g}, ${name}`;
 }
 
 function updateCountdown(){
@@ -1652,7 +1953,8 @@ const i18n = {
     group_show:'Show', group_creative:'Creativo', group_production:'Producción', group_tasks:'Tareas',
     home_pending:'Pendientes', home_progress:'En proceso', home_done:'Terminado',
     home_pending_empty:'Sin tareas pendientes', home_progress_empty:'Nada en proceso', home_done_empty:'Aún no terminaste nada',
-    progress_empty:'No hay tareas en proceso — pasá una desde Pendientes', export_btn:'Exportar imagen',
+    progress_empty:'No hay tareas en proceso — pasá una desde Pendientes',
+    export_btn:'Exportar imagen', backup_btn:'Backup (JSON)', restore_btn:'Restaurar backup', logout_btn:'Cerrar sesión',
     looks_progress_title:'Looks en proceso', looks_done_title:'Looks terminados',
     nav_looks:'Looks', looks_title:'Looks',
     add_look_progress:'Look en proceso', add_look_done:'Look terminado',
@@ -1698,7 +2000,8 @@ const i18n = {
     group_show:'Show', group_creative:'Creative', group_production:'Production', group_tasks:'Tasks',
     home_pending:'To do', home_progress:'In progress', home_done:'Done',
     home_pending_empty:'No pending tasks', home_progress_empty:'Nothing in progress', home_done_empty:'Nothing done yet',
-    progress_empty:'Nothing in progress — move one from Pending', export_btn:'Export image',
+    progress_empty:'Nothing in progress — move one from Pending',
+    export_btn:'Export image', backup_btn:'Backup (JSON)', restore_btn:'Restore backup', logout_btn:'Sign out',
     looks_progress_title:'Looks in progress', looks_done_title:'Completed looks',
     nav_looks:'Looks', looks_title:'Looks',
     add_look_progress:'Look in progress', add_look_done:'Completed look',
