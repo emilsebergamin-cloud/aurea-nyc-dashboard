@@ -303,8 +303,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 .topbar{position:sticky;top:0;z-index:80;background:rgba(245,240,232,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .topbar-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0}
-.greeting{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.5px;color:var(--text)}
-.greeting span{color:var(--orange)}
+.greeting{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.5px;color:var(--orange)}
 .countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1.5px solid var(--orange);border-radius:20px;font-size:12px;font-weight:600;color:var(--orange);letter-spacing:0.3px;white-space:nowrap}
 .countdown svg{width:13px;height:13px;stroke-width:2.2}
 .countdown.past{border-color:var(--text-muted);color:var(--text-muted)}
@@ -348,6 +347,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .main-area .main{max-width:none;margin:0;padding:28px}
 @media(min-width:601px) and (max-width:1024px){.main-area .main{padding:22px}}
 @media(max-width:600px){.main-area .main{padding:14px}}
+
+/* References filter pills */
+.mood-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.mood-filter-pill{padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:12px;font-weight:500;letter-spacing:0.3px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.mood-filter-pill:hover{border-color:var(--orange);color:var(--orange)}
+.mood-filter-pill.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+@media(max-width:600px){.mood-filters{gap:6px}.mood-filter-pill{padding:7px 12px;font-size:11px}}
 
 /* Pending / Done tasks */
 .task-input-row{display:flex;gap:8px;margin-bottom:14px}
@@ -405,31 +411,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <nav class="sidebar-nav">
     <div class="nav-group">
-      <button class="nav-item active" onclick="showSection('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/></svg>Inicio</button>
+      <button class="nav-item active" onclick="showSection('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/></svg><span data-i18n="nav_home">Inicio</span></button>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label">Show</div>
-      <button class="nav-item" onclick="showSection('info',this)" data-i18n="nav_info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>Info General</button>
-      <button class="nav-item" onclick="showSection('timeline',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Timeline</button>
+      <div class="nav-group-label" data-i18n="group_show">Show</div>
+      <button class="nav-item" onclick="showSection('info',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg><span data-i18n="nav_info">Info General</span></button>
+      <button class="nav-item" onclick="showSection('timeline',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-i18n="nav_timeline">Timeline</span></button>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label">Creativo</div>
-      <button class="nav-item" onclick="showSection('moodboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Moodboard</button>
-      <button class="nav-item" onclick="showSection('collection',this)" data-i18n="nav_collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 3.13a4 4 0 0 1 0 7.75M22 21v-2a4 4 0 0 0-3-3.87M3 21v-2a4 4 0 0 1 3-3.87M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" style="display:none"/><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>Colección</button>
-      <button class="nav-item" onclick="showSection('music',this)" data-i18n="nav_music"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Música</button>
-      <button class="nav-item" onclick="showSection('creative',this)" data-i18n="nav_creative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>Proceso Creativo</button>
+      <div class="nav-group-label" data-i18n="group_creative">Creativo</div>
+      <button class="nav-item" onclick="showSection('moodboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span data-i18n="nav_references">Referencias</span></button>
+      <button class="nav-item" onclick="showSection('collection',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span data-i18n="nav_collection">Colección</span></button>
+      <button class="nav-item" onclick="showSection('music',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span data-i18n="nav_music">Música</span></button>
+      <button class="nav-item" onclick="showSection('creative',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span data-i18n="nav_creative">Proceso Creativo</span></button>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label">Producción</div>
-      <button class="nav-item" onclick="showSection('contacts',this)" data-i18n="nav_team"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Equipo</button>
-      <button class="nav-item" onclick="showSection('budget',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Budget</button>
-      <button class="nav-item" onclick="showSection('links',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</button>
+      <div class="nav-group-label" data-i18n="group_production">Producción</div>
+      <button class="nav-item" onclick="showSection('contacts',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="nav_team">Equipo</span></button>
+      <button class="nav-item" onclick="showSection('budget',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget</span></button>
+      <button class="nav-item" onclick="showSection('links',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Links</span></button>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label">Tareas</div>
-      <button class="nav-item" onclick="showSection('pending',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>Pendientes</button>
-      <button class="nav-item" onclick="showSection('done',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Terminado</button>
-      <button class="nav-item" onclick="showSection('notes',this)" data-i18n="nav_notes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>Notas</button>
+      <div class="nav-group-label" data-i18n="group_tasks">Tareas</div>
+      <button class="nav-item" onclick="showSection('pending',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n="nav_pending">Pendientes</span></button>
+      <button class="nav-item" onclick="showSection('done',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-i18n="nav_done">Terminado</span></button>
+      <button class="nav-item" onclick="showSection('notes',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg><span data-i18n="nav_notes">Notas</span></button>
     </div>
   </nav>
   <div class="sidebar-footer">
@@ -447,7 +453,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <button class="menu-toggle" onclick="toggleSidebar(true)" aria-label="Abrir menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <div class="greeting" id="greeting">Hola, <span>Mili</span></div>
+    <div class="greeting" id="greeting"></div>
     <div class="countdown" id="countdown" style="display:none">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       <span id="countdown-text"></span>
@@ -465,11 +471,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="home-card">
       <div class="home-card-header">
         <span class="home-card-dot red"></span>
-        <span class="home-card-title">Pendientes</span>
+        <span class="home-card-title" data-i18n="home_pending">Pendientes</span>
         <span class="home-card-count" id="home-pending-count">0</span>
       </div>
       <div class="task-input-row">
-        <input id="home-task-input" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTaskFromHome()">
+        <input id="home-task-input" data-i18n-placeholder="task_placeholder" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTaskFromHome()">
         <button onclick="addTaskFromHome()">+</button>
       </div>
       <div class="home-card-body" id="home-pending-list"></div>
@@ -477,7 +483,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="home-card">
       <div class="home-card-header">
         <span class="home-card-dot green"></span>
-        <span class="home-card-title">Terminado</span>
+        <span class="home-card-title" data-i18n="home_done">Terminado</span>
         <span class="home-card-count" id="home-done-count">0</span>
       </div>
       <div class="home-card-body" id="home-done-list"></div>
@@ -501,9 +507,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="section" id="sec-moodboard">
-  <div class="section-header"><div class="section-title">Moodboard</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_board">Nuevo board</span></button></div>
+  <div class="section-header"><div class="section-title" data-i18n="references_title">Referencias</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_reference">Nueva referencia</span></button></div>
+  <div class="mood-filters" id="mood-filters">
+    <button class="mood-filter-pill active" data-cat="all" onclick="setMoodFilter('all')"><span data-i18n="ref_cat_all">Todas</span></button>
+    <button class="mood-filter-pill" data-cat="bottom" onclick="setMoodFilter('bottom')">Bottom</button>
+    <button class="mood-filter-pill" data-cat="top" onclick="setMoodFilter('top')">Top</button>
+    <button class="mood-filter-pill" data-cat="detalles" onclick="setMoodFilter('detalles')"><span data-i18n="ref_cat_detalles">Detalles constructivos</span></button>
+    <button class="mood-filter-pill" data-cat="styling" onclick="setMoodFilter('styling')">Styling</button>
+  </div>
   <div class="mood-grid" id="moodboard-grid"></div>
-  <div class="empty-state" id="mood-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><div class="empty-text" data-i18n="mood_empty">Creá tableros visuales con imágenes, referencias y notas</div></div>
+  <div class="empty-state" id="mood-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><div class="empty-text" data-i18n="mood_empty">Creá tableros de referencias visuales con imágenes y notas</div></div>
 </div>
 
 <div class="mood-detail-overlay" id="mood-detail-overlay">
@@ -553,22 +566,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="section" id="sec-pending">
-  <div class="section-header"><div class="section-title">Pendientes</div></div>
+  <div class="section-header"><div class="section-title" data-i18n="home_pending">Pendientes</div></div>
   <div class="card" style="padding:18px">
     <div class="task-input-row">
-      <input id="task-input" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTask()">
-      <button onclick="addTask()">+ Agregar</button>
+      <input id="task-input" data-i18n-placeholder="task_placeholder" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTask()">
+      <button onclick="addTask()" data-i18n="task_add">+ Agregar</button>
     </div>
     <div id="pending-list"></div>
-    <div class="empty-state" id="pending-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><div class="empty-text">Sin tareas pendientes — agregá la primera arriba</div></div>
+    <div class="empty-state" id="pending-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><div class="empty-text" data-i18n="pending_empty">Sin tareas pendientes — agregá la primera arriba</div></div>
   </div>
 </div>
 
 <div class="section" id="sec-done">
-  <div class="section-header"><div class="section-title">Terminado</div></div>
+  <div class="section-header"><div class="section-title" data-i18n="home_done">Terminado</div></div>
   <div class="card" style="padding:18px">
     <div id="done-list"></div>
-    <div class="empty-state" id="done-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div class="empty-text">Las tareas que vayas marcando como hechas aparecen acá</div></div>
+    <div class="empty-state" id="done-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div class="empty-text" data-i18n="done_empty">Las tareas que vayas marcando como hechas aparecen acá</div></div>
   </div>
 </div>
 
@@ -733,12 +746,21 @@ async function uploadImage(file,folder){
   return await snap.ref.getDownloadURL();
 }
 
-// ============ MOODBOARD ============
+// ============ REFERENCES (formerly Moodboard) ============
+let moodFilter='all';
+function setMoodFilter(cat){
+  moodFilter=cat;
+  document.querySelectorAll('.mood-filter-pill').forEach(p=>p.classList.toggle('active',p.dataset.cat===cat));
+  renderMoodboard();
+}
+
 function renderMoodboard(){
   const grid=document.getElementById('moodboard-grid'),empty=document.getElementById('mood-empty');
-  if(!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
+  if(!data.moodboard||!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
+  const filtered=data.moodboard.map((m,i)=>({m,i})).filter(({m})=>moodFilter==='all'||(m.category||'')===moodFilter);
+  if(!filtered.length){grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-text">${currentLang==='en'?'No references in this category yet':'No hay referencias en esta categoría todavía'}</div></div>`;empty.style.display='none';return;}
   empty.style.display='none';
-  grid.innerHTML=data.moodboard.map((m,i)=>{
+  grid.innerHTML=filtered.map(({m,i})=>{
     const cover=m.images&&m.images.length?m.images[m.cover||0]:null;
     const cnt=m.images?m.images.length:0;
     const tagStr=m.tags&&m.tags.length?m.tags.slice(0,2).join(' · '):'';
@@ -872,18 +894,44 @@ function openModal(type,editData,editIdx){
 
   if(type==='mood'||type==='mood-edit'){
     const isEdit=type==='mood-edit',m=editData||{};
-    title.textContent=isEdit?'Editar Board':'Nuevo Board';
+    const en=currentLang==='en';
+    title.textContent=isEdit?(en?'Edit reference':'Editar referencia'):(en?'New reference':'Nueva referencia');
+    const lbl={
+      title:en?'Reference title':'Título de la referencia',
+      cat:en?'Category':'Categoría',
+      catNone:en?'No category':'Sin categoría',
+      catDetalles:en?'Construction details':'Detalles constructivos',
+      source:en?'Source / Where you got it':'Fuente / De dónde sacaste las refs',
+      sourceUrl:en?'Source link (optional)':'Link de la fuente (opcional)',
+      tags:en?'Tags (comma separated)':'Tags (separados por coma)',
+      notes:en?'Notes / What inspires you':'Notas / Qué te inspira',
+      highlights:en?'Highlighted visual parts':'Partes visuales destacadas',
+      images:en?'Images (you can add more later)':'Imágenes (podés agregar más después)',
+      ph_title:en?'E.g. Lighting inspo, Color palette...':'Ej: Inspo Iluminación, Paleta Color...',
+      ph_source:en?'Pinterest, @xxx IG, Vogue...':'Pinterest, IG de @xxx, Vogue...',
+      ph_tags:en?'lighting, color, styling, textures':'iluminación, color, styling, texturas',
+      ph_notes:en?'What you like, what it reminds you of...':'Qué es lo que te gusta, a qué te remonta...',
+      ph_highlights:en?'Textures, color combos, silhouettes...':'Texturas, combinaciones de color, siluetas...'
+    };
+    const cat=m.category||'';
     html=`
-      <div class="field"><label>Título del board</label><input id="m-title" value="${esc(m.title||'')}" placeholder="Ej: Inspo Iluminación, Paleta Color..."></div>
-      <div class="field"><label>Fuente / De dónde sacaste las refs</label><input id="m-source" value="${esc(m.source||'')}" placeholder="Pinterest, IG de @xxx, Vogue..."></div>
-      <div class="field"><label>Link de la fuente (opcional)</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
-      <div class="field"><label>Tags (separados por coma)</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="iluminación, color, styling, texturas"></div>
-      <div class="field"><label>Notas / Qué te inspira</label><textarea id="m-notes" rows="3" placeholder="Qué es lo que te gusta, a qué te remonta...">${esc(m.notes||'')}</textarea></div>
-      <div class="field"><label>Partes visuales destacadas</label><textarea id="m-highlights" rows="2" placeholder="Texturas, combinaciones de color, siluetas...">${esc(m.highlights||'')}</textarea></div>
-      ${!isEdit?'<div class="field"><label>Imágenes (podés agregar más después)</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>':''}`;
+      <div class="field"><label>${lbl.title}</label><input id="m-title" value="${esc(m.title||'')}" placeholder="${lbl.ph_title}"></div>
+      <div class="field"><label>${lbl.cat}</label><select id="m-category">
+        <option value=""${cat===''?' selected':''}>${lbl.catNone}</option>
+        <option value="bottom"${cat==='bottom'?' selected':''}>Bottom</option>
+        <option value="top"${cat==='top'?' selected':''}>Top</option>
+        <option value="detalles"${cat==='detalles'?' selected':''}>${lbl.catDetalles}</option>
+        <option value="styling"${cat==='styling'?' selected':''}>Styling</option>
+      </select></div>
+      <div class="field"><label>${lbl.source}</label><input id="m-source" value="${esc(m.source||'')}" placeholder="${lbl.ph_source}"></div>
+      <div class="field"><label>${lbl.sourceUrl}</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
+      <div class="field"><label>${lbl.tags}</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="${lbl.ph_tags}"></div>
+      <div class="field"><label>${lbl.notes}</label><textarea id="m-notes" rows="3" placeholder="${lbl.ph_notes}">${esc(m.notes||'')}</textarea></div>
+      <div class="field"><label>${lbl.highlights}</label><textarea id="m-highlights" rows="2" placeholder="${lbl.ph_highlights}">${esc(m.highlights||'')}</textarea></div>
+      ${!isEdit?`<div class="field"><label>${lbl.images}</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>`:''}`;
     onSave=async()=>{
       const tags=document.getElementById('m-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-      const item={title:v('m-title'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
+      const item={title:v('m-title'),category:v('m-category'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
       if(!item.title)return;
       if(!isEdit){const fi=document.getElementById('m-images');if(fi&&fi.files.length){try{for(const f of Array.from(fi.files))item.images.push(await uploadImage(f,'moodboard'));}catch(err){console.error('Image upload failed:',err);alert('No se pudieron subir algunas imágenes. Probá de nuevo.');return;}}data.moodboard.push(item);}
       else{data.moodboard[editIdx]=item;}
@@ -976,8 +1024,10 @@ function renderHome(){
   const dc=document.getElementById('home-done-count');
   if(pc)pc.textContent=pending.length;
   if(dc)dc.textContent=done.length;
-  if(pl)pl.innerHTML=pending.length?pending.map(t=>taskRowHTML(t)).join(''):`<div class="home-empty">Sin tareas pendientes</div>`;
-  if(dl)dl.innerHTML=done.length?done.map(t=>taskRowHTML(t,true)).join(''):`<div class="home-empty">Aún no terminaste nada</div>`;
+  const t1=i18n[currentLang]&&i18n[currentLang].home_pending_empty||'Sin tareas pendientes';
+  const t2=i18n[currentLang]&&i18n[currentLang].home_done_empty||'Aún no terminaste nada';
+  if(pl)pl.innerHTML=pending.length?pending.map(t=>taskRowHTML(t)).join(''):`<div class="home-empty">${esc(t1)}</div>`;
+  if(dl)dl.innerHTML=done.length?done.map(t=>taskRowHTML(t,true)).join(''):`<div class="home-empty">${esc(t2)}</div>`;
 }
 
 function renderPending(){
@@ -1011,7 +1061,7 @@ function updateGreeting(){
   if(h<12)g=currentLang==='en'?'Good morning':'Buenos días';
   else if(h<19)g=currentLang==='en'?'Good afternoon':'Buenas tardes';
   else g=currentLang==='en'?'Good evening':'Buenas noches';
-  el.innerHTML=`${g}, <span>Mili</span>`;
+  el.textContent=`${g}, Mila`;
 }
 
 function updateCountdown(){
@@ -1037,14 +1087,23 @@ let currentLang = 'es';
 const i18n = {
   es: {
     // Nav
-    nav_info:'Info General', nav_collection:'Colección', nav_team:'Equipo', nav_music:'Música',
-    nav_creative:'Proceso Creativo', nav_notes:'Notas',
+    nav_home:'Inicio', nav_info:'Info General', nav_timeline:'Timeline',
+    nav_references:'Referencias', nav_collection:'Colección', nav_team:'Equipo', nav_music:'Música',
+    nav_creative:'Proceso Creativo', nav_pending:'Pendientes', nav_done:'Terminado', nav_notes:'Notas',
+    group_show:'Show', group_creative:'Creativo', group_production:'Producción', group_tasks:'Tareas',
+    home_pending:'Pendientes', home_done:'Terminado',
+    home_pending_empty:'Sin tareas pendientes', home_done_empty:'Aún no terminaste nada',
+    task_placeholder:'Agregar tarea...', task_add:'+ Agregar',
+    pending_empty:'Sin tareas pendientes — agregá la primera arriba',
+    done_empty:'Las tareas que vayas marcando como hechas aparecen acá',
     // Info
     info_title:'Info General', info_name:'Nombre del desfile', info_date:'Fecha',
     info_venue:'Venue / Locación', info_time:'Horario', info_looks:'Cantidad de looks',
     info_duration:'Duración estimada', info_notes:'Notas generales',
-    // Moodboard
-    add_board:'Nuevo board', mood_empty:'Creá tableros visuales con imágenes, referencias y notas',
+    // References (formerly Moodboard)
+    references_title:'Referencias', add_reference:'Nueva referencia',
+    add_board:'Nueva referencia', mood_empty:'Creá tableros de referencias visuales con imágenes y notas',
+    ref_cat_all:'Todas', ref_cat_detalles:'Detalles constructivos',
     // Collection
     collection:'Colección', add_garment:'Agregar prenda',
     collection_empty:'Listá las prendas y looks del desfile',
@@ -1069,12 +1128,21 @@ const i18n = {
     add_note:'Nueva nota', notes_empty:'Anotaciones rápidas, ideas, pendientes...'
   },
   en: {
-    nav_info:'General Info', nav_collection:'Collection', nav_team:'Team', nav_music:'Music',
-    nav_creative:'Creative Process', nav_notes:'Notes',
+    nav_home:'Home', nav_info:'General Info', nav_timeline:'Timeline',
+    nav_references:'References', nav_collection:'Collection', nav_team:'Team', nav_music:'Music',
+    nav_creative:'Creative Process', nav_pending:'To do', nav_done:'Done', nav_notes:'Notes',
+    group_show:'Show', group_creative:'Creative', group_production:'Production', group_tasks:'Tasks',
+    home_pending:'To do', home_done:'Done',
+    home_pending_empty:'No pending tasks', home_done_empty:'Nothing done yet',
+    task_placeholder:'Add task...', task_add:'+ Add',
+    pending_empty:'No pending tasks — add the first one above',
+    done_empty:'Tasks you mark as done show up here',
     info_title:'General Info', info_name:'Show name', info_date:'Date',
     info_venue:'Venue / Location', info_time:'Schedule', info_looks:'Number of looks',
     info_duration:'Estimated duration', info_notes:'General notes',
-    add_board:'New board', mood_empty:'Create visual boards with images, references and notes',
+    references_title:'References', add_reference:'New reference',
+    add_board:'New reference', mood_empty:'Create reference boards with images and notes',
+    ref_cat_all:'All', ref_cat_detalles:'Construction details',
     collection:'Collection', add_garment:'Add garment',
     collection_empty:'List the garments and looks for the show',
     timeline:'Timeline', add_event:'Add event',
@@ -1099,12 +1167,18 @@ function toggleLang(){
     const key = el.getAttribute('data-i18n');
     if(i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(i18n[currentLang][key]) el.placeholder = i18n[currentLang][key];
+  });
   // Update placeholders on creative textarea
   const ct = document.getElementById('creative-text');
   if(ct) ct.placeholder = ct.getAttribute('data-placeholder-'+currentLang) || ct.placeholder;
-  // Update greeting + countdown to refresh language
+  // Update greeting + countdown + dynamic content
   updateGreeting();
   updateCountdown();
+  renderMoodboard();
+  renderHome();
 }
 
 // ============ DOWNLOAD SECTION AS HTML/PDF ============
