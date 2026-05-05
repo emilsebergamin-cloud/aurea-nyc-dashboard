@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ÁUREA — NYC Show Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F5F0E8;--bg-warm:#EDE7DA;--card:#FFFFFF;--card-hover:#FAFAF5;
   --border:#DDD5C8;--border-light:#E8E0D3;
   --orange:#E85D26;--orange-soft:rgba(232,93,38,0.08);--orange-glow:rgba(232,93,38,0.15);
+  --yellow:#D9A800;--yellow-soft:rgba(217,168,0,0.12);
   --green:#7BA355;--green-soft:rgba(123,163,85,0.1);--green-dark:#4B6B30;
   --cream:#F0EAD8;--cream-dark:#D4CCBA;
   --olive:#6B6B50;
@@ -20,27 +21,27 @@
   --shadow-hover:0 6px 20px rgba(42,37,32,0.1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
 .header{position:sticky;top:0;z-index:100;background:rgba(245,240,232,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
 .header-left{display:flex;align-items:center;gap:16px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--text)}.logo span{color:var(--orange)}
+.logo{font-family:'Playfair Display',sans-serif;font-size:28px;letter-spacing:3px;color:var(--text)}.logo span{color:var(--orange)}
 .header-subtitle{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);border-left:1px solid var(--border);padding-left:16px}
 .header-right{display:flex;gap:8px}
-.btn-sm{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-sm{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
 .btn-sm:hover{border-color:var(--orange);color:var(--orange)}
 
 .nav{display:flex;padding:0 24px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--card);scrollbar-width:none;-ms-overflow-style:none}
 .nav::-webkit-scrollbar{display:none}
-.nav-tab{padding:14px 20px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;position:relative;transition:color .2s}
+.nav-tab{padding:14px 20px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;font-weight:500;white-space:nowrap;position:relative;transition:color .2s}
 .nav-tab:hover{color:var(--text-dim)}.nav-tab.active{color:var(--orange)}.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--orange)}
 
 .main{padding:24px;max-width:1200px;margin:0 auto}
 .section{display:none}.section.active{display:block}
 .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.section-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--text)}
+.section-title{font-family:'Playfair Display',serif;font-size:34px;letter-spacing:0;font-weight:500;color:var(--text);font-style:italic}
 
-.btn{padding:10px 20px;border-radius:var(--radius);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn{padding:10px 20px;border-radius:var(--radius);border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
 .btn-primary{background:var(--orange);color:#fff}.btn-primary:hover{background:#d04f1e}
 .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
 .btn-danger{background:transparent;border:1px solid var(--danger);color:var(--danger)}.btn-danger:hover{background:var(--danger);color:#fff}
@@ -49,10 +50,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:6px}
-.field input,.field textarea,.field select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color .2s}
+.field input,.field textarea,.field select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;transition:border-color .2s}
 .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--orange);background:#fff}
 .field textarea{resize:vertical;min-height:80px}
-.editable{padding:6px 10px;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;width:100%;transition:all .2s}
+.editable{padding:6px 10px;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;width:100%;transition:all .2s}
 .editable:hover{border-color:var(--border)}.editable:focus{outline:none;border-color:var(--orange);background:#fff}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 
@@ -73,7 +74,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mood-detail{max-width:800px;margin:0 auto;padding:24px;padding-top:80px}
 .mood-detail-close{position:fixed;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;z-index:301;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .mood-detail-close:hover{background:rgba(255,255,255,.25)}
-.mood-detail-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--cream);margin-bottom:8px}
+.mood-detail-title{font-family:'Playfair Display',serif;font-size:38px;letter-spacing:0;font-weight:500;color:var(--cream);margin-bottom:8px;font-style:italic}
 .mood-detail-source{font-size:13px;color:var(--orange);margin-bottom:24px}
 .mood-detail-source a{color:var(--orange);text-decoration:none}.mood-detail-source a:hover{text-decoration:underline}
 .mood-detail-images{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
@@ -116,7 +117,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .contact-role{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green-dark);margin-bottom:8px;font-weight:600}.contact-name{font-size:16px;font-weight:500;margin-bottom:4px}
 .contact-detail{font-size:13px;color:var(--text-dim);margin-bottom:2px}
 .contact-delete{float:right;color:var(--text-muted);cursor:pointer;font-size:16px;transition:color .2s}.contact-delete:hover{color:var(--danger)}
-.budget-total{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--orange);margin-bottom:4px}
+.budget-total{font-family:'Playfair Display',serif;font-size:52px;font-weight:600;color:var(--orange);margin-bottom:4px;letter-spacing:-1px}
 .budget-label{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted)}
 .budget-cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:all .2s;box-shadow:var(--shadow)}
 .budget-cat-card:hover{box-shadow:var(--shadow-hover)}
@@ -133,9 +134,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .budget-delete{color:var(--text-muted);cursor:pointer;font-size:16px;opacity:0;transition:all .2s}
 .budget-row:hover .budget-delete{opacity:1}.budget-delete:hover{color:var(--danger)}
 .budget-add-item{padding:8px 0;display:flex;gap:8px;margin-top:8px}
-.budget-add-item input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px}
+.budget-add-item input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px}
 .budget-add-item input:focus{outline:none;border-color:var(--orange)}
-.budget-add-item button{padding:8px 14px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.budget-add-item button{padding:8px 14px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
 .budget-cat-delete{color:var(--text-muted);cursor:pointer;font-size:14px;transition:color .2s;padding:2px 6px}
 .budget-cat-delete:hover{color:var(--danger)}
 .note-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:all .2s;box-shadow:var(--shadow)}.note-card:hover{box-shadow:var(--shadow-hover)}
@@ -144,7 +145,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(42,37,32,.6);z-index:200;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
 .modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(42,37,32,.2)}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:20px;color:var(--text)}
+.modal-title{font-family:'Playfair Display',serif;font-size:26px;letter-spacing:0;font-weight:500;margin-bottom:20px;color:var(--text);font-style:italic}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
 .empty-state{text-align:center;padding:60px 20px;color:var(--text-muted)}.empty-icon{font-size:40px;margin-bottom:12px}.empty-text{font-size:14px}
 
@@ -279,36 +280,377 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .main{padding:8px}
   .card{padding:12px}
 }
+
+/* ============ NEW SHELL: SIDEBAR + TOPBAR ============ */
+.app-shell{display:flex;min-height:100vh}
+.sidebar{width:240px;flex-shrink:0;background:#1A1714;color:#E8E0D3;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:90}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.08);color:#fff}
+.sidebar-logo svg{height:24px;width:auto;display:block}
+.sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.nav-group{margin-bottom:14px}
+.nav-group-label{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:rgba(232,224,211,0.4);padding:8px 12px 6px;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;border:none;background:transparent;color:rgba(232,224,211,0.7);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;width:100%;text-align:left;transition:all .15s}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:#fff}
+.nav-item.active{background:var(--orange);color:#fff}
+.nav-item.active svg{color:#fff}
+.nav-item svg{width:18px;height:18px;flex-shrink:0;stroke-width:1.8;color:rgba(232,224,211,0.6)}
+.nav-item:hover svg{color:#fff}
+.sidebar-footer{padding:14px 12px 18px;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:6px}
+.sidebar-footer .btn-sm{padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(232,224,211,0.7);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all .15s;width:100%}
+.sidebar-footer .btn-sm:hover{border-color:var(--orange);color:var(--orange)}
+
+.main-area{flex:1;min-width:0;display:flex;flex-direction:column}
+
+.topbar{position:sticky;top:0;z-index:80;background:rgba(245,240,232,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.topbar-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0}
+.greeting{font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:0;font-weight:400;color:var(--orange);font-style:italic;line-height:1}
+.countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1.5px solid var(--orange);border-radius:20px;font-size:12px;font-weight:600;color:var(--orange);letter-spacing:0.3px;white-space:nowrap;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.countdown:hover{background:var(--orange-soft)}
+.countdown svg{width:13px;height:13px;stroke-width:2.2}
+.countdown.past{border-color:var(--text-muted);color:var(--text-muted)}
+.countdown.today{background:var(--orange);color:#fff;border-color:var(--orange)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.sync-pill{font-size:11px;color:var(--text-muted);padding:4px 10px;border-radius:12px;background:rgba(255,255,255,0.6);border:1px solid var(--border);white-space:nowrap}
+
+.menu-toggle{display:none;width:40px;height:40px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text);cursor:pointer;align-items:center;justify-content:center;flex-shrink:0}
+.menu-toggle svg{width:20px;height:20px;stroke-width:2}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:85;backdrop-filter:blur(2px)}
+.sidebar-overlay.open{display:block}
+
+/* Empty state SVG sizing */
+.empty-state svg{width:42px;height:42px;color:var(--text-muted);stroke-width:1.4;margin-bottom:10px}
+
+/* Sidebar responsive: iPad slightly narrower */
+@media(min-width:601px) and (max-width:1024px){
+  .sidebar{width:200px}
+  .sidebar-logo{padding:20px 16px 18px}
+  .sidebar-nav{padding:14px 10px}
+  .nav-item{font-size:12px;padding:9px 10px;gap:10px}
+  .nav-group-label{padding:6px 10px 4px;font-size:9px}
+  .topbar{padding:16px 22px}
+  .greeting{font-size:22px}
+}
+
+/* Sidebar responsive: mobile drawer */
+@media(max-width:600px){
+  .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,0.3)}
+  .sidebar.open{transform:translateX(0)}
+  .main-area{width:100%}
+  .menu-toggle{display:inline-flex}
+  .topbar{padding:12px 14px;gap:10px}
+  .greeting{font-size:20px;letter-spacing:0}
+  .countdown{font-size:11px;padding:5px 10px}
+  .sync-pill{display:none}
+  .topbar-right{gap:6px}
+}
+
+/* Section padding adjustment in shell layout */
+.main-area .main{max-width:none;margin:0;padding:28px}
+@media(min-width:601px) and (max-width:1024px){.main-area .main{padding:22px}}
+@media(max-width:600px){.main-area .main{padding:14px}}
+
+/* References / Collection filter pills */
+.mood-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.mood-filter-pill{padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:12px;font-weight:500;letter-spacing:0.3px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap}
+.mood-filter-pill:hover{border-color:var(--orange);color:var(--orange)}
+.mood-filter-pill.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.mood-filter-pill.drop-target{background:var(--orange);color:#fff;border-color:var(--orange);transform:scale(1.08);box-shadow:0 4px 14px rgba(232,93,38,0.35)}
+@media(max-width:600px){.mood-filters{gap:6px}.mood-filter-pill{padding:7px 12px;font-size:11px}}
+
+/* Drag & drop for collection */
+.garment-card[draggable="true"]{cursor:grab}
+.garment-card[draggable="true"]:active{cursor:grabbing}
+.garment-card.dragging{opacity:0.4;transform:scale(0.95)}
+.garment-cat-quick{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--orange-soft);color:var(--orange);border-radius:10px;font-size:10px;text-transform:uppercase;letter-spacing:0.8px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;margin-bottom:4px}
+.garment-cat-quick:hover{background:var(--orange);color:#fff}
+
+/* Pending / Done tasks */
+.task-input-row{display:flex;gap:8px;margin-bottom:14px}
+.task-input-row input{flex:1;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px}
+.task-input-row input:focus{outline:none;border-color:var(--orange)}
+.task-input-row button{padding:11px 18px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+.task-input-row button:hover{background:#d04f1e}
+.task-row{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:all .15s;box-shadow:var(--shadow)}
+.task-row:hover{box-shadow:var(--shadow-hover)}
+.task-row.done{opacity:.7}
+.task-row.done .task-text{text-decoration:line-through;color:var(--text-dim)}
+.task-circle{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:inline-block;border:2px solid transparent}
+.task-circle.status-pending{border-color:var(--danger);background:#fff}
+.task-circle.status-progress{border-color:var(--yellow);background:var(--yellow)}
+.task-circle.status-done{border-color:var(--success);background:var(--success);position:relative}
+.task-circle.status-done::after{content:'';width:5px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);position:absolute;left:50%;top:46%;margin-left:-3px;margin-top:-5px}
+.task-text{flex:1;font-size:14px;color:var(--text);word-break:break-word;min-width:0}
+.task-urgency{display:inline-flex;align-items:center;padding:3px 9px;border-radius:10px;font-size:9px;text-transform:uppercase;letter-spacing:0.8px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;white-space:nowrap;flex-shrink:0;transition:filter .15s}
+.task-urgency:hover{filter:brightness(0.95)}
+.task-urgency.low{background:rgba(123,163,85,0.18);color:var(--green-dark)}
+.task-urgency.medium{background:rgba(232,93,38,0.13);color:var(--orange)}
+.task-urgency.high{background:rgba(192,57,43,0.14);color:var(--danger)}
+.task-action{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-dim);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:all .15s}
+.task-action:hover{border-color:var(--orange);color:var(--orange)}
+.task-action.danger:hover{border-color:var(--danger);color:var(--danger)}
+@media(max-width:600px){.task-row{gap:8px;padding:10px 12px}.task-urgency{font-size:8px;padding:3px 7px}.task-action{width:28px;height:28px}}
+
+/* Home page layout */
+.home-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:8px}
+.home-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.home-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-light)}
+.home-card-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.home-card-dot.red{background:var(--danger)}
+.home-card-dot.yellow{background:var(--yellow)}
+.home-card-dot.green{background:var(--success)}
+.home-card-title{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:1.6px;font-weight:600;color:var(--text);flex:1;text-transform:uppercase}
+.home-card-count{font-size:12px;color:var(--text-muted);font-weight:500}
+.home-card-body{min-height:120px}
+.home-empty{text-align:center;padding:24px 16px;color:var(--text-muted);font-size:13px}
+.home-show-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--orange-soft);color:var(--orange);border-radius:14px;font-size:11px;font-weight:600;letter-spacing:0.3px;margin-left:10px}
+@media(max-width:600px){
+  .task-input-row input{font-size:16px}
+  .task-meta{display:none}
+  .task-delete{opacity:1}
+  .home-grid{grid-template-columns:1fr;gap:14px}
+  .home-card{padding:16px;border-radius:12px}
+}
+@media(min-width:601px) and (max-width:1024px){
+  .home-grid{gap:12px}
+  .home-card{padding:14px}
+}
+
+/* Looks (horizontal cards on home) */
+.looks-strip{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+.looks-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.looks-add-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--text-dim);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:all .15s;margin-left:auto}
+.looks-add-btn:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft)}
+.looks-add-btn svg{width:14px;height:14px}
+.looks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;min-height:30px}
+.looks-grid.section-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.look-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:grab;transition:all .15s;box-shadow:var(--shadow);position:relative}
+.look-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);border-color:var(--orange)}
+.look-card:active{cursor:grabbing}
+.look-card.sortable-ghost{opacity:0.35;transform:none}
+.look-card.sortable-chosen{cursor:grabbing;box-shadow:0 8px 28px rgba(232,93,38,0.25);border-color:var(--orange)}
+.look-card-cover{width:100%;aspect-ratio:3/4;background:var(--bg-warm);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:22px;position:relative}
+.look-card-cover img{width:100%;height:100%;object-fit:cover}
+.look-card-img-count{position:absolute;top:6px;right:6px;background:rgba(42,37,32,0.7);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px;backdrop-filter:blur(4px);font-weight:500}
+.look-card-name{padding:8px 10px;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.looks-grid.section-grid .look-card-name{padding:12px 14px;font-size:14px}
+.looks-empty{color:var(--text-muted);font-size:13px;padding:8px 0;text-align:center;grid-column:1/-1}
+.looks-section-block{margin-bottom:28px}
+.looks-section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-light)}
+.looks-hint{margin-left:auto;font-size:11px;color:var(--text-muted);font-style:italic}
+@media(max-width:600px){.looks-hint{display:none}.looks-grid{grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:8px}.looks-grid.section-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}}
+
+/* Look detail overlay */
+.look-detail-overlay{display:none;position:fixed;inset:0;background:rgba(42,37,32,.55);z-index:300;padding:24px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.look-detail-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.look-detail-card{background:var(--card);border-radius:16px;width:100%;max-width:760px;padding:28px;margin:40px 0 60px;box-shadow:0 30px 80px rgba(42,37,32,0.4)}
+@media(max-width:600px){.look-detail-card{padding:18px;margin:24px 0 60px;border-radius:12px}}
+.look-detail-title-input{width:100%;background:transparent;border:none;font-family:'Playfair Display',serif;font-size:34px;font-weight:500;font-style:italic;color:var(--text);padding:0;margin-bottom:8px}
+.look-detail-title-input:focus{outline:none;border-bottom:1px dashed var(--border)}
+.look-detail-status-row{display:flex;gap:8px;margin-bottom:22px}
+.look-status-btn{padding:7px 16px;border-radius:14px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:11px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.look-status-btn:hover{border-color:var(--text-dim)}
+.look-status-btn.active.progress{background:var(--yellow);color:#fff;border-color:var(--yellow)}
+.look-status-btn.active.done{background:var(--success);color:#fff;border-color:var(--success)}
+.look-images-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.look-image-item{position:relative}
+.look-image-item img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;background:var(--bg-warm);display:block;cursor:zoom-in}
+.look-image-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.look-tag-pill{padding:3px 9px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text-dim);font-size:9px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.look-tag-pill:hover{border-color:var(--orange);color:var(--orange)}
+.look-tag-pill.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.look-image-desc{width:100%;margin-top:6px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:12px;color:var(--text);resize:vertical;min-height:48px}
+.look-image-desc:focus{outline:none;border-color:var(--orange);background:#fff}
+.look-image-remove{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;background:rgba(42,37,32,0.7);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(2px);opacity:0;transition:opacity .15s}
+.look-image-item:hover .look-image-remove{opacity:1}
+@media(hover:none){.look-image-remove{opacity:1}}
+.look-add-image-btn{aspect-ratio:3/4;border:2px dashed var(--border);border-radius:8px;background:transparent;color:var(--text-muted);font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.look-add-image-btn:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft)}
+.look-detail-actions{display:flex;justify-content:space-between;gap:8px;padding-top:16px;border-top:1px solid var(--border-light)}
+
+/* Role-based visibility: when body has .role-collaborator, hide all owner-only items */
+body.role-collaborator [data-owner-only]{display:none !important}
+
+/* Login overlay */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.login-overlay[style*="display:flex"],.login-overlay.open{display:flex !important}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:42px 36px;max-width:400px;width:100%;box-shadow:0 30px 80px rgba(42,37,32,0.15);text-align:center}
+.login-logo{color:var(--text);margin-bottom:24px;display:flex;justify-content:center}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;font-style:italic;color:var(--orange);margin-bottom:6px;line-height:1}
+.login-subtitle{font-size:13px;color:var(--text-dim);margin-bottom:26px}
+.login-tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--bg);border-radius:10px;padding:4px}
+.login-tab{flex:1;padding:8px 12px;border:none;background:transparent;color:var(--text-dim);font-size:11px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;border-radius:6px;transition:all .15s}
+.login-tab.active{background:var(--card);color:var(--orange);box-shadow:var(--shadow)}
+.login-google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 14px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;margin-bottom:14px;transition:all .15s}
+.login-google-btn:hover{border-color:var(--text-dim);box-shadow:var(--shadow)}
+.login-google-btn svg{width:18px;height:18px;flex-shrink:0}
+.login-separator{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.login-separator::before,.login-separator::after{content:'';flex:1;height:1px;background:var(--border)}
+.login-card form{display:flex;flex-direction:column;gap:10px}
+.login-card input{padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .15s}
+.login-card input:focus{outline:none;border-color:var(--orange);background:#fff}
+.login-card button[type="submit"]{margin-top:6px;padding:12px}
+.login-error{font-size:12px;color:var(--danger);margin-top:14px;min-height:18px;text-align:center}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left"><div class="logo"><svg viewBox="200 210 1100 300" style="height:28px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg"><path d="M790.67,424.58c5.97,6.81,13.74,9.05,21.81,10.41c7.83,1.32,15.56,1.38,22.66-3.24c0.87-0.57,2.85-0.01,4.03,0.59 c10.12,5.13,14.21,16.44,10.15,27.71c-4.9,13.59-19.33,22-36.14,21.29c-10.9-0.46-21.03-3.73-30.3-9.08 c-12.96-7.47-25.49-15.69-38.22-23.56c-3.96-2.45-7.94-4.87-11.99-7.18c-6.64-3.8-13.73-5.66-21.47-5.38 c-7.8,0.28-15.63,0.06-24.09,0.06c0,15,0,29.71,0,44.82c-15.87,0-31.09,0-46.67,0c0-66.11,0-132.16,0-198.57 c1.8-0.09,3.42-0.25,5.04-0.25c26.66-0.01,53.33-0.12,79.99,0.03c21.82,0.12,43.17,3.05,62.97,12.92 c21.4,10.67,37.24,26.36,42.47,50.5c6.55,30.29-8.35,61.73-35.65,76.41C793.84,422.83,792.43,423.62,790.67,424.58z M687.08,390.27c20.02-0.53,39.48-0.6,58.87-1.72c10.6-0.61,21.05-3.18,30-9.63c8.92-6.42,12.51-16.97,9.03-27.38 c-3.69-11.04-12.88-15.71-23.1-18.49c-24.35-6.61-49.28-3.51-74-3.93c-0.25,0-0.5,0.39-0.8,0.64 C687.08,349.51,687.08,369.3,687.08,390.27z" fill="currentColor"/><path d="M995.09,358.21c0,15.94,0,31.02,0,46.59c-27.41,0-54.5,0-81.88,0c0,10.06,0,19.62,0,29.74c40.25,0,80.33,0,120.75,0 c0,15.62,0,30.68,0,46.07c-55.85,0-111.57,0-167.57,0c0-66.13,0-132.03,0-198.24c56.08,0,111.98,0,168.22,0 c0,15.29,0,30.51,0,46.19c-40.39,0-80.66,0-121.32,0c0,9.99,0,19.54,0,29.65C940.4,358.21,967.47,358.21,995.09,358.21z" fill="currentColor"/><path d="M1286.44,480.99c-10.9,0-21.33,0.05-31.75-0.02c-6.46-0.04-14.25,1.89-19.01-1.03c-4.54-2.79-5.95-10.71-8.69-16.4 c-2.75-5.69-5.58-11.34-8.09-17.13c-1.19-2.74-2.86-3.48-5.73-3.48c-32.99,0.1-65.99,0.11-98.98-0.02 c-3.17-0.01-4.71,1.06-5.98,3.83c-4.71,10.28-9.54,20.5-14.59,30.61c-0.78,1.56-2.92,3.46-4.45,3.48 c-15.98,0.25-31.97,0.16-48.76,0.16c0.85-1.91,1.43-3.36,2.11-4.75c30.63-63.1,61.3-126.19,91.84-189.33 c1.65-3.41,3.41-4.91,7.45-4.84c15.33,0.29,30.66,0.17,45.99,0.07c2.76-0.02,4.47,0.56,5.8,3.33 c30.54,64.25,61.18,128.45,91.8,192.67C1285.72,478.86,1285.94,479.63,1286.44,480.99z M1195.14,396.71 c-10.4-21.83-20.46-42.94-30.97-64.98c-10.77,22.24-21.01,43.38-31.48,64.98C1153.79,396.71,1174.06,396.71,1195.14,396.71z" fill="currentColor"/><path d="M442.32,479.99c-16.5,0-32.63,0.07-48.75-0.14c-1.27-0.02-3.01-1.71-3.68-3.05c-4.96-9.97-9.88-19.96-14.42-30.13 c-1.59-3.57-3.45-4.79-7.42-4.78c-48.81,0.16-97.62,0.1-146.44,0.1c-1.99,0-3.99,0-6.53,0c0.54-1.47,0.86-2.66,1.39-3.75 c24.81-51.13,49.67-102.24,74.41-153.4c1.38-2.85,3.03-3.75,6.1-3.72c15.66,0.14,31.32,0.11,46.98,0.03 c2.54-0.01,4.19,0.4,5.45,3.05c30.61,64.38,61.33,128.71,92.02,193.05C441.78,477.96,441.93,478.77,442.32,479.99z M351.1,395.68 c-10.29-21.63-20.37-42.81-30.92-64.96c-10.73,22.15-21.02,43.38-31.47,64.96C309.86,395.68,330.12,395.68,351.1,395.68z" fill="currentColor"/><path d="M425.34,282.29c15.73,0,30.84,0,46.56,0c0,2.18,0,4.12,0,6.06c0.02,34.49-0.11,68.97,0.2,103.46 c0.06,6.9,1.45,13.86,2.88,20.66c1.73,8.27,7.2,13.58,14.95,16.78c11.35,4.68,23.32,5.21,35.3,5.21c6.8,0,13.64-0.59,20.4-1.41 c21.12-2.57,31.11-13.35,31.33-34.76c0.38-36.65,0.27-73.3,0.36-109.95c0-1.95,0-3.9,0-6.06c15.77,0,30.87,0,46.36,0 c0.11,1.5,0.3,2.94,0.3,4.37c0,35.15,0.32,70.31-0.22,105.45c-0.17,10.7-1.65,21.64-4.36,32c-6.51,24.86-22.73,41.63-47.03,49.53 c-31.39,10.21-63.26,10.36-94.71,0.27c-29.56-9.49-45.63-30.96-50.44-61.08c-1.44-9-1.95-18.22-2.01-27.35 c-0.23-32.82-0.1-65.64-0.09-98.46C425.11,285.55,425.25,284.09,425.34,282.29z" fill="currentColor"/><path d="M372.93,218.15c-3.7,7.9-7.33,15.69-10.97,23.47c-3.02,6.47-5.94,12.99-9.16,19.36c-0.66,1.31-2.48,2.86-3.78,2.88 c-15.98,0.17-31.97,0.08-47.95,0.04c-0.27,0-0.53-0.27-1.24-0.65c3.12-6.53,6.22-13.08,9.36-19.61 c3.67-7.64,7.25-15.32,11.15-22.84c0.75-1.44,2.79-3.1,4.26-3.12c15.48-0.21,30.97-0.11,46.45-0.07 C371.51,217.61,371.97,217.87,372.93,218.15z" fill="currentColor"/></svg></div><div class="header-subtitle">NYC Show Dashboard <span id="sync-status" style="color:var(--green);font-size:9px;margin-left:6px"></span></div></div>
-  <div class="header-right">
-    <button class="btn-sm" id="lang-toggle" onclick="toggleLang()" style="font-weight:600">EN</button>
-    <button class="btn-sm" onclick="exportData()">Exportar</button>
-    <button class="btn-sm" onclick="document.getElementById('importFile').click()">Importar</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-  </div>
-</div>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+<div class="app-shell">
 
-<div class="nav">
-  <button class="nav-tab active" onclick="showSection('info',this)" data-i18n="nav_info">Info General</button>
-  <button class="nav-tab" onclick="showSection('moodboard',this)">Moodboard</button>
-  <button class="nav-tab" onclick="showSection('collection',this)" data-i18n="nav_collection">Colección</button>
-  <button class="nav-tab" onclick="showSection('timeline',this)">Timeline</button>
-  <button class="nav-tab" onclick="showSection('contacts',this)" data-i18n="nav_team">Equipo</button>
-  <button class="nav-tab" onclick="showSection('links',this)">Links</button>
-  <button class="nav-tab" onclick="showSection('music',this)" data-i18n="nav_music">Música</button>
-  <button class="nav-tab" onclick="showSection('budget',this)">Budget</button>
-  <button class="nav-tab" onclick="showSection('creative',this)" data-i18n="nav_creative">Proceso Creativo</button>
-  <button class="nav-tab" onclick="showSection('notes',this)" data-i18n="nav_notes">Notas</button>
-</div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <svg viewBox="200 210 1100 300" xmlns="http://www.w3.org/2000/svg"><path d="M790.67,424.58c5.97,6.81,13.74,9.05,21.81,10.41c7.83,1.32,15.56,1.38,22.66-3.24c0.87-0.57,2.85-0.01,4.03,0.59 c10.12,5.13,14.21,16.44,10.15,27.71c-4.9,13.59-19.33,22-36.14,21.29c-10.9-0.46-21.03-3.73-30.3-9.08 c-12.96-7.47-25.49-15.69-38.22-23.56c-3.96-2.45-7.94-4.87-11.99-7.18c-6.64-3.8-13.73-5.66-21.47-5.38 c-7.8,0.28-15.63,0.06-24.09,0.06c0,15,0,29.71,0,44.82c-15.87,0-31.09,0-46.67,0c0-66.11,0-132.16,0-198.57 c1.8-0.09,3.42-0.25,5.04-0.25c26.66-0.01,53.33-0.12,79.99,0.03c21.82,0.12,43.17,3.05,62.97,12.92 c21.4,10.67,37.24,26.36,42.47,50.5c6.55,30.29-8.35,61.73-35.65,76.41C793.84,422.83,792.43,423.62,790.67,424.58z M687.08,390.27c20.02-0.53,39.48-0.6,58.87-1.72c10.6-0.61,21.05-3.18,30-9.63c8.92-6.42,12.51-16.97,9.03-27.38 c-3.69-11.04-12.88-15.71-23.1-18.49c-24.35-6.61-49.28-3.51-74-3.93c-0.25,0-0.5,0.39-0.8,0.64 C687.08,349.51,687.08,369.3,687.08,390.27z" fill="currentColor"/><path d="M995.09,358.21c0,15.94,0,31.02,0,46.59c-27.41,0-54.5,0-81.88,0c0,10.06,0,19.62,0,29.74c40.25,0,80.33,0,120.75,0 c0,15.62,0,30.68,0,46.07c-55.85,0-111.57,0-167.57,0c0-66.13,0-132.03,0-198.24c56.08,0,111.98,0,168.22,0 c0,15.29,0,30.51,0,46.19c-40.39,0-80.66,0-121.32,0c0,9.99,0,19.54,0,29.65C940.4,358.21,967.47,358.21,995.09,358.21z" fill="currentColor"/><path d="M1286.44,480.99c-10.9,0-21.33,0.05-31.75-0.02c-6.46-0.04-14.25,1.89-19.01-1.03c-4.54-2.79-5.95-10.71-8.69-16.4 c-2.75-5.69-5.58-11.34-8.09-17.13c-1.19-2.74-2.86-3.48-5.73-3.48c-32.99,0.1-65.99,0.11-98.98-0.02 c-3.17-0.01-4.71,1.06-5.98,3.83c-4.71,10.28-9.54,20.5-14.59,30.61c-0.78,1.56-2.92,3.46-4.45,3.48 c-15.98,0.25-31.97,0.16-48.76,0.16c0.85-1.91,1.43-3.36,2.11-4.75c30.63-63.1,61.3-126.19,91.84-189.33 c1.65-3.41,3.41-4.91,7.45-4.84c15.33,0.29,30.66,0.17,45.99,0.07c2.76-0.02,4.47,0.56,5.8,3.33 c30.54,64.25,61.18,128.45,91.8,192.67C1285.72,478.86,1285.94,479.63,1286.44,480.99z M1195.14,396.71 c-10.4-21.83-20.46-42.94-30.97-64.98c-10.77,22.24-21.01,43.38-31.48,64.98C1153.79,396.71,1174.06,396.71,1195.14,396.71z" fill="currentColor"/><path d="M442.32,479.99c-16.5,0-32.63,0.07-48.75-0.14c-1.27-0.02-3.01-1.71-3.68-3.05c-4.96-9.97-9.88-19.96-14.42-30.13 c-1.59-3.57-3.45-4.79-7.42-4.78c-48.81,0.16-97.62,0.1-146.44,0.1c-1.99,0-3.99,0-6.53,0c0.54-1.47,0.86-2.66,1.39-3.75 c24.81-51.13,49.67-102.24,74.41-153.4c1.38-2.85,3.03-3.75,6.1-3.72c15.66,0.14,31.32,0.11,46.98,0.03 c2.54-0.01,4.19,0.4,5.45,3.05c30.61,64.38,61.33,128.71,92.02,193.05C441.78,477.96,441.93,478.77,442.32,479.99z M351.1,395.68 c-10.29-21.63-20.37-42.81-30.92-64.96c-10.73,22.15-21.02,43.38-31.47,64.96C309.86,395.68,330.12,395.68,351.1,395.68z" fill="currentColor"/><path d="M425.34,282.29c15.73,0,30.84,0,46.56,0c0,2.18,0,4.12,0,6.06c0.02,34.49-0.11,68.97,0.2,103.46 c0.06,6.9,1.45,13.86,2.88,20.66c1.73,8.27,7.2,13.58,14.95,16.78c11.35,4.68,23.32,5.21,35.3,5.21c6.8,0,13.64-0.59,20.4-1.41 c21.12-2.57,31.11-13.35,31.33-34.76c0.38-36.65,0.27-73.3,0.36-109.95c0-1.95,0-3.9,0-6.06c15.77,0,30.87,0,46.36,0 c0.11,1.5,0.3,2.94,0.3,4.37c0,35.15,0.32,70.31-0.22,105.45c-0.17,10.7-1.65,21.64-4.36,32c-6.51,24.86-22.73,41.63-47.03,49.53 c-31.39,10.21-63.26,10.36-94.71,0.27c-29.56-9.49-45.63-30.96-50.44-61.08c-1.44-9-1.95-18.22-2.01-27.35 c-0.23-32.82-0.1-65.64-0.09-98.46C425.11,285.55,425.25,284.09,425.34,282.29z" fill="currentColor"/><path d="M372.93,218.15c-3.7,7.9-7.33,15.69-10.97,23.47c-3.02,6.47-5.94,12.99-9.16,19.36c-0.66,1.31-2.48,2.86-3.78,2.88 c-15.98,0.17-31.97,0.08-47.95,0.04c-0.27,0-0.53-0.27-1.24-0.65c3.12-6.53,6.22-13.08,9.36-19.61 c3.67-7.64,7.25-15.32,11.15-22.84c0.75-1.44,2.79-3.1,4.26-3.12c15.48-0.21,30.97-0.11,46.45-0.07 C371.51,217.61,371.97,217.87,372.93,218.15z" fill="currentColor"/></svg>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <button class="nav-item active" onclick="showSection('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V10"/></svg><span data-i18n="nav_home">Inicio</span></button>
+    </div>
+    <div class="nav-group" data-owner-only>
+      <div class="nav-group-label" data-i18n="group_show">Show</div>
+      <button class="nav-item" onclick="showSection('info',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg><span data-i18n="nav_info">Info General</span></button>
+      <button class="nav-item" onclick="showSection('timeline',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-i18n="nav_timeline">Timeline</span></button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label" data-i18n="group_creative">Creativo</div>
+      <button class="nav-item" onclick="showSection('moodboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span data-i18n="nav_references">Referencias</span></button>
+      <button class="nav-item" onclick="showSection('looks',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="nav_looks">Looks</span></button>
+      <button class="nav-item" onclick="showSection('collection',this)" data-owner-only><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span data-i18n="nav_collection">Colección</span></button>
+      <button class="nav-item" onclick="showSection('music',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span data-i18n="nav_music">Música</span></button>
+      <button class="nav-item" onclick="showSection('creative',this)" data-owner-only><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span data-i18n="nav_creative">Proceso Creativo</span></button>
+    </div>
+    <div class="nav-group" data-owner-only>
+      <div class="nav-group-label" data-i18n="group_production">Producción</div>
+      <button class="nav-item" onclick="showSection('contacts',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="nav_team">Equipo</span></button>
+      <button class="nav-item" onclick="showSection('budget',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget</span></button>
+      <button class="nav-item" onclick="showSection('links',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Links</span></button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label" data-i18n="group_tasks">Tareas</div>
+      <button class="nav-item" onclick="showSection('pending',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n="nav_pending">Pendientes</span></button>
+      <button class="nav-item" onclick="showSection('progress',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="nav_progress">En proceso</span></button>
+      <button class="nav-item" onclick="showSection('done',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-i18n="nav_done">Terminado</span></button>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-sm" id="lang-toggle" onclick="toggleLang()" style="font-weight:600">EN</button>
+    <button class="btn-sm" onclick="exportData()" data-i18n="export_btn" title="Descarga un JPG de la sección actual">Exportar imagen</button>
+    <button class="btn-sm" onclick="exportJSON()" data-i18n="backup_btn" title="Descarga un archivo de respaldo con todos los datos. Guardalo en tu compu como seguro contra fallas o errores.">Backup (JSON)</button>
+    <button class="btn-sm" onclick="document.getElementById('importFile').click()" data-i18n="restore_btn" title="Restaurá el dashboard desde un archivo de backup previo">Restaurar backup</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="btn-sm" id="logout-btn" onclick="doLogout()" data-i18n="logout_btn" style="display:none;margin-top:8px;border-color:rgba(192,57,43,0.3);color:rgba(232,224,211,0.5)">Cerrar sesión</button>
+  </div>
+</aside>
+
+<div class="main-area">
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" onclick="toggleSidebar(true)" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="greeting" id="greeting"></div>
+    <button class="countdown" id="countdown" style="display:none" onclick="goToShowDate()" title="Click para cambiar la fecha del desfile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span id="countdown-text"></span>
+    </button>
+  </div>
+  <div class="topbar-right">
+    <span class="sync-pill" id="sync-status">Conectando...</span>
+  </div>
+</header>
 
 <div class="main">
 
-<div class="section active" id="sec-info">
+<div class="section active" id="sec-home">
+  <div class="home-grid">
+    <div class="home-card">
+      <div class="home-card-header">
+        <span class="home-card-dot red"></span>
+        <span class="home-card-title" data-i18n="home_pending">Pendientes</span>
+        <span class="home-card-count" id="home-pending-count">0</span>
+      </div>
+      <div class="task-input-row">
+        <input id="home-task-input" data-i18n-placeholder="task_placeholder" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTaskFromHome()">
+        <button onclick="addTaskFromHome()">+</button>
+      </div>
+      <div class="home-card-body" id="home-pending-list"></div>
+    </div>
+    <div class="home-card">
+      <div class="home-card-header">
+        <span class="home-card-dot yellow"></span>
+        <span class="home-card-title" data-i18n="home_progress">En proceso</span>
+        <span class="home-card-count" id="home-progress-count">0</span>
+      </div>
+      <div class="home-card-body" id="home-progress-list"></div>
+    </div>
+    <div class="home-card">
+      <div class="home-card-header">
+        <span class="home-card-dot green"></span>
+        <span class="home-card-title" data-i18n="home_done">Terminado</span>
+        <span class="home-card-count" id="home-done-count">0</span>
+      </div>
+      <div class="home-card-body" id="home-done-list"></div>
+    </div>
+  </div>
+
+  <div class="looks-strip">
+    <div class="looks-card">
+      <div class="home-card-header">
+        <span class="home-card-dot yellow"></span>
+        <span class="home-card-title" data-i18n="looks_progress_title">Looks en proceso</span>
+        <span class="home-card-count" id="looks-progress-count">0</span>
+        <button class="looks-add-btn" onclick="addLook('progress')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="looks-grid" id="looks-progress-list"></div>
+    </div>
+    <div class="looks-card">
+      <div class="home-card-header">
+        <span class="home-card-dot green"></span>
+        <span class="home-card-title" data-i18n="looks_done_title">Looks terminados</span>
+        <span class="home-card-count" id="looks-done-count">0</span>
+        <button class="looks-add-btn" onclick="addLook('done')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="looks-grid" id="looks-done-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="look-detail-overlay" id="look-detail-overlay">
+  <button class="mood-detail-close" onclick="closeLookDetail()">✕</button>
+  <div class="look-detail-card" id="look-detail-card"></div>
+</div>
+<input type="file" id="lookAddImgInput" accept="image/*" multiple style="display:none">
+
+<!-- Login overlay (shown when REQUIRE_AUTH is on and the user is not signed in) -->
+<div class="login-overlay" id="login-overlay" style="display:none">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="200 210 1100 300" xmlns="http://www.w3.org/2000/svg" style="height:32px"><path d="M790.67,424.58c5.97,6.81,13.74,9.05,21.81,10.41c7.83,1.32,15.56,1.38,22.66-3.24c0.87-0.57,2.85-0.01,4.03,0.59 c10.12,5.13,14.21,16.44,10.15,27.71c-4.9,13.59-19.33,22-36.14,21.29c-10.9-0.46-21.03-3.73-30.3-9.08 c-12.96-7.47-25.49-15.69-38.22-23.56c-3.96-2.45-7.94-4.87-11.99-7.18c-6.64-3.8-13.73-5.66-21.47-5.38 c-7.8,0.28-15.63,0.06-24.09,0.06c0,15,0,29.71,0,44.82c-15.87,0-31.09,0-46.67,0c0-66.11,0-132.16,0-198.57 c1.8-0.09,3.42-0.25,5.04-0.25c26.66-0.01,53.33-0.12,79.99,0.03c21.82,0.12,43.17,3.05,62.97,12.92 c21.4,10.67,37.24,26.36,42.47,50.5c6.55,30.29-8.35,61.73-35.65,76.41C793.84,422.83,792.43,423.62,790.67,424.58z M687.08,390.27c20.02-0.53,39.48-0.6,58.87-1.72c10.6-0.61,21.05-3.18,30-9.63c8.92-6.42,12.51-16.97,9.03-27.38 c-3.69-11.04-12.88-15.71-23.1-18.49c-24.35-6.61-49.28-3.51-74-3.93c-0.25,0-0.5,0.39-0.8,0.64 C687.08,349.51,687.08,369.3,687.08,390.27z" fill="currentColor"/><path d="M995.09,358.21c0,15.94,0,31.02,0,46.59c-27.41,0-54.5,0-81.88,0c0,10.06,0,19.62,0,29.74c40.25,0,80.33,0,120.75,0 c0,15.62,0,30.68,0,46.07c-55.85,0-111.57,0-167.57,0c0-66.13,0-132.03,0-198.24c56.08,0,111.98,0,168.22,0 c0,15.29,0,30.51,0,46.19c-40.39,0-80.66,0-121.32,0c0,9.99,0,19.54,0,29.65C940.4,358.21,967.47,358.21,995.09,358.21z" fill="currentColor"/><path d="M1286.44,480.99c-10.9,0-21.33,0.05-31.75-0.02c-6.46-0.04-14.25,1.89-19.01-1.03c-4.54-2.79-5.95-10.71-8.69-16.4 c-2.75-5.69-5.58-11.34-8.09-17.13c-1.19-2.74-2.86-3.48-5.73-3.48c-32.99,0.1-65.99,0.11-98.98-0.02 c-3.17-0.01-4.71,1.06-5.98,3.83c-4.71,10.28-9.54,20.5-14.59,30.61c-0.78,1.56-2.92,3.46-4.45,3.48 c-15.98,0.25-31.97,0.16-48.76,0.16c0.85-1.91,1.43-3.36,2.11-4.75c30.63-63.1,61.3-126.19,91.84-189.33 c1.65-3.41,3.41-4.91,7.45-4.84c15.33,0.29,30.66,0.17,45.99,0.07c2.76-0.02,4.47,0.56,5.8,3.33 c30.54,64.25,61.18,128.45,91.8,192.67C1285.72,478.86,1285.94,479.63,1286.44,480.99z M1195.14,396.71 c-10.4-21.83-20.46-42.94-30.97-64.98c-10.77,22.24-21.01,43.38-31.48,64.98C1153.79,396.71,1174.06,396.71,1195.14,396.71z" fill="currentColor"/><path d="M442.32,479.99c-16.5,0-32.63,0.07-48.75-0.14c-1.27-0.02-3.01-1.71-3.68-3.05c-4.96-9.97-9.88-19.96-14.42-30.13 c-1.59-3.57-3.45-4.79-7.42-4.78c-48.81,0.16-97.62,0.1-146.44,0.1c-1.99,0-3.99,0-6.53,0c0.54-1.47,0.86-2.66,1.39-3.75 c24.81-51.13,49.67-102.24,74.41-153.4c1.38-2.85,3.03-3.75,6.1-3.72c15.66,0.14,31.32,0.11,46.98,0.03 c2.54-0.01,4.19,0.4,5.45,3.05c30.61,64.38,61.33,128.71,92.02,193.05C441.78,477.96,441.93,478.77,442.32,479.99z M351.1,395.68 c-10.29-21.63-20.37-42.81-30.92-64.96c-10.73,22.15-21.02,43.38-31.47,64.96C309.86,395.68,330.12,395.68,351.1,395.68z" fill="currentColor"/><path d="M425.34,282.29c15.73,0,30.84,0,46.56,0c0,2.18,0,4.12,0,6.06c0.02,34.49-0.11,68.97,0.2,103.46 c0.06,6.9,1.45,13.86,2.88,20.66c1.73,8.27,7.2,13.58,14.95,16.78c11.35,4.68,23.32,5.21,35.3,5.21c6.8,0,13.64-0.59,20.4-1.41 c21.12-2.57,31.11-13.35,31.33-34.76c0.38-36.65,0.27-73.3,0.36-109.95c0-1.95,0-3.9,0-6.06c15.77,0,30.87,0,46.36,0 c0.11,1.5,0.3,2.94,0.3,4.37c0,35.15,0.32,70.31-0.22,105.45c-0.17,10.7-1.65,21.64-4.36,32c-6.51,24.86-22.73,41.63-47.03,49.53 c-31.39,10.21-63.26,10.36-94.71,0.27c-29.56-9.49-45.63-30.96-50.44-61.08c-1.44-9-1.95-18.22-2.01-27.35 c-0.23-32.82-0.1-65.64-0.09-98.46C425.11,285.55,425.25,284.09,425.34,282.29z" fill="currentColor"/><path d="M372.93,218.15c-3.7,7.9-7.33,15.69-10.97,23.47c-3.02,6.47-5.94,12.99-9.16,19.36c-0.66,1.31-2.48,2.86-3.78,2.88 c-15.98,0.17-31.97,0.08-47.95,0.04c-0.27,0-0.53-0.27-1.24-0.65c3.12-6.53,6.22-13.08,9.36-19.61 c3.67-7.64,7.25-15.32,11.15-22.84c0.75-1.44,2.79-3.1,4.26-3.12c15.48-0.21,30.97-0.11,46.45-0.07 C371.51,217.61,371.97,217.87,372.93,218.15z" fill="currentColor"/></svg>
+    </div>
+    <h2 class="login-title" id="login-card-title">Bienvenida</h2>
+    <p class="login-subtitle" id="login-card-subtitle">Iniciá sesión para acceder al dashboard</p>
+    <button type="button" class="login-google-btn" onclick="doGoogleLogin()">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+      <span>Continuar con Google</span>
+    </button>
+    <div class="login-separator"><span>o</span></div>
+    <div class="login-tabs">
+      <button class="login-tab active" id="login-tab-signin" onclick="showLoginTab('signin')">Iniciar sesión</button>
+      <button class="login-tab" id="login-tab-register" onclick="showLoginTab('register')">Crear cuenta</button>
+    </div>
+    <form id="login-form" onsubmit="event.preventDefault();doAuthSubmit();">
+      <input type="text" id="login-name" placeholder="Tu nombre" autocomplete="given-name" style="display:none">
+      <input type="text" id="login-role" placeholder="Tu rol (estilista, ayudante de taller, modelo...)" style="display:none">
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email" required>
+      <input type="password" id="login-password" placeholder="Contraseña" autocomplete="current-password" required>
+      <button type="submit" id="login-btn" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+    <p class="login-error" id="login-error"></p>
+  </div>
+</div>
+
+<div class="section" id="sec-info" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="info_title">Info General</div></div>
   <div class="card"><div class="info-grid">
     <div class="field"><label data-i18n="info_name">Nombre del desfile</label><input class="editable" id="info-name" placeholder="Ej: ÁUREA NYC SS27" oninput="saveInfo()"></div>
@@ -319,14 +661,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="field"><label data-i18n="info_duration">Duración estimada</label><input class="editable" id="info-duration" placeholder="15 minutos" oninput="saveInfo()"></div>
   </div>
   <div class="field" style="margin-top:8px"><label data-i18n="info_notes">Notas generales</label>
-    <textarea class="editable" id="info-notes" rows="3" placeholder="Cualquier dato relevante..." oninput="saveInfo()" style="width:100%;resize:vertical;min-height:80px;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px"></textarea>
+    <textarea class="editable" id="info-notes" rows="3" placeholder="Cualquier dato relevante..." oninput="saveInfo()" style="width:100%;resize:vertical;min-height:80px;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px"></textarea>
   </div></div>
 </div>
 
 <div class="section" id="sec-moodboard">
-  <div class="section-header"><div class="section-title">Moodboard</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_board">Nuevo board</span></button></div>
+  <div class="section-header"><div class="section-title" data-i18n="references_title">Referencias</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_reference">Nueva referencia</span></button></div>
   <div class="mood-grid" id="moodboard-grid"></div>
-  <div class="empty-state" id="mood-empty"><div class="empty-icon">🎨</div><div class="empty-text" data-i18n="mood_empty">Creá tableros visuales con imágenes, referencias y notas</div></div>
+  <div class="empty-state" id="mood-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><div class="empty-text" data-i18n="mood_empty">Creá tableros de referencias visuales con imágenes y notas</div></div>
 </div>
 
 <div class="mood-detail-overlay" id="mood-detail-overlay">
@@ -335,51 +677,112 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img" src=""></div>
 
-<div class="section" id="sec-collection">
-  <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('collection')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div></div>
-  <div class="collection-grid" id="collection-list"></div><div class="empty-state" id="collection-empty"><div class="empty-icon">👗</div><div class="empty-text" data-i18n="collection_empty">Listá las prendas y looks del desfile</div></div>
+<div class="section" id="sec-collection" data-owner-only>
+  <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div>
+  <div class="mood-filters">
+    <button class="mood-filter-pill active" data-cat="all" onclick="setCollectionFilter('all')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'')"><span data-i18n="cat_all">Todas</span></button>
+    <button class="mood-filter-pill" data-cat="Top" onclick="setCollectionFilter('Top')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Top')">Top</button>
+    <button class="mood-filter-pill" data-cat="Bottom" onclick="setCollectionFilter('Bottom')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Bottom')">Bottom</button>
+    <button class="mood-filter-pill" data-cat="Detalles" onclick="setCollectionFilter('Detalles')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Detalles')"><span data-i18n="cat_detalles">Detalles constructivos</span></button>
+    <button class="mood-filter-pill" data-cat="Styling" onclick="setCollectionFilter('Styling')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Styling')">Styling</button>
+    <button class="mood-filter-pill" data-cat="Otro" onclick="setCollectionFilter('Otro')" ondragover="onPillDragOver(event)" ondragleave="onPillDragLeave(event)" ondrop="onPillDrop(event,'Otro')"><span data-i18n="cat_other">Otro</span></button>
+  </div>
+  <div class="collection-grid" id="collection-list"></div><div class="empty-state" id="collection-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="empty-text" data-i18n="collection_empty">Listá las prendas y looks del desfile</div></div>
 </div>
 
-<div class="section" id="sec-timeline">
-  <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('timeline')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div></div>
-  <div id="timeline-list"></div><div class="empty-state" id="timeline-empty"><div class="empty-icon">📅</div><div class="empty-text" data-i18n="timeline_empty">Armá el cronograma del desfile</div></div>
+<div class="section" id="sec-timeline" data-owner-only>
+  <div class="section-header"><div class="section-title" data-i18n="timeline">Timeline</div><button class="btn btn-primary" onclick="openModal('timeline')">+ <span data-i18n="add_event">Agregar evento</span></button></div>
+  <div id="timeline-list"></div><div class="empty-state" id="timeline-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div class="empty-text" data-i18n="timeline_empty">Armá el cronograma del desfile</div></div>
 </div>
 
-<div class="section" id="sec-contacts">
-  <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('contacts')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div></div>
-  <div class="card-grid" id="contacts-grid"></div><div class="empty-state" id="contacts-empty"><div class="empty-icon">👥</div><div class="empty-text" data-i18n="team_empty">Sumá modelos, makeup, styling, producción...</div></div>
+<div class="section" id="sec-contacts" data-owner-only>
+  <div class="section-header"><div class="section-title" data-i18n="team">Equipo</div><button class="btn btn-primary" onclick="openModal('contact')">+ <span data-i18n="add_contact">Agregar contacto</span></button></div>
+  <div class="card-grid" id="contacts-grid"></div><div class="empty-state" id="contacts-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="empty-text" data-i18n="team_empty">Sumá modelos, makeup, styling, producción...</div></div>
 </div>
 
-<div class="section" id="sec-links">
+<div class="section" id="sec-links" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="links_title">Links Útiles</div><button class="btn btn-primary" onclick="openModal('link')">+ <span data-i18n="add_link">Agregar link</span></button></div>
-  <div id="links-list"></div><div class="empty-state" id="links-empty"><div class="empty-icon">🔗</div><div class="empty-text" data-i18n="links_empty">Guardá links a carpetas de Drive, proveedores, etc.</div></div>
+  <div id="links-list"></div><div class="empty-state" id="links-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><div class="empty-text" data-i18n="links_empty">Guardá links a carpetas de Drive, proveedores, etc.</div></div>
 </div>
 
-<div class="section" id="sec-budget">
+<div class="section" id="sec-budget" data-owner-only>
   <div class="section-header"><div class="section-title">Budget</div><button class="btn btn-primary" onclick="openModal('budget-cat')">+ <span data-i18n="add_category">Nueva categoría</span></button></div>
   <div class="card" style="margin-bottom:20px"><div class="budget-label" data-i18n="budget_total">Total general</div><div class="budget-total" id="budget-total">USD $0</div></div>
   <div id="budget-categories"></div>
-  <div class="empty-state" id="budget-empty"><div class="empty-icon">💰</div><div class="empty-text" data-i18n="budget_empty">Creá categorías (materiales, modelos, venue...) y agregá gastos dentro de cada una</div></div>
+  <div class="empty-state" id="budget-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><div class="empty-text" data-i18n="budget_empty">Creá categorías (materiales, modelos, venue...) y agregá gastos dentro de cada una</div></div>
 </div>
 
 <div class="section" id="sec-music">
-  <div class="section-header"><div class="section-title" data-i18n="music">Música</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('music')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('music')">+ <span data-i18n="add_track">Agregar track</span></button></div></div>
+  <div class="section-header"><div class="section-title" data-i18n="music">Música</div><button class="btn btn-primary" onclick="openModal('music')">+ <span data-i18n="add_track">Agregar track</span></button></div>
   <div id="music-list"></div>
-  <div class="empty-state" id="music-empty"><div class="empty-icon">🎵</div><div class="empty-text" data-i18n="music_empty">Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show</div></div>
+  <div class="empty-state" id="music-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div class="empty-text" data-i18n="music_empty">Sumá links de Spotify, YouTube, SoundCloud o lo que sea para ir armando el soundtrack del show</div></div>
 </div>
 
-<div class="section" id="sec-creative">
+<div class="section" id="sec-creative" data-owner-only>
   <div class="section-header"><div class="section-title" data-i18n="creative_title">Proceso Creativo</div><div class="creative-saved" id="creative-status"></div></div>
   <div class="creative-editor">
     <textarea class="creative-textarea" id="creative-text" data-placeholder-es="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." data-placeholder-en="Write freely... ideas, concepts, inspiring phrases, the show narrative, the looks order, anything you need to capture for the creative process..." placeholder="Escribí libremente... ideas, conceptos, frases que te inspiran, la narrativa del show, el orden de los looks, lo que sea que necesites plasmar para el proceso creativo del desfile..." oninput="saveCreative()"></textarea>
   </div>
 </div>
 
-<div class="section" id="sec-notes">
-  <div class="section-header"><div class="section-title" data-i18n="nav_notes">Notas</div><button class="btn btn-primary" onclick="openModal('note')">+ <span data-i18n="add_note">Nueva nota</span></button></div>
-  <div id="notes-list"></div><div class="empty-state" id="notes-empty"><div class="empty-icon">📝</div><div class="empty-text" data-i18n="notes_empty">Anotaciones rápidas, ideas, pendientes...</div></div>
+<div class="section" id="sec-pending">
+  <div class="section-header"><div class="section-title" data-i18n="home_pending">Pendientes</div></div>
+  <div class="card" style="padding:18px">
+    <div class="task-input-row">
+      <input id="task-input" data-i18n-placeholder="task_placeholder" placeholder="Agregar tarea..." onkeydown="if(event.key==='Enter')addTask()">
+      <button onclick="addTask()" data-i18n="task_add">+ Agregar</button>
+    </div>
+    <div id="pending-list"></div>
+    <div class="empty-state" id="pending-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg><div class="empty-text" data-i18n="pending_empty">Sin tareas pendientes — agregá la primera arriba</div></div>
+  </div>
 </div>
 
+<div class="section" id="sec-progress">
+  <div class="section-header"><div class="section-title" data-i18n="home_progress">En proceso</div></div>
+  <div class="card" style="padding:18px">
+    <div id="progress-list"></div>
+    <div class="empty-state" id="progress-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="empty-text" data-i18n="progress_empty">No hay tareas en proceso — pasá una desde Pendientes</div></div>
+  </div>
+</div>
+
+<div class="section" id="sec-done">
+  <div class="section-header"><div class="section-title" data-i18n="home_done">Terminado</div></div>
+  <div class="card" style="padding:18px">
+    <div id="done-list"></div>
+    <div class="empty-state" id="done-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div class="empty-text" data-i18n="done_empty">Las tareas que vayas marcando como hechas aparecen acá</div></div>
+  </div>
+</div>
+
+<div class="section" id="sec-looks">
+  <div class="section-header">
+    <div class="section-title" data-i18n="looks_title">Looks</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline" onclick="addLook('progress')">+ <span data-i18n="add_look_progress">En proceso</span></button>
+      <button class="btn btn-primary" onclick="addLook('done')">+ <span data-i18n="add_look_done">Terminado</span></button>
+    </div>
+  </div>
+  <div class="looks-section-block">
+    <div class="looks-section-header">
+      <span class="home-card-dot yellow"></span>
+      <span class="home-card-title" data-i18n="looks_progress_title">Looks en proceso</span>
+      <span class="home-card-count" id="sec-looks-progress-count">0</span>
+      <span class="looks-hint" data-i18n="drag_hint">Arrastrá para reordenar</span>
+    </div>
+    <div class="looks-grid section-grid" id="sec-looks-progress-list"></div>
+  </div>
+  <div class="looks-section-block">
+    <div class="looks-section-header">
+      <span class="home-card-dot green"></span>
+      <span class="home-card-title" data-i18n="looks_done_title">Looks terminados</span>
+      <span class="home-card-count" id="sec-looks-done-count">0</span>
+      <span class="looks-hint" data-i18n="drag_hint">Arrastrá para reordenar</span>
+    </div>
+    <div class="looks-grid section-grid" id="sec-looks-done-list"></div>
+  </div>
+</div>
+
+</div>
+</div>
 </div>
 
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
@@ -393,6 +796,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <script src="js/firebase-app-compat.js"></script>
 <script src="js/firebase-firestore-compat.js"></script>
 <script src="js/firebase-storage-compat.js"></script>
+<!-- Firebase Auth (loaded from CDN since not bundled locally) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<!-- html2canvas for screenshot export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- SortableJS for drag-reorder of looks (works on desktop + touch) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
 <script>
 // ============ FIREBASE INIT ============
@@ -409,17 +818,223 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 const DOC_REF = db.collection('dashboards').doc('main');
 
+// ============ AUTH ============
+// Set REQUIRE_AUTH=true once you've completed these steps in Firebase Console:
+//   1. Authentication → Sign-in method → enable Email/Password
+//   2. Firestore → Rules → set: allow read, write: if request.auth != null;
+//   3. Storage → Rules → set: allow read, write: if request.auth != null;
+// Until then, the dashboard works without login (current open behavior)
+const REQUIRE_AUTH = true;
+
+// Owners get full access. Anyone else who registers becomes a "collaborator"
+// and only sees Inicio / Referencias / Looks / Tareas. Edit this list with the
+// real owner emails before turning on REQUIRE_AUTH.
+const OWNER_EMAILS = [
+  'mili@aureaargentina.com',
+  'manuelamendari@gmail.com',
+  'emilsebergamin@gmail.com'
+];
+
+let auth = null;
+let dataLayerStarted = false;
+let currentRole = 'owner'; // 'owner' or 'collaborator' — defaults to owner when auth is off
+
+try { if (firebase.auth) auth = firebase.auth(); } catch (e) { console.warn('Firebase Auth not loaded:', e); }
+
+function showLoginOverlay(show){
+  const ov = document.getElementById('login-overlay');
+  if (!ov) return;
+  ov.style.display = show ? 'flex' : 'none';
+  document.body.style.overflow = show ? 'hidden' : '';
+}
+
+function showLogoutBtn(show){
+  const b = document.getElementById('logout-btn');
+  if (b) b.style.display = show ? 'block' : 'none';
+}
+
+let _loginMode = 'signin'; // 'signin' or 'register'
+function showLoginTab(mode){
+  _loginMode = mode;
+  const en = currentLang==='en';
+  document.getElementById('login-tab-signin').classList.toggle('active', mode==='signin');
+  document.getElementById('login-tab-register').classList.toggle('active', mode==='register');
+  const nameInput = document.getElementById('login-name');
+  const roleInput = document.getElementById('login-role');
+  nameInput.style.display = mode==='register' ? '' : 'none';
+  roleInput.style.display = mode==='register' ? '' : 'none';
+  nameInput.required = mode==='register';
+  document.getElementById('login-btn').textContent = mode==='register' ? (en?'Create account':'Crear cuenta') : (en?'Sign in':'Iniciar sesión');
+  document.getElementById('login-card-title').textContent = mode==='register' ? (en?'Welcome':'Bienvenida') : (en?'Welcome back':'Bienvenida de nuevo');
+  document.getElementById('login-card-subtitle').textContent = mode==='register' ? (en?'Create your account to access the dashboard':'Creá tu cuenta para acceder al dashboard') : (en?'Sign in to access the dashboard':'Iniciá sesión para acceder al dashboard');
+  document.getElementById('login-error').textContent = '';
+}
+
+function doAuthSubmit(){
+  if (_loginMode === 'register') return doRegister();
+  return doLogin();
+}
+
+async function doRegister(){
+  const name = document.getElementById('login-name').value.trim();
+  const role = document.getElementById('login-role').value.trim();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
+  const en = currentLang==='en';
+  if (!name || !email || !password) { errEl.textContent = en?'Fill name, email and password':'Completá nombre, email y contraseña'; return; }
+  if (password.length < 6) { errEl.textContent = en?'Password must be at least 6 characters':'La contraseña debe tener al menos 6 caracteres'; return; }
+  errEl.textContent = '';
+  btn.disabled = true; btn.textContent = en?'Creating...':'Creando...';
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    await cred.user.updateProfile({ displayName: name });
+    // Save profile (name + free-form role) in a separate Firestore doc
+    try {
+      await db.collection('profiles').doc(cred.user.uid).set({
+        name, role: role || '', email: cred.user.email, createdAt: new Date().toISOString()
+      });
+    } catch (perr) { console.warn('Profile save failed:', perr); }
+    document.getElementById('login-password').value = '';
+    // onAuthStateChanged will hide the overlay and start the data layer
+  } catch (err) {
+    console.error('Register failed', err);
+    let msg = err.message || 'Error';
+    if (err.code === 'auth/email-already-in-use') msg = en?'That email is already registered — switch to Sign in':'Ese email ya tiene cuenta — pasate a Iniciar sesión';
+    else if (err.code === 'auth/weak-password') msg = en?'Password too weak (min 6 chars)':'Contraseña muy débil (mín. 6 caracteres)';
+    else if (err.code === 'auth/invalid-email') msg = en?'Invalid email':'Email inválido';
+    else if (err.code === 'auth/operation-not-allowed') msg = en?'Email/Password sign-in is not enabled in Firebase Console':'El método Email/Password no está habilitado en Firebase Console';
+    errEl.textContent = msg;
+  } finally {
+    btn.disabled = false; btn.textContent = en?'Create account':'Crear cuenta';
+  }
+}
+
+async function doGoogleLogin(){
+  const en = currentLang==='en';
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    const cred = await auth.signInWithPopup(provider);
+    const user = cred.user;
+    // First-time Google user → ask for role to save in profile doc
+    try {
+      const profileDoc = await db.collection('profiles').doc(user.uid).get();
+      if (!profileDoc.exists) {
+        const role = (window.prompt(en
+          ? 'Welcome '+(user.displayName||'')+'!\nWhat\'s your role? (e.g., Stylist, Workshop assistant, Model)\nLeave blank if you don\'t want to set one.'
+          : '¡Bienvenida '+(user.displayName||'')+'!\n¿Cuál es tu rol? (ej: Estilista, Ayudante de taller, Modelo)\nDejá vacío si no querés especificar.'
+        ) || '').trim();
+        await db.collection('profiles').doc(user.uid).set({
+          name: user.displayName || '',
+          role,
+          email: user.email || '',
+          createdAt: new Date().toISOString()
+        });
+      }
+    } catch (perr) { console.warn('Profile setup skipped:', perr); }
+    // onAuthStateChanged will hide the overlay and start the data layer
+  } catch (err) {
+    console.error('Google sign-in failed:', err);
+    let msg = err.message || 'Error';
+    if (err.code === 'auth/popup-blocked') msg = en?'Popup blocked. Allow popups for this site and try again.':'El popup fue bloqueado. Permití popups en este sitio y volvé a intentar.';
+    else if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') msg = en?'Sign-in cancelled':'Inicio de sesión cancelado';
+    else if (err.code === 'auth/unauthorized-domain') msg = en?'This domain is not authorized for Google sign-in. Add it in Firebase Console → Authentication → Settings → Authorized domains.':'Este dominio no está autorizado para login con Google. Agregalo en Firebase Console → Authentication → Settings → Authorized domains.';
+    else if (err.code === 'auth/operation-not-allowed') msg = en?'Google sign-in is not enabled in Firebase Console':'Google sign-in no está habilitado en Firebase Console';
+    errEl.textContent = msg;
+  }
+}
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
+  const en = currentLang==='en';
+  if (!email || !password) { errEl.textContent = en?'Enter email and password':'Ingresá email y contraseña'; return; }
+  errEl.textContent = '';
+  btn.disabled = true; btn.textContent = en?'Signing in...':'Iniciando sesión...';
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    document.getElementById('login-password').value = '';
+  } catch (err) {
+    console.error('Login failed', err);
+    let msg = err.message || 'Error';
+    if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') msg = en?'Wrong email or password':'Email o contraseña incorrectos';
+    else if (err.code === 'auth/operation-not-allowed') msg = en?'Email/Password sign-in is not enabled in Firebase Console':'El método Email/Password no está habilitado en Firebase Console';
+    else if (err.code === 'auth/network-request-failed') msg = en?'Network error':'Error de conexión';
+    errEl.textContent = msg;
+  } finally {
+    btn.disabled = false; btn.textContent = en?'Sign in':'Iniciar sesión';
+  }
+}
+
+async function doLogout(){
+  const en = currentLang==='en';
+  if (!confirm(en?'Sign out?':'¿Cerrar sesión?')) return;
+  try { await auth.signOut(); } catch (e) { console.error('Logout failed', e); }
+}
+
+// Sections only owners can see/access. Collaborators see Inicio + Referencias + Looks + Música + Tareas (pendientes/proceso/done)
+const OWNER_ONLY_SECTIONS = ['info','timeline','collection','contacts','budget','links','creative'];
+// (Music is intentionally not in this list — everyone can see it)
+
+function applyRoleVisibility(){
+  document.body.classList.toggle('role-collaborator', currentRole === 'collaborator');
+  // If a collaborator was viewing an owner-only section when their role kicks in, bounce to Inicio
+  if (currentRole === 'collaborator') {
+    const active = document.querySelector('.section.active');
+    if (active) {
+      const id = active.id.replace('sec-','');
+      if (OWNER_ONLY_SECTIONS.includes(id)){
+        const homeBtn = Array.from(document.querySelectorAll('.nav-item')).find(b => (b.getAttribute('onclick')||'').includes("'home'"));
+        showSection('home', homeBtn);
+      }
+    }
+  }
+}
+
+if (REQUIRE_AUTH && auth) {
+  showLoginOverlay(true);
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      const email = (user.email||'').toLowerCase();
+      currentRole = OWNER_EMAILS.map(e=>e.toLowerCase()).includes(email) ? 'owner' : 'collaborator';
+      applyRoleVisibility();
+      showLoginOverlay(false);
+      showLogoutBtn(true);
+      if (!dataLayerStarted) startDataLayer();
+      updateGreeting();
+    } else {
+      currentRole = 'owner'; // reset
+      applyRoleVisibility();
+      showLogoutBtn(false);
+      showLoginOverlay(true);
+    }
+  });
+} else {
+  // Auth disabled — start data layer right away (owner mode)
+  currentRole = 'owner';
+  setTimeout(() => { if (!dataLayerStarted) startDataLayer(); }, 0);
+}
+
 // ============ DATA LAYER (Firestore + localStorage cache) ============
 const STORAGE_KEY='aurea_nyc_dashboard';
 
-function defaultData(){return {info:{},moodboard:[],collection:[],timeline:[],contacts:[],links:[],budget:[],notes:[],music:[],creative:'',budgetCategories:[]};}
+function defaultData(){return {info:{},moodboard:[],collection:[],timeline:[],contacts:[],links:[],budget:[],notes:[],music:[],creative:'',budgetCategories:[],pendingTasks:[],looks:[]};}
 
 function loadDataLocal(){const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):defaultData();}
 function saveDataLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
 
 let data=loadDataLocal();
 let saving=false;
+let saveDirty=false;
 let saveTimeout;
+let currentLang='es';
+let collectionFilter='all';
 
 function setSyncStatus(text,color){
   const ss=document.getElementById('sync-status');
@@ -428,61 +1043,92 @@ function setSyncStatus(text,color){
 
 function saveData(d){
   saveDataLocal(d);
+  saveDirty=true;
   clearTimeout(saveTimeout);
-  setSyncStatus('· Guardando...','var(--text-muted)');
+  setSyncStatus('Guardando...','var(--text-muted)');
   saveTimeout=setTimeout(()=>{
     if(saving)return;
     saving=true;
     DOC_REF.set(d).then(()=>{
       saving=false;
-      setSyncStatus('· Sincronizado','var(--green)');
+      saveDirty=false;
+      setSyncStatus('Sincronizado','var(--green)');
     }).catch(err=>{
       console.error('Firebase save error:',err);
       saving=false;
-      setSyncStatus('· Error al guardar','var(--danger)');
+      saveDirty=false;
+      setSyncStatus('Error al guardar','var(--danger)');
     });
   },1000);
 }
 
-// Real-time sync from Firestore (other devices)
-DOC_REF.onSnapshot(doc=>{
-  if(doc.exists && !saving){
-    const remoteData=doc.data();
-    if(JSON.stringify(data)!==JSON.stringify(remoteData)){
-      data=remoteData;
+function startDataLayer(){
+  if (dataLayerStarted) return;
+  dataLayerStarted = true;
+
+  // Real-time sync from Firestore (other devices)
+  DOC_REF.onSnapshot(doc=>{
+    if(doc.exists && !saving && !saveDirty){
+      const remoteData=doc.data();
+      if(JSON.stringify(data)!==JSON.stringify(remoteData)){
+        data=remoteData;
+        saveDataLocal(data);
+        loadInfo();
+        loadCreative();
+        renderAll();
+        setSyncStatus('Sincronizado','var(--green)');
+      }
+    }
+  },err=>{
+    console.error('Firebase listen error:',err);
+    setSyncStatus('Sin conexión','var(--danger)');
+  });
+
+  // Initial load from Firestore
+  DOC_REF.get().then(doc=>{
+    if(doc.exists){
+      data=doc.data();
       saveDataLocal(data);
+      if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
       loadInfo();
       loadCreative();
       renderAll();
-      setSyncStatus('· Sincronizado','var(--green)');
+      setSyncStatus('Sincronizado','var(--green)');
+    } else {
+      if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
+      saveData(data);
     }
-  }
-},err=>{
-  console.error('Firebase listen error:',err);
-  setSyncStatus('· Sin conexión','var(--danger)');
-});
+  }).catch(err=>{
+    console.error('Firebase initial load error:',err);
+    setSyncStatus('Sin conexión','var(--danger)');
+  });
+} // end startDataLayer
 
-// Initial load from Firestore
-DOC_REF.get().then(doc=>{
-  if(doc.exists){
-    data=doc.data();
-    saveDataLocal(data);
-    loadInfo();
-    loadCreative();
-    renderAll();
-    setSyncStatus('· Sincronizado','var(--green)');
-  } else {
-    saveData(data);
-  }
-}).catch(err=>{
-  console.error('Firebase initial load error:',err);
-  setSyncStatus('· Sin conexión','var(--danger)');
-});
+function showSection(id,tab){
+  if(currentRole==='collaborator' && OWNER_ONLY_SECTIONS.includes(id))return; // guard
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
+  const sec=document.getElementById('sec-'+id);
+  if(sec)sec.classList.add('active');
+  if(tab)tab.classList.add('active');
+  if(id==='home')renderHome();
+  if(id==='pending')renderPending();
+  if(id==='progress')renderProgress();
+  if(id==='done')renderDone();
+  if(id==='looks')renderLooks();
+  if(window.innerWidth<=600)toggleSidebar(false);
+  window.scrollTo({top:0,behavior:'instant'});
+}
 
-function showSection(id,tab){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(tab)tab.classList.add('active');}
+function toggleSidebar(open){
+  const sb=document.getElementById('sidebar'),ov=document.getElementById('sidebar-overlay');
+  if(open===undefined)open=!sb.classList.contains('open');
+  sb.classList.toggle('open',open);
+  ov.classList.toggle('open',open);
+}
 
 function loadInfo(){const i=data.info||{};['name','date','venue','time','looks','duration'].forEach(k=>{document.getElementById('info-'+k).value=i[k]||'';});document.getElementById('info-notes').value=i.notes||'';}
-function saveInfo(){data.info={};['name','date','venue','time','looks','duration'].forEach(k=>{data.info[k]=document.getElementById('info-'+k).value;});data.info.notes=document.getElementById('info-notes').value;saveData(data);}
+function saveInfo(){data.info={};['name','date','venue','time','looks','duration'].forEach(k=>{data.info[k]=document.getElementById('info-'+k).value;});data.info.notes=document.getElementById('info-notes').value;saveData(data);updateCountdown();}
 
 // IMAGE COMPRESSION + STORAGE UPLOAD
 // Compresses to max 1200px JPEG 70%, uploads to Firebase Storage, returns public URL.
@@ -511,15 +1157,24 @@ async function uploadImage(file,folder){
   const blob=await compressImage(file);
   const id=Date.now()+'_'+Math.random().toString(36).slice(2,9);
   const ref=storage.ref().child(`${folder}/${id}.jpg`);
-  setSyncStatus('· Subiendo imagen...','var(--text-muted)');
+  setSyncStatus('Subiendo imagen...','var(--text-muted)');
   const snap=await ref.put(blob,{contentType:'image/jpeg'});
-  return await snap.ref.getDownloadURL();
+  const url=await snap.ref.getDownloadURL();
+  // Pre-fetch the public URL so the next render hits the browser cache and the image appears instantly
+  await new Promise(res=>{
+    const probe=new Image();
+    probe.onload=()=>res();
+    probe.onerror=()=>res();
+    probe.src=url;
+    setTimeout(res,2500);
+  });
+  return url;
 }
 
-// ============ MOODBOARD ============
+// ============ REFERENCES (formerly Moodboard) ============
 function renderMoodboard(){
   const grid=document.getElementById('moodboard-grid'),empty=document.getElementById('mood-empty');
-  if(!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
+  if(!data.moodboard||!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
   empty.style.display='none';
   grid.innerHTML=data.moodboard.map((m,i)=>{
     const cover=m.images&&m.images.length?m.images[m.cover||0]:null;
@@ -572,18 +1227,97 @@ function addImageToMood(i){
 }
 
 function editMoodBoard(i){closeMoodDetail();setTimeout(()=>openModal('mood-edit',data.moodboard[i],i),200);}
-function deleteMood(i){data.moodboard.splice(i,1);saveData(data);renderMoodboard();}
+function deleteMood(i){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this reference board and all its images?':'¿Eliminar este tablero de referencias y todas sus imágenes?'))return;
+  const m=data.moodboard[i];
+  if(m&&Array.isArray(m.images))m.images.forEach(u=>deleteStorageImage(u));
+  data.moodboard.splice(i,1);
+  saveData(data);renderMoodboard();
+  closeMoodDetail();
+}
 function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
 
 // OTHER RENDERS
-function renderCollection(){const l=document.getElementById('collection-list'),e=document.getElementById('collection-empty');if(!data.collection.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';l.innerHTML=data.collection.map((g,i)=>`<div class="garment-card${g.ready?' done':''}">
-  <div class="garment-check${g.ready?' checked':''}" onclick="toggleGarment(${i})"></div>
-  <div class="garment-actions"><span class="garment-action-btn" onclick="deleteGarment(${i})">×</span></div>
-  <div class="garment-img">${g.image?`<img src="${g.image}">`:'👗'}</div>
-  <div class="garment-body"><div class="garment-cat">${esc(g.category||'')}</div><div class="garment-name">${esc(g.name)}</div>${g.note?`<div class="garment-note">${esc(g.note)}</div>`:''}</div>
-</div>`).join('');}
+function setCollectionFilter(cat){
+  collectionFilter=cat;
+  document.querySelectorAll('#sec-collection .mood-filter-pill').forEach(p=>p.classList.toggle('active',p.dataset.cat===cat));
+  renderCollection();
+}
+
+let draggedGarmentIdx=null;
+function onGarmentDragStart(e,idx){
+  draggedGarmentIdx=idx;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed='move';
+  try{e.dataTransfer.setData('text/plain',String(idx));}catch(err){}
+}
+function onGarmentDragEnd(e){
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.mood-filter-pill').forEach(p=>p.classList.remove('drop-target'));
+  draggedGarmentIdx=null;
+}
+function onPillDragOver(e){
+  if(draggedGarmentIdx===null)return;
+  e.preventDefault();
+  e.currentTarget.classList.add('drop-target');
+}
+function onPillDragLeave(e){
+  e.currentTarget.classList.remove('drop-target');
+}
+function onPillDrop(e,cat){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drop-target');
+  if(draggedGarmentIdx===null)return;
+  if(!data.collection[draggedGarmentIdx])return;
+  data.collection[draggedGarmentIdx].category=cat;
+  draggedGarmentIdx=null;
+  saveData(data);renderCollection();
+}
+
+function cycleGarmentCategory(i){
+  const cats=['Top','Bottom','Detalles','Styling','Otro',''];
+  const cur=data.collection[i].category||'';
+  const idx=cats.indexOf(cur);
+  data.collection[i].category=cats[(idx+1)%cats.length];
+  saveData(data);renderCollection();
+}
+
+function catDisplay(cat){
+  if(!cat)return currentLang==='en'?'No category':'Sin categoría';
+  if(cat==='Detalles')return currentLang==='en'?'Construction details':'Detalles constructivos';
+  if(cat==='Otro')return currentLang==='en'?'Other':'Otro';
+  return cat;
+}
+
+function renderCollection(){
+  const l=document.getElementById('collection-list'),e=document.getElementById('collection-empty');
+  if(!data.collection||!data.collection.length){l.innerHTML='';e.style.display='';return;}
+  const filtered=data.collection.map((g,i)=>({g,i})).filter(({g})=>collectionFilter==='all'||(g.category||'')===collectionFilter);
+  if(!filtered.length){
+    l.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-text">${currentLang==='en'?'No items in this category yet':'No hay prendas en esta categoría todavía'}</div></div>`;
+    e.style.display='none';return;
+  }
+  e.style.display='none';
+  l.innerHTML=filtered.map(({g,i})=>`<div class="garment-card${g.ready?' done':''}" draggable="true" ondragstart="onGarmentDragStart(event,${i})" ondragend="onGarmentDragEnd(event)" title="${currentLang==='en'?'Drag to a category to move':'Arrastrá a una categoría para mover'}">
+    <div class="garment-check${g.ready?' checked':''}" onclick="toggleGarment(${i})"></div>
+    <div class="garment-actions"><span class="garment-action-btn" onclick="event.stopPropagation();deleteGarment(${i})">×</span></div>
+    <div class="garment-img">${g.image?`<img src="${g.image}">`:''}</div>
+    <div class="garment-body">
+      <button class="garment-cat-quick" onclick="event.stopPropagation();cycleGarmentCategory(${i})" title="${currentLang==='en'?'Tap to change category':'Tocá para cambiar categoría'}">${esc(catDisplay(g.category))}</button>
+      <div class="garment-name">${esc(g.name)}</div>${g.note?`<div class="garment-note">${esc(g.note)}</div>`:''}
+    </div>
+  </div>`).join('');
+}
 function toggleGarment(i){data.collection[i].ready=!data.collection[i].ready;saveData(data);renderCollection();}
-function deleteGarment(i){data.collection.splice(i,1);saveData(data);renderCollection();}
+function deleteGarment(i){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this garment?':'¿Eliminar esta prenda?'))return;
+  const g=data.collection[i];
+  if(g&&g.image)deleteStorageImage(g.image);
+  data.collection.splice(i,1);
+  saveData(data);renderCollection();
+}
 
 function renderTimeline(){const l=document.getElementById('timeline-list'),e=document.getElementById('timeline-empty');if(!data.timeline.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';const s=data.timeline.map((t,i)=>({...t,_i:i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));l.innerHTML=s.map(t=>`<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-date">${esc(t.date||'Sin fecha')}</div><div class="timeline-text">${esc(t.text)}</div></div><span class="checklist-delete" onclick="deleteTimeline(${t._i})" style="opacity:.5">×</span></div>`).join('');}
 function deleteTimeline(i){data.timeline.splice(i,1);saveData(data);renderTimeline();}
@@ -655,15 +1389,30 @@ function openModal(type,editData,editIdx){
 
   if(type==='mood'||type==='mood-edit'){
     const isEdit=type==='mood-edit',m=editData||{};
-    title.textContent=isEdit?'Editar Board':'Nuevo Board';
+    const en=currentLang==='en';
+    title.textContent=isEdit?(en?'Edit reference':'Editar referencia'):(en?'New reference':'Nueva referencia');
+    const lbl={
+      title:en?'Reference title':'Título de la referencia',
+      source:en?'Source / Where you got it':'Fuente / De dónde sacaste las refs',
+      sourceUrl:en?'Source link (optional)':'Link de la fuente (opcional)',
+      tags:en?'Tags (comma separated)':'Tags (separados por coma)',
+      notes:en?'Notes / What inspires you':'Notas / Qué te inspira',
+      highlights:en?'Highlighted visual parts':'Partes visuales destacadas',
+      images:en?'Images (you can add more later)':'Imágenes (podés agregar más después)',
+      ph_title:en?'E.g. Lighting inspo, Color palette...':'Ej: Inspo Iluminación, Paleta Color...',
+      ph_source:en?'Pinterest, @xxx IG, Vogue...':'Pinterest, IG de @xxx, Vogue...',
+      ph_tags:en?'lighting, color, styling, textures':'iluminación, color, styling, texturas',
+      ph_notes:en?'What you like, what it reminds you of...':'Qué es lo que te gusta, a qué te remonta...',
+      ph_highlights:en?'Textures, color combos, silhouettes...':'Texturas, combinaciones de color, siluetas...'
+    };
     html=`
-      <div class="field"><label>Título del board</label><input id="m-title" value="${esc(m.title||'')}" placeholder="Ej: Inspo Iluminación, Paleta Color..."></div>
-      <div class="field"><label>Fuente / De dónde sacaste las refs</label><input id="m-source" value="${esc(m.source||'')}" placeholder="Pinterest, IG de @xxx, Vogue..."></div>
-      <div class="field"><label>Link de la fuente (opcional)</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
-      <div class="field"><label>Tags (separados por coma)</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="iluminación, color, styling, texturas"></div>
-      <div class="field"><label>Notas / Qué te inspira</label><textarea id="m-notes" rows="3" placeholder="Qué es lo que te gusta, a qué te remonta...">${esc(m.notes||'')}</textarea></div>
-      <div class="field"><label>Partes visuales destacadas</label><textarea id="m-highlights" rows="2" placeholder="Texturas, combinaciones de color, siluetas...">${esc(m.highlights||'')}</textarea></div>
-      ${!isEdit?'<div class="field"><label>Imágenes (podés agregar más después)</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>':''}`;
+      <div class="field"><label>${lbl.title}</label><input id="m-title" value="${esc(m.title||'')}" placeholder="${lbl.ph_title}"></div>
+      <div class="field"><label>${lbl.source}</label><input id="m-source" value="${esc(m.source||'')}" placeholder="${lbl.ph_source}"></div>
+      <div class="field"><label>${lbl.sourceUrl}</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
+      <div class="field"><label>${lbl.tags}</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="${lbl.ph_tags}"></div>
+      <div class="field"><label>${lbl.notes}</label><textarea id="m-notes" rows="3" placeholder="${lbl.ph_notes}">${esc(m.notes||'')}</textarea></div>
+      <div class="field"><label>${lbl.highlights}</label><textarea id="m-highlights" rows="2" placeholder="${lbl.ph_highlights}">${esc(m.highlights||'')}</textarea></div>
+      ${!isEdit?`<div class="field"><label>${lbl.images}</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>`:''}`;
     onSave=async()=>{
       const tags=document.getElementById('m-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
       const item={title:v('m-title'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
@@ -673,7 +1422,21 @@ function openModal(type,editData,editIdx){
       saveData(data);renderMoodboard();closeModal();
     };
   }
-  else if(type==='garment'){title.textContent='Nueva Prenda';html=`<div class="field"><label>Nombre</label><input id="m-gname" placeholder="The Lace Set - Grey"></div><div class="field"><label>Categoría</label><select id="m-gcat"><option value="Top">Top</option><option value="Bottom">Bottom</option><option value="Set">Set</option><option value="Accesorio">Accesorio</option><option value="Zapatos">Zapatos</option><option value="Otro">Otro</option></select></div><div class="field"><label>Nota</label><input id="m-gnote" placeholder="Look #, combinación..."></div><div class="field"><label>Imagen de la prenda</label><input type="file" id="m-gimage" accept="image/*" style="padding:8px"></div>`;onSave=async()=>{const item={name:v('m-gname'),category:v('m-gcat'),note:v('m-gnote'),ready:false,image:null};if(!item.name)return;const fi=document.getElementById('m-gimage');if(fi&&fi.files.length){try{item.image=await uploadImage(fi.files[0],'collection');}catch(err){console.error('Image upload failed:',err);alert('No se pudo subir la imagen. Probá de nuevo.');return;}}data.collection.push(item);saveData(data);renderCollection();closeModal();};}
+  else if(type==='garment'){
+    const en=currentLang==='en';
+    title.textContent=en?'New garment':'Nueva prenda';
+    html=`<div class="field"><label>${en?'Name':'Nombre'}</label><input id="m-gname" placeholder="The Lace Set - Grey"></div>
+      <div class="field"><label>${en?'Category':'Categoría'}</label><select id="m-gcat">
+        <option value="Top">Top</option>
+        <option value="Bottom">Bottom</option>
+        <option value="Detalles">${en?'Construction details':'Detalles constructivos'}</option>
+        <option value="Styling">Styling</option>
+        <option value="Otro">${en?'Other':'Otro'}</option>
+      </select></div>
+      <div class="field"><label>${en?'Note':'Nota'}</label><input id="m-gnote" placeholder="${en?'Look #, combo...':'Look #, combinación...'}"></div>
+      <div class="field"><label>${en?'Garment image':'Imagen de la prenda'}</label><input type="file" id="m-gimage" accept="image/*" style="padding:8px"></div>`;
+    onSave=async()=>{const item={name:v('m-gname'),category:v('m-gcat'),note:v('m-gnote'),ready:false,image:null};if(!item.name)return;const fi=document.getElementById('m-gimage');if(fi&&fi.files.length){try{item.image=await uploadImage(fi.files[0],'collection');}catch(err){console.error('Image upload failed:',err);alert(en?'Image upload failed. Try again.':'No se pudo subir la imagen. Probá de nuevo.');return;}}data.collection.push(item);saveData(data);renderCollection();closeModal();};
+  }
   else if(type==='music'){title.textContent='Agregar Track';html=`<div class="field"><label>Título / Nombre del tema</label><input id="m-mtitle" placeholder="Ej: Runaway"></div><div class="field"><label>Artista</label><input id="m-martist" placeholder="Ej: Kanye West"></div><div class="field"><label>Link (Spotify, YouTube, SoundCloud...)</label><input id="m-murl" placeholder="https://open.spotify.com/track/..."></div><div class="field"><label>Nota (para qué momento, qué mood)</label><input id="m-mnote" placeholder="Para la apertura, mood dramático..."></div>`;onSave=()=>{const item={title:v('m-mtitle'),artist:v('m-martist'),url:v('m-murl'),note:v('m-mnote')};if(!item.title)return;if(!data.music)data.music=[];data.music.push(item);saveData(data);renderMusic();closeModal();};}
   else if(type==='timeline'){title.textContent='Nuevo Evento';html=`<div class="field"><label>Fecha / Momento</label><input id="m-tdate" placeholder="15 Sep 2026 o D-30"></div><div class="field"><label>Descripción</label><textarea id="m-ttext" rows="2" placeholder="Qué pasa..."></textarea></div>`;onSave=()=>{const item={date:v('m-tdate'),text:v('m-ttext')};if(!item.text)return;data.timeline.push(item);saveData(data);renderTimeline();closeModal();};}
   else if(type==='contact'){title.textContent='Nuevo Contacto';html=`<div class="field"><label>Rol</label><input id="m-crole" placeholder="Modelo, MUA, Fotógrafo..."></div><div class="field"><label>Nombre</label><input id="m-cname" placeholder="Nombre completo"></div><div class="field"><label>Teléfono</label><input id="m-cphone" placeholder="+1 ..."></div><div class="field"><label>Email</label><input id="m-cemail" placeholder="email@..."></div><div class="field"><label>Instagram</label><input id="m-cig" placeholder="@usuario"></div><div class="field"><label>Nota</label><input id="m-cnote" placeholder="Disponibilidad, talles..."></div>`;onSave=()=>{const item={role:v('m-crole'),name:v('m-cname'),phone:v('m-cphone'),email:v('m-cemail'),ig:v('m-cig'),note:v('m-cnote')};if(!item.name)return;data.contacts.push(item);saveData(data);renderContacts();closeModal();};}
@@ -689,26 +1452,571 @@ function closeModal(){document.getElementById('modal').classList.remove('open');
 function v(id){return document.getElementById(id).value.trim();}
 function esc(s){if(!s)return '';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
-function exportData(){const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aurea_nyc_dashboard_backup.json';a.click();}
-function importData(event){const file=event.target.files[0];if(!file)return;const r=new FileReader();r.onload=(e)=>{try{data=JSON.parse(e.target.result);saveData(data);loadInfo();loadCreative();renderAll();alert('Datos importados y sincronizados ✓');}catch(err){alert('Archivo inválido');}};r.readAsText(file);event.target.value='';}
+async function exportData(){
+  if(typeof html2canvas==='undefined'){alert('No se cargó la librería de exportación. Verificá tu conexión.');return;}
+  const target=document.querySelector('.main-area');
+  if(!target)return;
+  const sec=document.querySelector('.section.active');
+  const sectionId=sec?sec.id.replace('sec-',''):'export';
+  const date=new Date().toISOString().slice(0,10);
+  setSyncStatus('Exportando...','var(--text-muted)');
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    const canvas=await html2canvas(target,{
+      backgroundColor:'#F5F0E8',
+      scale:Math.min(2,window.devicePixelRatio||1),
+      useCORS:true,
+      logging:false,
+      windowWidth:document.documentElement.scrollWidth,
+      windowHeight:document.documentElement.scrollHeight
+    });
+    canvas.toBlob(blob=>{
+      if(!blob){setSyncStatus('Error al exportar','var(--danger)');return;}
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download=`aurea-${sectionId}-${date}.jpg`;
+      document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      setSyncStatus('Sincronizado','var(--green)');
+    },'image/jpeg',0.92);
+  }catch(err){
+    console.error('Export failed:',err);
+    alert('No se pudo exportar la imagen: '+(err.message||err));
+    setSyncStatus('Error al exportar','var(--danger)');
+  }
+}
 
-function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderNotes();}
+// JSON backup: full snapshot of all dashboard data. Useful as a safety net
+// (Firebase corruption, accidental wipe, "rollback to last week"). Stored
+// locally on the user's machine — does not replace Firebase, complements it.
+function exportJSON(){
+  const date=new Date().toISOString().slice(0,10);
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`aurea-backup-${date}.json`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  setSyncStatus('Backup descargado','var(--green)');
+}
+
+function importJSON(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const en=currentLang==='en';
+  if(!confirm(en?'This will overwrite ALL current data with the contents of the file. Continue?':'Esto va a SOBRESCRIBIR todos los datos actuales con el contenido del archivo. ¿Continuar?')){
+    event.target.value='';return;
+  }
+  const r=new FileReader();
+  r.onload=(e)=>{
+    try{
+      const parsed=JSON.parse(e.target.result);
+      if(typeof parsed!=='object'||!parsed)throw new Error('not an object');
+      data=parsed;
+      saveData(data);
+      loadInfo();loadCreative();renderAll();
+      alert(en?'Backup imported and synced ✓':'Backup importado y sincronizado ✓');
+    }catch(err){
+      alert(en?'Invalid file':'Archivo inválido');
+    }
+  };
+  r.readAsText(file);
+  event.target.value='';
+}
+
+// Delete an image from Firebase Storage given its download URL
+async function deleteStorageImage(url){
+  if(!url||typeof url!=='string')return;
+  if(!url.includes('firebasestorage'))return;
+  try{
+    const ref=storage.refFromURL(url);
+    await ref.delete();
+  }catch(err){
+    // Object may already be gone, or URL format unexpected — non-fatal
+    console.warn('Storage cleanup skipped for',url,err&&err.code);
+  }
+}
+
+function renderAll(){renderMoodboard();renderCollection();renderTimeline();renderContacts();renderLinks();renderMusic();renderBudget();renderTasks();renderLooks();updateGreeting();updateCountdown();}
 loadInfo();loadCreative();renderAll();
+updateGreeting();
+setInterval(updateGreeting,60000);
+setInterval(updateCountdown,3600000);
+
+function goToShowDate(){
+  // Find the Info nav-item and show its section
+  const navItem=Array.from(document.querySelectorAll('.nav-item')).find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'info'"));
+  showSection('info',navItem);
+  setTimeout(()=>{
+    const di=document.getElementById('info-date');
+    if(di){di.focus();if(di.showPicker)try{di.showPicker();}catch(e){}}
+  },120);
+}
+
+function ensureShowDateDefault(){
+  if(!data.info)data.info={};
+  if(!data.info.date){
+    data.info.date='2026-09-13';
+    saveData(data);
+  }
+}
+
+// ============ TASKS (Pendientes / En proceso / Terminado) ============
+const TASK_STATES=['pending','progress','done'];
+
+function ensureTasks(){
+  if(!Array.isArray(data.pendingTasks))data.pendingTasks=[];
+  // Migrate legacy tasks that only had `done` boolean
+  data.pendingTasks.forEach(t=>{
+    if(!t.status){t.status=t.done?'done':'pending';}
+    if(!t.urgency)t.urgency='medium';
+  });
+}
+
+function renderTasks(){renderHome();renderPending();renderProgress();renderDone();}
+
+function pushTask(text,status){
+  ensureTasks();
+  const now=new Date().toISOString();
+  const item={text,status:status||'pending',createdAt:now,urgency:'medium'};
+  if(status==='done')item.completedAt=now;
+  data.pendingTasks.unshift(item);
+  saveData(data);renderTasks();
+}
+
+function addTask(){
+  const input=document.getElementById('task-input');
+  const text=(input&&input.value||'').trim();
+  if(!text)return;
+  if(input)input.value='';
+  pushTask(text,'pending');
+}
+
+function addTaskFromHome(){
+  const input=document.getElementById('home-task-input');
+  const text=(input&&input.value||'').trim();
+  if(!text)return;
+  if(input)input.value='';
+  pushTask(text,'pending');
+}
+
+function findTask(id){return data.pendingTasks.find(x=>x.createdAt===id);}
+
+function moveTaskForward(id){
+  ensureTasks();
+  const t=findTask(id);if(!t)return;
+  const idx=TASK_STATES.indexOf(t.status||'pending');
+  if(idx<TASK_STATES.length-1){
+    t.status=TASK_STATES[idx+1];
+    if(t.status==='done')t.completedAt=new Date().toISOString();
+    saveData(data);renderTasks();
+  }
+}
+
+function moveTaskBackward(id){
+  ensureTasks();
+  const t=findTask(id);if(!t)return;
+  const idx=TASK_STATES.indexOf(t.status||'pending');
+  if(idx>0){
+    t.status=TASK_STATES[idx-1];
+    if(t.status!=='done')delete t.completedAt;
+    saveData(data);renderTasks();
+  }
+}
+
+function deleteTaskById(id){
+  ensureTasks();
+  const i=data.pendingTasks.findIndex(x=>x.createdAt===id);
+  if(i<0)return;
+  const en=currentLang==='en';
+  const txt=data.pendingTasks[i].text||'';
+  if(!confirm((en?'Delete task: ':'¿Eliminar tarea: ')+'"'+txt.slice(0,60)+(txt.length>60?'...':'')+'"?'))return;
+  data.pendingTasks.splice(i,1);
+  saveData(data);renderTasks();
+}
+
+function cycleUrgency(id){
+  ensureTasks();
+  const t=findTask(id);if(!t)return;
+  const order=['low','medium','high'];
+  const cur=t.urgency||'medium';
+  t.urgency=order[(order.indexOf(cur)+1)%order.length];
+  saveData(data);renderTasks();
+}
+
+function urgencyLabel(u){
+  const en=currentLang==='en';
+  if(u==='low')return en?'Low':'Baja';
+  if(u==='high')return en?'High':'Alta';
+  return en?'Medium':'Media';
+}
+
+const SVG_TRASH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>';
+const SVG_ARROW_RIGHT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+const SVG_ARROW_LEFT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+
+function taskRowHTML(t){
+  const status=t.status||'pending';
+  const rowCls='task-row '+status;
+  const u=t.urgency||'medium';
+  const en=currentLang==='en';
+  const idx=TASK_STATES.indexOf(status);
+  const canBack=idx>0,canFwd=idx<TASK_STATES.length-1;
+  const fwdTitle=status==='pending'?(en?'Move to in progress':'Pasar a en proceso'):(en?'Mark as done':'Marcar como terminado');
+  const backTitle=status==='done'?(en?'Move back to in progress':'Volver a en proceso'):(en?'Move back to pending':'Volver a pendientes');
+  const delTitle=en?'Delete':'Eliminar';
+  const urgTitle=en?'Tap to change urgency':'Tocá para cambiar urgencia';
+  return `<div class="${rowCls}">
+    <span class="task-circle status-${status}" title="${esc(en?'Status: '+status:'Estado: '+status)}"></span>
+    <div class="task-text">${esc(t.text)}</div>
+    <button class="task-urgency ${u}" onclick="cycleUrgency('${esc(t.createdAt)}')" title="${urgTitle}">${urgencyLabel(u)}</button>
+    ${canBack?`<button class="task-action" onclick="moveTaskBackward('${esc(t.createdAt)}')" title="${backTitle}">${SVG_ARROW_LEFT}</button>`:''}
+    ${canFwd?`<button class="task-action" onclick="moveTaskForward('${esc(t.createdAt)}')" title="${fwdTitle}">${SVG_ARROW_RIGHT}</button>`:''}
+    <button class="task-action danger" onclick="deleteTaskById('${esc(t.createdAt)}')" title="${delTitle}">${SVG_TRASH}</button>
+  </div>`;
+}
+
+function tasksByStatus(s){return data.pendingTasks.filter(t=>(t.status||'pending')===s);}
+
+// ============ LOOKS ============
+function ensureLooks(){
+  if(!Array.isArray(data.looks))data.looks=[];
+  data.looks.forEach(l=>{
+    if(!l.id)l.id='l_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+    if(!l.status)l.status='progress';
+    if(!Array.isArray(l.images))l.images=[];
+  });
+}
+function looksByStatus(s){ensureLooks();return data.looks.filter(l=>l.status===s);}
+function findLook(id){ensureLooks();return data.looks.find(l=>l.id===id);}
+
+let _draftLookId=null; // tracks a look that's pending the user pressing "Crear"
+
+function addLook(status){
+  ensureLooks();
+  const next=data.looks.length+1;
+  const draft={
+    id:'l_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
+    name:'Look '+next,
+    status:status||'progress',
+    images:[]
+  };
+  data.looks.push(draft);
+  _draftLookId=draft.id;
+  saveData(data);renderLooks();
+  setTimeout(()=>openLookDetail(draft.id),100);
+}
+
+function confirmDraftLook(){
+  _draftLookId=null;
+  closeLookDetail();
+  renderLooks();
+}
+
+function cancelDraftLook(){
+  if(_draftLookId){
+    data.looks=data.looks.filter(l=>l.id!==_draftLookId);
+    saveData(data);
+    _draftLookId=null;
+    renderLooks();
+  }
+  closeLookDetail();
+}
+
+function renameLook(id,name){
+  const l=findLook(id);if(!l)return;
+  l.name=name||'Look';
+  saveData(data);renderLooks();
+}
+
+function setLookStatus(id,status){
+  const l=findLook(id);if(!l)return;
+  l.status=status;
+  saveData(data);renderLooks();openLookDetail(id);
+}
+
+function deleteLook(id){
+  const en=currentLang==='en';
+  if(!confirm(en?'Delete this look and all its images?':'¿Eliminar este look y todas sus imágenes?'))return;
+  const l=findLook(id);
+  if(l&&Array.isArray(l.images))l.images.forEach(img=>deleteStorageImage(img&&img.url));
+  data.looks=data.looks.filter(x=>x.id!==id);
+  saveData(data);renderLooks();closeLookDetail();
+}
+
+function addImageToLook(lookId){
+  const input=document.getElementById('lookAddImgInput');
+  input.onchange=async(e)=>{
+    const l=findLook(lookId);
+    if(!l){input.value='';return;}
+    try{
+      for(const f of Array.from(e.target.files)){
+        const url=await uploadImage(f,'looks');
+        l.images.push({url,tag:''});
+      }
+      saveData(data);renderLooks();openLookDetail(lookId);
+    }catch(err){
+      console.error('Look image upload failed:',err);
+      alert(currentLang==='en'?'Image upload failed.':'No se pudo subir la imagen.');
+    }finally{input.value='';}
+  };
+  input.click();
+}
+
+function setLookImageTag(lookId,imgIdx,tag){
+  const l=findLook(lookId);
+  if(!l||!l.images[imgIdx])return;
+  l.images[imgIdx].tag=(l.images[imgIdx].tag===tag?'':tag);
+  saveData(data);openLookDetail(lookId);
+}
+
+let _descSaveTO;
+function setLookImageDesc(lookId,imgIdx,text){
+  const l=findLook(lookId);
+  if(!l||!l.images[imgIdx])return;
+  l.images[imgIdx].desc=text;
+  clearTimeout(_descSaveTO);
+  _descSaveTO=setTimeout(()=>saveData(data),400);
+}
+
+function removeLookImage(lookId,imgIdx){
+  const l=findLook(lookId);if(!l)return;
+  const img=l.images[imgIdx];
+  if(img&&img.url)deleteStorageImage(img.url);
+  l.images.splice(imgIdx,1);
+  saveData(data);renderLooks();openLookDetail(lookId);
+}
+
+function openLookDetail(id){
+  const l=findLook(id);if(!l)return;
+  const en=currentLang==='en';
+  const card=document.getElementById('look-detail-card');
+  const tagsDef=[
+    {value:'top',label:'Top'},
+    {value:'bottom',label:'Bottom'},
+    {value:'accesorio',label:en?'Accessory':'Accesorio'}
+  ];
+  const descPh=en?'Description (fabric, color, details...)':'Descripción (tela, color, detalles...)';
+  const imgsHTML=(l.images||[]).map((img,idx)=>`
+    <div class="look-image-item">
+      <img src="${esc(img.url)}" onclick="openLightbox('${esc(img.url)}')">
+      <button class="look-image-remove" onclick="event.stopPropagation();removeLookImage('${esc(l.id)}',${idx})">×</button>
+      <div class="look-image-tags">
+        ${tagsDef.map(t=>`<button class="look-tag-pill${img.tag===t.value?' active':''}" onclick="setLookImageTag('${esc(l.id)}',${idx},'${t.value}')">${t.label}</button>`).join('')}
+      </div>
+      <textarea class="look-image-desc" placeholder="${descPh}" rows="2" oninput="setLookImageDesc('${esc(l.id)}',${idx},this.value)">${esc(img.desc||'')}</textarea>
+    </div>
+  `).join('');
+  card.innerHTML=`
+    <input class="look-detail-title-input" value="${esc(l.name)}" oninput="renameLook('${esc(l.id)}',this.value)">
+    <div class="look-detail-status-row">
+      <button class="look-status-btn progress${l.status==='progress'?' active':''}" onclick="setLookStatus('${esc(l.id)}','progress')">${en?'In progress':'En proceso'}</button>
+      <button class="look-status-btn done${l.status==='done'?' active':''}" onclick="setLookStatus('${esc(l.id)}','done')">${en?'Done':'Terminado'}</button>
+    </div>
+    <div class="look-images-grid">
+      ${imgsHTML}
+      <button class="look-add-image-btn" onclick="addImageToLook('${esc(l.id)}')">+</button>
+    </div>
+    <div class="look-detail-actions">
+      ${_draftLookId===l.id
+        ?`<button class="btn btn-outline" onclick="cancelDraftLook()">${en?'Cancel':'Cancelar'}</button>
+          <button class="btn btn-primary" onclick="confirmDraftLook()">${en?'Create':'Crear'}</button>`
+        :`<button class="btn btn-danger" onclick="deleteLook('${esc(l.id)}')">${en?'Delete look':'Eliminar look'}</button>
+          <button class="btn btn-outline" onclick="closeLookDetail()">${en?'Close':'Cerrar'}</button>`}
+    </div>
+  `;
+  document.getElementById('look-detail-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeLookDetail(){
+  // If a draft look is open and user closes via X / overlay, treat as confirm
+  if(_draftLookId){_draftLookId=null;renderLooks();}
+  document.getElementById('look-detail-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function lookCardHTML(l){
+  const cover=l.images&&l.images.length?l.images[0].url:null;
+  const cnt=l.images?l.images.length:0;
+  return `<div class="look-card" data-id="${esc(l.id)}" onclick="if(!this._dragged)openLookDetail('${esc(l.id)}'); this._dragged=false;">
+    <div class="look-card-cover">${cover?`<img src="${esc(cover)}">`:'+'}${cnt>1?`<div class="look-card-img-count">${cnt}</div>`:''}</div>
+    <div class="look-card-name">${esc(l.name)}</div>
+  </div>`;
+}
+
+const _sortables={};
+function initLooksSortable(containerId,status){
+  const el=document.getElementById(containerId);
+  if(!el||typeof Sortable==='undefined')return;
+  if(_sortables[containerId]){_sortables[containerId].destroy();delete _sortables[containerId];}
+  _sortables[containerId]=Sortable.create(el,{
+    animation:180,
+    delay:120,
+    delayOnTouchOnly:true,
+    touchStartThreshold:5,
+    ghostClass:'sortable-ghost',
+    chosenClass:'sortable-chosen',
+    onChoose:(evt)=>{evt.item._dragged=false;},
+    onEnd:(evt)=>{
+      // Mark item so the click after drag doesn't open the modal
+      evt.item._dragged=evt.oldIndex!==evt.newIndex;
+      const ids=Array.from(el.querySelectorAll('.look-card')).map(c=>c.dataset.id);
+      // Rebuild data.looks: keep other-status looks in original order, replace this-status looks with the new order
+      const inStatus=ids.map(id=>data.looks.find(x=>x.id===id)).filter(Boolean);
+      const otherStatus=data.looks.filter(l=>l.status!==status);
+      // Preserve original positions of other-status by inserting them at their original indices
+      data.looks=[...inStatus,...otherStatus];
+      saveData(data);
+      // Re-render the OTHER container only (not this one — it's already in correct order from Sortable)
+      renderLooksMirror(containerId);
+    }
+  });
+}
+// After a drag in one container, refresh sibling containers (same status) that mirror the same data
+function renderLooksMirror(sourceId){
+  const homeProg='looks-progress-list',homeDone='looks-done-list';
+  const secProg='sec-looks-progress-list',secDone='sec-looks-done-list';
+  // If sorted in home, mirror to section (and vice versa)
+  if(sourceId===homeProg)_paintLooks(secProg,'progress');
+  else if(sourceId===secProg)_paintLooks(homeProg,'progress');
+  else if(sourceId===homeDone)_paintLooks(secDone,'done');
+  else if(sourceId===secDone)_paintLooks(homeDone,'done');
+  // Update counts in both places
+  document.getElementById('looks-progress-count').textContent=looksByStatus('progress').length;
+  document.getElementById('looks-done-count').textContent=looksByStatus('done').length;
+  const sp=document.getElementById('sec-looks-progress-count');if(sp)sp.textContent=looksByStatus('progress').length;
+  const sd=document.getElementById('sec-looks-done-count');if(sd)sd.textContent=looksByStatus('done').length;
+}
+
+function _paintLooks(containerId,status){
+  const el=document.getElementById(containerId);
+  if(!el)return;
+  const items=looksByStatus(status);
+  const en=currentLang==='en';
+  const emptyMsg=status==='progress'?(en?'No looks in progress':'No hay looks en proceso'):(en?'No completed looks':'No hay looks terminados');
+  el.innerHTML=items.length?items.map(lookCardHTML).join(''):`<div class="looks-empty">${emptyMsg}</div>`;
+  if(items.length)initLooksSortable(containerId,status);
+}
+
+function renderLooks(){
+  ensureLooks();
+  _paintLooks('looks-progress-list','progress');
+  _paintLooks('looks-done-list','done');
+  _paintLooks('sec-looks-progress-list','progress');
+  _paintLooks('sec-looks-done-list','done');
+  const counts={
+    'looks-progress-count':looksByStatus('progress').length,
+    'looks-done-count':looksByStatus('done').length,
+    'sec-looks-progress-count':looksByStatus('progress').length,
+    'sec-looks-done-count':looksByStatus('done').length
+  };
+  Object.keys(counts).forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=counts[id];});
+}
+
+function renderHome(){
+  ensureTasks();
+  const pending=tasksByStatus('pending');
+  const progress=tasksByStatus('progress');
+  const done=tasksByStatus('done');
+  const pl=document.getElementById('home-pending-list');
+  const ql=document.getElementById('home-progress-list');
+  const dl=document.getElementById('home-done-list');
+  const pc=document.getElementById('home-pending-count');
+  const qc=document.getElementById('home-progress-count');
+  const dc=document.getElementById('home-done-count');
+  if(pc)pc.textContent=pending.length;
+  if(qc)qc.textContent=progress.length;
+  if(dc)dc.textContent=done.length;
+  const en=currentLang==='en';
+  const t1=en?'No pending tasks':'Sin tareas pendientes';
+  const t2=en?'Nothing in progress':'Nada en proceso';
+  const t3=en?'Nothing done yet':'Aún no terminaste nada';
+  if(pl)pl.innerHTML=pending.length?pending.map(t=>taskRowHTML(t)).join(''):`<div class="home-empty">${esc(t1)}</div>`;
+  if(ql)ql.innerHTML=progress.length?progress.map(t=>taskRowHTML(t)).join(''):`<div class="home-empty">${esc(t2)}</div>`;
+  if(dl)dl.innerHTML=done.length?done.map(t=>taskRowHTML(t)).join(''):`<div class="home-empty">${esc(t3)}</div>`;
+}
+
+function renderListBy(listId,emptyId,status){
+  ensureTasks();
+  const list=document.getElementById(listId);
+  const empty=document.getElementById(emptyId);
+  if(!list)return;
+  const items=tasksByStatus(status);
+  if(!items.length){list.innerHTML='';if(empty)empty.style.display='';return;}
+  if(empty)empty.style.display='none';
+  list.innerHTML=items.map(t=>taskRowHTML(t)).join('');
+}
+
+function renderPending(){renderListBy('pending-list','pending-empty','pending');}
+function renderProgress(){renderListBy('progress-list','progress-empty','progress');}
+function renderDone(){renderListBy('done-list','done-empty','done');}
+
+// ============ GREETING + COUNTDOWN ============
+function updateGreeting(){
+  const el=document.getElementById('greeting');
+  if(!el)return;
+  const h=new Date().getHours();
+  let g;
+  if(h<12)g=currentLang==='en'?'Good morning':'Buenos días';
+  else if(h<19)g=currentLang==='en'?'Good afternoon':'Buenas tardes';
+  else g=currentLang==='en'?'Good evening':'Buenas noches';
+  let name='Mila';
+  try {
+    if (auth && auth.currentUser){
+      const dn = auth.currentUser.displayName;
+      if (dn) name = dn.split(' ')[0]; // first name only
+      else if (auth.currentUser.email) name = auth.currentUser.email.split('@')[0];
+    }
+  } catch(e){}
+  el.textContent=`${g}, ${name}`;
+}
+
+function updateCountdown(){
+  const wrap=document.getElementById('countdown');
+  const txt=document.getElementById('countdown-text');
+  if(!wrap||!txt)return;
+  const dateStr=data&&data.info&&data.info.date;
+  if(!dateStr){wrap.style.display='none';return;}
+  const target=new Date(dateStr+'T00:00:00');
+  if(isNaN(target.getTime())){wrap.style.display='none';return;}
+  const today=new Date();today.setHours(0,0,0,0);
+  const diff=Math.round((target-today)/(1000*60*60*24));
+  wrap.classList.remove('past','today');
+  if(diff>0){txt.textContent=currentLang==='en'?`${diff} days left`:`Faltan ${diff} día${diff===1?'':'s'}`;}
+  else if(diff===0){txt.textContent=currentLang==='en'?'Today is the show!':'¡Hoy es el desfile!';wrap.classList.add('today');}
+  else {txt.textContent=currentLang==='en'?`${-diff} days ago`:`Hace ${-diff} día${diff===-1?'':'s'}`;wrap.classList.add('past');}
+  wrap.style.display='';
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('lightbox').classList.contains('open'))document.getElementById('lightbox').classList.remove('open');else if(document.getElementById('mood-detail-overlay').classList.contains('open'))closeMoodDetail();else closeModal();}});
 
 // ============ LANGUAGE / i18n ============
-let currentLang = 'es';
 const i18n = {
   es: {
     // Nav
-    nav_info:'Info General', nav_collection:'Colección', nav_team:'Equipo', nav_music:'Música',
-    nav_creative:'Proceso Creativo', nav_notes:'Notas',
+    nav_home:'Inicio', nav_info:'Info General', nav_timeline:'Timeline',
+    nav_references:'Referencias', nav_collection:'Colección', nav_team:'Equipo', nav_music:'Música',
+    nav_creative:'Proceso Creativo', nav_pending:'Pendientes', nav_progress:'En proceso', nav_done:'Terminado', nav_notes:'Notas',
+    group_show:'Show', group_creative:'Creativo', group_production:'Producción', group_tasks:'Tareas',
+    home_pending:'Pendientes', home_progress:'En proceso', home_done:'Terminado',
+    home_pending_empty:'Sin tareas pendientes', home_progress_empty:'Nada en proceso', home_done_empty:'Aún no terminaste nada',
+    progress_empty:'No hay tareas en proceso — pasá una desde Pendientes',
+    export_btn:'Exportar imagen', backup_btn:'Backup (JSON)', restore_btn:'Restaurar backup', logout_btn:'Cerrar sesión',
+    looks_progress_title:'Looks en proceso', looks_done_title:'Looks terminados',
+    nav_looks:'Looks', looks_title:'Looks',
+    add_look_progress:'Look en proceso', add_look_done:'Look terminado',
+    drag_hint:'Arrastrá para reordenar',
+    task_placeholder:'Agregar tarea...', task_done_placeholder:'Agregar tarea ya completada...', task_add:'+ Agregar',
+    pending_empty:'Sin tareas pendientes — agregá la primera arriba',
+    done_empty:'Las tareas que vayas marcando como hechas aparecen acá',
     // Info
     info_title:'Info General', info_name:'Nombre del desfile', info_date:'Fecha',
     info_venue:'Venue / Locación', info_time:'Horario', info_looks:'Cantidad de looks',
     info_duration:'Duración estimada', info_notes:'Notas generales',
-    // Moodboard
-    add_board:'Nuevo board', mood_empty:'Creá tableros visuales con imágenes, referencias y notas',
+    // References (formerly Moodboard)
+    references_title:'Referencias', add_reference:'Nueva referencia',
+    add_board:'Nueva referencia', mood_empty:'Creá tableros de referencias visuales con imágenes y notas',
+    cat_all:'Todas', cat_detalles:'Detalles constructivos', cat_other:'Otro',
     // Collection
     collection:'Colección', add_garment:'Agregar prenda',
     collection_empty:'Listá las prendas y looks del desfile',
@@ -733,12 +2041,27 @@ const i18n = {
     add_note:'Nueva nota', notes_empty:'Anotaciones rápidas, ideas, pendientes...'
   },
   en: {
-    nav_info:'General Info', nav_collection:'Collection', nav_team:'Team', nav_music:'Music',
-    nav_creative:'Creative Process', nav_notes:'Notes',
+    nav_home:'Home', nav_info:'General Info', nav_timeline:'Timeline',
+    nav_references:'References', nav_collection:'Collection', nav_team:'Team', nav_music:'Music',
+    nav_creative:'Creative Process', nav_pending:'To do', nav_progress:'In progress', nav_done:'Done', nav_notes:'Notes',
+    group_show:'Show', group_creative:'Creative', group_production:'Production', group_tasks:'Tasks',
+    home_pending:'To do', home_progress:'In progress', home_done:'Done',
+    home_pending_empty:'No pending tasks', home_progress_empty:'Nothing in progress', home_done_empty:'Nothing done yet',
+    progress_empty:'Nothing in progress — move one from Pending',
+    export_btn:'Export image', backup_btn:'Backup (JSON)', restore_btn:'Restore backup', logout_btn:'Sign out',
+    looks_progress_title:'Looks in progress', looks_done_title:'Completed looks',
+    nav_looks:'Looks', looks_title:'Looks',
+    add_look_progress:'Look in progress', add_look_done:'Completed look',
+    drag_hint:'Drag to reorder',
+    task_placeholder:'Add task...', task_done_placeholder:'Log a completed task...', task_add:'+ Add',
+    pending_empty:'No pending tasks — add the first one above',
+    done_empty:'Tasks you mark as done show up here',
     info_title:'General Info', info_name:'Show name', info_date:'Date',
     info_venue:'Venue / Location', info_time:'Schedule', info_looks:'Number of looks',
     info_duration:'Estimated duration', info_notes:'General notes',
-    add_board:'New board', mood_empty:'Create visual boards with images, references and notes',
+    references_title:'References', add_reference:'New reference',
+    add_board:'New reference', mood_empty:'Create reference boards with images and notes',
+    cat_all:'All', cat_detalles:'Construction details', cat_other:'Other',
     collection:'Collection', add_garment:'Add garment',
     collection_empty:'List the garments and looks for the show',
     timeline:'Timeline', add_event:'Add event',
@@ -763,81 +2086,20 @@ function toggleLang(){
     const key = el.getAttribute('data-i18n');
     if(i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(i18n[currentLang][key]) el.placeholder = i18n[currentLang][key];
+  });
   // Update placeholders on creative textarea
   const ct = document.getElementById('creative-text');
   if(ct) ct.placeholder = ct.getAttribute('data-placeholder-'+currentLang) || ct.placeholder;
-  // Update header subtitle
-  const sub=document.querySelector('.header-subtitle');
-  const ss=document.getElementById('sync-status');
-  if(sub){sub.childNodes[0].nodeValue = (currentLang==='en'?'NYC Show Dashboard ':'NYC Show Dashboard ');if(ss)sub.appendChild(ss);}
+  // Update greeting + countdown + dynamic content
+  updateGreeting();
+  updateCountdown();
+  renderMoodboard();
+  renderHome();
 }
 
-// ============ DOWNLOAD SECTION AS HTML/PDF ============
-function downloadSection(sectionId){
-  const lang = currentLang;
-  const showName = data.info?.name || 'ÁUREA NYC Show';
-  const date = data.info?.date || '';
-  let title = '', content = '';
-
-  if(sectionId==='collection'){
-    title = lang==='en'?'Collection':'Colección';
-    const items = data.collection||[];
-    content = items.map(g => `
-      <div style="display:inline-block;width:220px;margin:8px;vertical-align:top;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#fff">
-        ${g.image?`<div style="width:220px;height:280px;overflow:hidden"><img src="${g.image}" style="width:100%;height:100%;object-fit:cover"></div>`:`<div style="width:220px;height:280px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:40px;color:#ccc">👗</div>`}
-        <div style="padding:12px">
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#E85D26;margin-bottom:4px">${esc(g.category||'')}</div>
-          <div style="font-size:14px;font-weight:600">${esc(g.name)}</div>
-          ${g.note?`<div style="font-size:12px;color:#888;margin-top:4px">${esc(g.note)}</div>`:''}
-          ${g.ready?`<div style="font-size:11px;color:#4CAF50;margin-top:4px">✓ ${lang==='en'?'Ready':'Lista'}</div>`:''}
-        </div>
-      </div>`).join('');
-  }
-  else if(sectionId==='timeline'){
-    title = 'Timeline';
-    const items = (data.timeline||[]).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Date':'Fecha'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Description':'Descripción'}</th></tr>
-      ${items.map(t=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-weight:500;font-size:13px;white-space:nowrap;vertical-align:top">${esc(t.date||'—')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:14px">${esc(t.text)}</td></tr>`).join('')}
-    </table>`;
-  }
-  else if(sectionId==='contacts'){
-    title = lang==='en'?'Team':'Equipo';
-    const items = data.contacts||[];
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Role':'Rol'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Name':'Nombre'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Phone':'Teléfono'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Email</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Instagram</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
-      ${items.map(c=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#E85D26;font-size:12px;text-transform:uppercase">${esc(c.role)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(c.name)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.phone||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.email||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(c.ig||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(c.note||'')}</td></tr>`).join('')}
-    </table>`;
-  }
-  else if(sectionId==='music'){
-    title = lang==='en'?'Music / Soundtrack':'Música / Soundtrack';
-    const items = data.music||[];
-    content = `<table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f5f5f5"><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">#</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Track':'Tema'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Artist':'Artista'}</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">Link</th><th style="text-align:left;padding:10px;border-bottom:2px solid #E85D26;font-size:12px">${lang==='en'?'Notes':'Notas'}</th></tr>
-      ${items.map((m,i)=>`<tr><td style="padding:10px;border-bottom:1px solid #eee;color:#888;font-size:13px">${i+1}</td><td style="padding:10px;border-bottom:1px solid #eee;font-weight:500">${esc(m.title)}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px">${esc(m.artist||'')}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:12px">${m.url?`<a href="${esc(m.url)}" style="color:#E85D26">${esc(m.url)}</a>`:''}</td><td style="padding:10px;border-bottom:1px solid #eee;font-size:13px;color:#888">${esc(m.note||'')}</td></tr>`).join('')}
-    </table>`;
-  }
-
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ÁUREA — ${title}</title>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap');
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;padding:40px;color:#222;max-width:1100px;margin:0 auto}
-    @media print{body{padding:20px}@page{margin:15mm}}</style>
-  </head><body>
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #E85D26;padding-bottom:16px;margin-bottom:30px">
-      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px">ÁUREA</div>
-      <div style="font-size:13px;color:#888;margin-top:2px">${esc(showName)}${date?' — '+esc(date):''}</div></div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#E85D26">${title}</div>
-    </div>
-    ${content}
-    <div style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:11px;color:#aaa;text-align:center">ÁUREA Argentina — The Design & Upcycling Experience — www.aureaargentina.com</div>
-  </body></html>`;
-
-  const blob = new Blob([html],{type:'text/html'});
-  const url = URL.createObjectURL(blob);
-  const w = window.open(url,'_blank');
-  if(w){w.onload=()=>{setTimeout(()=>w.print(),500);};}
-  else{const a=document.createElement('a');a.href=url;a.download=`AUREA_${sectionId}_${lang}.html`;a.click();}
-}
 </script>
 </body>
 </html>
