@@ -770,6 +770,7 @@ function saveDataLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
 
 let data=loadDataLocal();
 let saving=false;
+let saveDirty=false;
 let saveTimeout;
 let currentLang='es';
 let collectionFilter='all';
@@ -781,6 +782,7 @@ function setSyncStatus(text,color){
 
 function saveData(d){
   saveDataLocal(d);
+  saveDirty=true;
   clearTimeout(saveTimeout);
   setSyncStatus('Guardando...','var(--text-muted)');
   saveTimeout=setTimeout(()=>{
@@ -788,10 +790,12 @@ function saveData(d){
     saving=true;
     DOC_REF.set(d).then(()=>{
       saving=false;
+      saveDirty=false;
       setSyncStatus('Sincronizado','var(--green)');
     }).catch(err=>{
       console.error('Firebase save error:',err);
       saving=false;
+      saveDirty=false;
       setSyncStatus('Error al guardar','var(--danger)');
     });
   },1000);
@@ -799,7 +803,7 @@ function saveData(d){
 
 // Real-time sync from Firestore (other devices)
 DOC_REF.onSnapshot(doc=>{
-  if(doc.exists && !saving){
+  if(doc.exists && !saving && !saveDirty){
     const remoteData=doc.data();
     if(JSON.stringify(data)!==JSON.stringify(remoteData)){
       data=remoteData;
@@ -888,7 +892,16 @@ async function uploadImage(file,folder){
   const ref=storage.ref().child(`${folder}/${id}.jpg`);
   setSyncStatus('Subiendo imagen...','var(--text-muted)');
   const snap=await ref.put(blob,{contentType:'image/jpeg'});
-  return await snap.ref.getDownloadURL();
+  const url=await snap.ref.getDownloadURL();
+  // Pre-fetch the public URL so the next render hits the browser cache and the image appears instantly
+  await new Promise(res=>{
+    const probe=new Image();
+    probe.onload=()=>res();
+    probe.onerror=()=>res();
+    probe.src=url;
+    setTimeout(res,2500);
+  });
+  return url;
 }
 
 // ============ REFERENCES (formerly Moodboard) ============
