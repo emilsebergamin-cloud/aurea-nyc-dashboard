@@ -304,7 +304,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .topbar{position:sticky;top:0;z-index:80;background:rgba(245,240,232,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .topbar-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0}
 .greeting{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.5px;color:var(--orange)}
-.countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1.5px solid var(--orange);border-radius:20px;font-size:12px;font-weight:600;color:var(--orange);letter-spacing:0.3px;white-space:nowrap}
+.countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1.5px solid var(--orange);border-radius:20px;font-size:12px;font-weight:600;color:var(--orange);letter-spacing:0.3px;white-space:nowrap;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.countdown:hover{background:var(--orange-soft)}
 .countdown svg{width:13px;height:13px;stroke-width:2.2}
 .countdown.past{border-color:var(--text-muted);color:var(--text-muted)}
 .countdown.today{background:var(--orange);color:#fff;border-color:var(--orange)}
@@ -454,10 +455,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     <div class="greeting" id="greeting"></div>
-    <div class="countdown" id="countdown" style="display:none">
+    <button class="countdown" id="countdown" style="display:none" onclick="goToShowDate()" title="Click para cambiar la fecha del desfile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       <span id="countdown-text"></span>
-    </div>
+    </button>
   </div>
   <div class="topbar-right">
     <span class="sync-pill" id="sync-status">Conectando...</span>
@@ -508,13 +509,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div class="section" id="sec-moodboard">
   <div class="section-header"><div class="section-title" data-i18n="references_title">Referencias</div><button class="btn btn-primary" onclick="openModal('mood')">+ <span data-i18n="add_reference">Nueva referencia</span></button></div>
-  <div class="mood-filters" id="mood-filters">
-    <button class="mood-filter-pill active" data-cat="all" onclick="setMoodFilter('all')"><span data-i18n="ref_cat_all">Todas</span></button>
-    <button class="mood-filter-pill" data-cat="bottom" onclick="setMoodFilter('bottom')">Bottom</button>
-    <button class="mood-filter-pill" data-cat="top" onclick="setMoodFilter('top')">Top</button>
-    <button class="mood-filter-pill" data-cat="detalles" onclick="setMoodFilter('detalles')"><span data-i18n="ref_cat_detalles">Detalles constructivos</span></button>
-    <button class="mood-filter-pill" data-cat="styling" onclick="setMoodFilter('styling')">Styling</button>
-  </div>
   <div class="mood-grid" id="moodboard-grid"></div>
   <div class="empty-state" id="mood-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><div class="empty-text" data-i18n="mood_empty">Creá tableros de referencias visuales con imágenes y notas</div></div>
 </div>
@@ -527,6 +521,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div class="section" id="sec-collection">
   <div class="section-header"><div class="section-title" data-i18n="collection">Colección</div><div style="display:flex;gap:8px"><button class="btn btn-outline" onclick="downloadSection('collection')">⬇ PDF</button><button class="btn btn-primary" onclick="openModal('garment')">+ <span data-i18n="add_garment">Agregar prenda</span></button></div></div>
+  <div class="mood-filters">
+    <button class="mood-filter-pill active" data-cat="all" onclick="setCollectionFilter('all')"><span data-i18n="cat_all">Todas</span></button>
+    <button class="mood-filter-pill" data-cat="Top" onclick="setCollectionFilter('Top')">Top</button>
+    <button class="mood-filter-pill" data-cat="Bottom" onclick="setCollectionFilter('Bottom')">Bottom</button>
+    <button class="mood-filter-pill" data-cat="Detalles" onclick="setCollectionFilter('Detalles')"><span data-i18n="cat_detalles">Detalles constructivos</span></button>
+    <button class="mood-filter-pill" data-cat="Styling" onclick="setCollectionFilter('Styling')">Styling</button>
+    <button class="mood-filter-pill" data-cat="Otro" onclick="setCollectionFilter('Otro')"><span data-i18n="cat_other">Otro</span></button>
+  </div>
   <div class="collection-grid" id="collection-list"></div><div class="empty-state" id="collection-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="empty-text" data-i18n="collection_empty">Listá las prendas y looks del desfile</div></div>
 </div>
 
@@ -632,6 +634,8 @@ function saveDataLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
 let data=loadDataLocal();
 let saving=false;
 let saveTimeout;
+let currentLang='es';
+let collectionFilter='all';
 
 function setSyncStatus(text,color){
   const ss=document.getElementById('sync-status');
@@ -679,11 +683,13 @@ DOC_REF.get().then(doc=>{
   if(doc.exists){
     data=doc.data();
     saveDataLocal(data);
+    if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
     loadInfo();
     loadCreative();
     renderAll();
     setSyncStatus('Sincronizado','var(--green)');
   } else {
+    if(typeof ensureShowDateDefault==='function')ensureShowDateDefault();
     saveData(data);
   }
 }).catch(err=>{
@@ -747,20 +753,11 @@ async function uploadImage(file,folder){
 }
 
 // ============ REFERENCES (formerly Moodboard) ============
-let moodFilter='all';
-function setMoodFilter(cat){
-  moodFilter=cat;
-  document.querySelectorAll('.mood-filter-pill').forEach(p=>p.classList.toggle('active',p.dataset.cat===cat));
-  renderMoodboard();
-}
-
 function renderMoodboard(){
   const grid=document.getElementById('moodboard-grid'),empty=document.getElementById('mood-empty');
   if(!data.moodboard||!data.moodboard.length){grid.innerHTML='';empty.style.display='';return;}
-  const filtered=data.moodboard.map((m,i)=>({m,i})).filter(({m})=>moodFilter==='all'||(m.category||'')===moodFilter);
-  if(!filtered.length){grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-text">${currentLang==='en'?'No references in this category yet':'No hay referencias en esta categoría todavía'}</div></div>`;empty.style.display='none';return;}
   empty.style.display='none';
-  grid.innerHTML=filtered.map(({m,i})=>{
+  grid.innerHTML=data.moodboard.map((m,i)=>{
     const cover=m.images&&m.images.length?m.images[m.cover||0]:null;
     const cnt=m.images?m.images.length:0;
     const tagStr=m.tags&&m.tags.length?m.tags.slice(0,2).join(' · '):'';
@@ -815,12 +812,27 @@ function deleteMood(i){data.moodboard.splice(i,1);saveData(data);renderMoodboard
 function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
 
 // OTHER RENDERS
-function renderCollection(){const l=document.getElementById('collection-list'),e=document.getElementById('collection-empty');if(!data.collection.length){l.innerHTML='';e.style.display='';return;}e.style.display='none';l.innerHTML=data.collection.map((g,i)=>`<div class="garment-card${g.ready?' done':''}">
-  <div class="garment-check${g.ready?' checked':''}" onclick="toggleGarment(${i})"></div>
-  <div class="garment-actions"><span class="garment-action-btn" onclick="deleteGarment(${i})">×</span></div>
-  <div class="garment-img">${g.image?`<img src="${g.image}">`:'👗'}</div>
-  <div class="garment-body"><div class="garment-cat">${esc(g.category||'')}</div><div class="garment-name">${esc(g.name)}</div>${g.note?`<div class="garment-note">${esc(g.note)}</div>`:''}</div>
-</div>`).join('');}
+function setCollectionFilter(cat){
+  collectionFilter=cat;
+  document.querySelectorAll('#sec-collection .mood-filter-pill').forEach(p=>p.classList.toggle('active',p.dataset.cat===cat));
+  renderCollection();
+}
+function renderCollection(){
+  const l=document.getElementById('collection-list'),e=document.getElementById('collection-empty');
+  if(!data.collection||!data.collection.length){l.innerHTML='';e.style.display='';return;}
+  const filtered=data.collection.map((g,i)=>({g,i})).filter(({g})=>collectionFilter==='all'||(g.category||'')===collectionFilter);
+  if(!filtered.length){
+    l.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-text">${currentLang==='en'?'No items in this category yet':'No hay prendas en esta categoría todavía'}</div></div>`;
+    e.style.display='none';return;
+  }
+  e.style.display='none';
+  l.innerHTML=filtered.map(({g,i})=>`<div class="garment-card${g.ready?' done':''}">
+    <div class="garment-check${g.ready?' checked':''}" onclick="toggleGarment(${i})"></div>
+    <div class="garment-actions"><span class="garment-action-btn" onclick="deleteGarment(${i})">×</span></div>
+    <div class="garment-img">${g.image?`<img src="${g.image}">`:''}</div>
+    <div class="garment-body"><div class="garment-cat">${esc(g.category||'')}</div><div class="garment-name">${esc(g.name)}</div>${g.note?`<div class="garment-note">${esc(g.note)}</div>`:''}</div>
+  </div>`).join('');
+}
 function toggleGarment(i){data.collection[i].ready=!data.collection[i].ready;saveData(data);renderCollection();}
 function deleteGarment(i){data.collection.splice(i,1);saveData(data);renderCollection();}
 
@@ -898,9 +910,6 @@ function openModal(type,editData,editIdx){
     title.textContent=isEdit?(en?'Edit reference':'Editar referencia'):(en?'New reference':'Nueva referencia');
     const lbl={
       title:en?'Reference title':'Título de la referencia',
-      cat:en?'Category':'Categoría',
-      catNone:en?'No category':'Sin categoría',
-      catDetalles:en?'Construction details':'Detalles constructivos',
       source:en?'Source / Where you got it':'Fuente / De dónde sacaste las refs',
       sourceUrl:en?'Source link (optional)':'Link de la fuente (opcional)',
       tags:en?'Tags (comma separated)':'Tags (separados por coma)',
@@ -913,16 +922,8 @@ function openModal(type,editData,editIdx){
       ph_notes:en?'What you like, what it reminds you of...':'Qué es lo que te gusta, a qué te remonta...',
       ph_highlights:en?'Textures, color combos, silhouettes...':'Texturas, combinaciones de color, siluetas...'
     };
-    const cat=m.category||'';
     html=`
       <div class="field"><label>${lbl.title}</label><input id="m-title" value="${esc(m.title||'')}" placeholder="${lbl.ph_title}"></div>
-      <div class="field"><label>${lbl.cat}</label><select id="m-category">
-        <option value=""${cat===''?' selected':''}>${lbl.catNone}</option>
-        <option value="bottom"${cat==='bottom'?' selected':''}>Bottom</option>
-        <option value="top"${cat==='top'?' selected':''}>Top</option>
-        <option value="detalles"${cat==='detalles'?' selected':''}>${lbl.catDetalles}</option>
-        <option value="styling"${cat==='styling'?' selected':''}>Styling</option>
-      </select></div>
       <div class="field"><label>${lbl.source}</label><input id="m-source" value="${esc(m.source||'')}" placeholder="${lbl.ph_source}"></div>
       <div class="field"><label>${lbl.sourceUrl}</label><input id="m-sourceUrl" value="${esc(m.sourceUrl||'')}" placeholder="https://..."></div>
       <div class="field"><label>${lbl.tags}</label><input id="m-tags" value="${esc((m.tags||[]).join(', '))}" placeholder="${lbl.ph_tags}"></div>
@@ -931,14 +932,28 @@ function openModal(type,editData,editIdx){
       ${!isEdit?`<div class="field"><label>${lbl.images}</label><input type="file" id="m-images" accept="image/*" multiple style="padding:8px"></div>`:''}`;
     onSave=async()=>{
       const tags=document.getElementById('m-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-      const item={title:v('m-title'),category:v('m-category'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
+      const item={title:v('m-title'),source:v('m-source'),sourceUrl:v('m-sourceUrl'),tags,notes:document.getElementById('m-notes').value.trim(),highlights:document.getElementById('m-highlights').value.trim(),images:isEdit?m.images||[]:[],cover:isEdit?m.cover||0:0};
       if(!item.title)return;
       if(!isEdit){const fi=document.getElementById('m-images');if(fi&&fi.files.length){try{for(const f of Array.from(fi.files))item.images.push(await uploadImage(f,'moodboard'));}catch(err){console.error('Image upload failed:',err);alert('No se pudieron subir algunas imágenes. Probá de nuevo.');return;}}data.moodboard.push(item);}
       else{data.moodboard[editIdx]=item;}
       saveData(data);renderMoodboard();closeModal();
     };
   }
-  else if(type==='garment'){title.textContent='Nueva Prenda';html=`<div class="field"><label>Nombre</label><input id="m-gname" placeholder="The Lace Set - Grey"></div><div class="field"><label>Categoría</label><select id="m-gcat"><option value="Top">Top</option><option value="Bottom">Bottom</option><option value="Set">Set</option><option value="Accesorio">Accesorio</option><option value="Zapatos">Zapatos</option><option value="Otro">Otro</option></select></div><div class="field"><label>Nota</label><input id="m-gnote" placeholder="Look #, combinación..."></div><div class="field"><label>Imagen de la prenda</label><input type="file" id="m-gimage" accept="image/*" style="padding:8px"></div>`;onSave=async()=>{const item={name:v('m-gname'),category:v('m-gcat'),note:v('m-gnote'),ready:false,image:null};if(!item.name)return;const fi=document.getElementById('m-gimage');if(fi&&fi.files.length){try{item.image=await uploadImage(fi.files[0],'collection');}catch(err){console.error('Image upload failed:',err);alert('No se pudo subir la imagen. Probá de nuevo.');return;}}data.collection.push(item);saveData(data);renderCollection();closeModal();};}
+  else if(type==='garment'){
+    const en=currentLang==='en';
+    title.textContent=en?'New garment':'Nueva prenda';
+    html=`<div class="field"><label>${en?'Name':'Nombre'}</label><input id="m-gname" placeholder="The Lace Set - Grey"></div>
+      <div class="field"><label>${en?'Category':'Categoría'}</label><select id="m-gcat">
+        <option value="Top">Top</option>
+        <option value="Bottom">Bottom</option>
+        <option value="Detalles">${en?'Construction details':'Detalles constructivos'}</option>
+        <option value="Styling">Styling</option>
+        <option value="Otro">${en?'Other':'Otro'}</option>
+      </select></div>
+      <div class="field"><label>${en?'Note':'Nota'}</label><input id="m-gnote" placeholder="${en?'Look #, combo...':'Look #, combinación...'}"></div>
+      <div class="field"><label>${en?'Garment image':'Imagen de la prenda'}</label><input type="file" id="m-gimage" accept="image/*" style="padding:8px"></div>`;
+    onSave=async()=>{const item={name:v('m-gname'),category:v('m-gcat'),note:v('m-gnote'),ready:false,image:null};if(!item.name)return;const fi=document.getElementById('m-gimage');if(fi&&fi.files.length){try{item.image=await uploadImage(fi.files[0],'collection');}catch(err){console.error('Image upload failed:',err);alert(en?'Image upload failed. Try again.':'No se pudo subir la imagen. Probá de nuevo.');return;}}data.collection.push(item);saveData(data);renderCollection();closeModal();};
+  }
   else if(type==='music'){title.textContent='Agregar Track';html=`<div class="field"><label>Título / Nombre del tema</label><input id="m-mtitle" placeholder="Ej: Runaway"></div><div class="field"><label>Artista</label><input id="m-martist" placeholder="Ej: Kanye West"></div><div class="field"><label>Link (Spotify, YouTube, SoundCloud...)</label><input id="m-murl" placeholder="https://open.spotify.com/track/..."></div><div class="field"><label>Nota (para qué momento, qué mood)</label><input id="m-mnote" placeholder="Para la apertura, mood dramático..."></div>`;onSave=()=>{const item={title:v('m-mtitle'),artist:v('m-martist'),url:v('m-murl'),note:v('m-mnote')};if(!item.title)return;if(!data.music)data.music=[];data.music.push(item);saveData(data);renderMusic();closeModal();};}
   else if(type==='timeline'){title.textContent='Nuevo Evento';html=`<div class="field"><label>Fecha / Momento</label><input id="m-tdate" placeholder="15 Sep 2026 o D-30"></div><div class="field"><label>Descripción</label><textarea id="m-ttext" rows="2" placeholder="Qué pasa..."></textarea></div>`;onSave=()=>{const item={date:v('m-tdate'),text:v('m-ttext')};if(!item.text)return;data.timeline.push(item);saveData(data);renderTimeline();closeModal();};}
   else if(type==='contact'){title.textContent='Nuevo Contacto';html=`<div class="field"><label>Rol</label><input id="m-crole" placeholder="Modelo, MUA, Fotógrafo..."></div><div class="field"><label>Nombre</label><input id="m-cname" placeholder="Nombre completo"></div><div class="field"><label>Teléfono</label><input id="m-cphone" placeholder="+1 ..."></div><div class="field"><label>Email</label><input id="m-cemail" placeholder="email@..."></div><div class="field"><label>Instagram</label><input id="m-cig" placeholder="@usuario"></div><div class="field"><label>Nota</label><input id="m-cnote" placeholder="Disponibilidad, talles..."></div>`;onSave=()=>{const item={role:v('m-crole'),name:v('m-cname'),phone:v('m-cphone'),email:v('m-cemail'),ig:v('m-cig'),note:v('m-cnote')};if(!item.name)return;data.contacts.push(item);saveData(data);renderContacts();closeModal();};}
@@ -962,6 +977,24 @@ loadInfo();loadCreative();renderAll();
 updateGreeting();
 setInterval(updateGreeting,60000);
 setInterval(updateCountdown,3600000);
+
+function goToShowDate(){
+  // Find the Info nav-item and show its section
+  const navItem=Array.from(document.querySelectorAll('.nav-item')).find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'info'"));
+  showSection('info',navItem);
+  setTimeout(()=>{
+    const di=document.getElementById('info-date');
+    if(di){di.focus();if(di.showPicker)try{di.showPicker();}catch(e){}}
+  },120);
+}
+
+function ensureShowDateDefault(){
+  if(!data.info)data.info={};
+  if(!data.info.date){
+    data.info.date='2026-09-13';
+    saveData(data);
+  }
+}
 
 // ============ TASKS (Pendientes / Terminado) ============
 function ensureTasks(){if(!Array.isArray(data.pendingTasks))data.pendingTasks=[];}
@@ -1083,7 +1116,6 @@ function updateCountdown(){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('lightbox').classList.contains('open'))document.getElementById('lightbox').classList.remove('open');else if(document.getElementById('mood-detail-overlay').classList.contains('open'))closeMoodDetail();else closeModal();}});
 
 // ============ LANGUAGE / i18n ============
-let currentLang = 'es';
 const i18n = {
   es: {
     // Nav
@@ -1103,7 +1135,7 @@ const i18n = {
     // References (formerly Moodboard)
     references_title:'Referencias', add_reference:'Nueva referencia',
     add_board:'Nueva referencia', mood_empty:'Creá tableros de referencias visuales con imágenes y notas',
-    ref_cat_all:'Todas', ref_cat_detalles:'Detalles constructivos',
+    cat_all:'Todas', cat_detalles:'Detalles constructivos', cat_other:'Otro',
     // Collection
     collection:'Colección', add_garment:'Agregar prenda',
     collection_empty:'Listá las prendas y looks del desfile',
@@ -1142,7 +1174,7 @@ const i18n = {
     info_duration:'Estimated duration', info_notes:'General notes',
     references_title:'References', add_reference:'New reference',
     add_board:'New reference', mood_empty:'Create reference boards with images and notes',
-    ref_cat_all:'All', ref_cat_detalles:'Construction details',
+    cat_all:'All', cat_detalles:'Construction details', cat_other:'Other',
     collection:'Collection', add_garment:'Add garment',
     collection_empty:'List the garments and looks for the show',
     timeline:'Timeline', add_event:'Add event',
