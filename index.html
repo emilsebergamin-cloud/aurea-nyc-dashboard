@@ -574,7 +574,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         <span class="home-card-count" id="looks-progress-count">0</span>
         <button class="looks-add-btn" onclick="addLook('progress')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
-      <div class="looks-list" id="looks-progress-list"></div>
+      <div class="looks-grid" id="looks-progress-list"></div>
     </div>
     <div class="looks-card">
       <div class="home-card-header">
@@ -583,7 +583,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         <span class="home-card-count" id="looks-done-count">0</span>
         <button class="looks-add-btn" onclick="addLook('done')" title="Agregar look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
       </div>
-      <div class="looks-list" id="looks-done-list"></div>
+      <div class="looks-grid" id="looks-done-list"></div>
     </div>
   </div>
 </div>
@@ -1341,19 +1341,37 @@ function ensureLooks(){
 function looksByStatus(s){ensureLooks();return data.looks.filter(l=>l.status===s);}
 function findLook(id){ensureLooks();return data.looks.find(l=>l.id===id);}
 
+let _draftLookId=null; // tracks a look that's pending the user pressing "Crear"
+
 function addLook(status){
   ensureLooks();
   const next=data.looks.length+1;
-  data.looks.push({
+  const draft={
     id:'l_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
     name:'Look '+next,
     status:status||'progress',
     images:[]
-  });
+  };
+  data.looks.push(draft);
+  _draftLookId=draft.id;
   saveData(data);renderLooks();
-  // Auto-open the new look so user can immediately add images
-  const newLook=data.looks[data.looks.length-1];
-  setTimeout(()=>openLookDetail(newLook.id),100);
+  setTimeout(()=>openLookDetail(draft.id),100);
+}
+
+function confirmDraftLook(){
+  _draftLookId=null;
+  closeLookDetail();
+  renderLooks();
+}
+
+function cancelDraftLook(){
+  if(_draftLookId){
+    data.looks=data.looks.filter(l=>l.id!==_draftLookId);
+    saveData(data);
+    _draftLookId=null;
+    renderLooks();
+  }
+  closeLookDetail();
 }
 
 function renameLook(id,name){
@@ -1447,8 +1465,11 @@ function openLookDetail(id){
       <button class="look-add-image-btn" onclick="addImageToLook('${esc(l.id)}')">+</button>
     </div>
     <div class="look-detail-actions">
-      <button class="btn btn-danger" onclick="deleteLook('${esc(l.id)}')">${en?'Delete look':'Eliminar look'}</button>
-      <button class="btn btn-outline" onclick="closeLookDetail()">${en?'Close':'Cerrar'}</button>
+      ${_draftLookId===l.id
+        ?`<button class="btn btn-outline" onclick="cancelDraftLook()">${en?'Cancel':'Cancelar'}</button>
+          <button class="btn btn-primary" onclick="confirmDraftLook()">${en?'Create':'Crear'}</button>`
+        :`<button class="btn btn-danger" onclick="deleteLook('${esc(l.id)}')">${en?'Delete look':'Eliminar look'}</button>
+          <button class="btn btn-outline" onclick="closeLookDetail()">${en?'Close':'Cerrar'}</button>`}
     </div>
   `;
   document.getElementById('look-detail-overlay').classList.add('open');
@@ -1456,6 +1477,8 @@ function openLookDetail(id){
 }
 
 function closeLookDetail(){
+  // If a draft look is open and user closes via X / overlay, treat as confirm
+  if(_draftLookId){_draftLookId=null;renderLooks();}
   document.getElementById('look-detail-overlay').classList.remove('open');
   document.body.style.overflow='';
 }
