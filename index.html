@@ -1080,8 +1080,14 @@ function startDataLayer(){
       }
     }
   },err=>{
-    console.error('Firebase listen error:',err);
-    setSyncStatus('Sin conexión','var(--danger)');
+    console.error('Firebase listen error:',err.code, err.message);
+    if(err.code==='permission-denied'||err.code==='PERMISSION_DENIED'){
+      setSyncStatus('Sin acceso (reglas Firebase)','var(--danger)');
+    } else if(err.code==='unauthenticated'||err.code==='UNAUTHENTICATED'){
+      setSyncStatus('Sin autenticación','var(--danger)');
+    } else {
+      setSyncStatus('Sin conexión','var(--danger)');
+    }
   });
 
   // Initial load from Firestore
@@ -1099,8 +1105,14 @@ function startDataLayer(){
       saveData(data);
     }
   }).catch(err=>{
-    console.error('Firebase initial load error:',err);
-    setSyncStatus('Sin conexión','var(--danger)');
+    console.error('Firebase initial load error:',err.code, err.message);
+    if(err.code==='permission-denied'||err.code==='PERMISSION_DENIED'){
+      setSyncStatus('Sin acceso (reglas Firebase)','var(--danger)');
+    } else if(err.code==='unauthenticated'||err.code==='UNAUTHENTICATED'){
+      setSyncStatus('Sin autenticación','var(--danger)');
+    } else {
+      setSyncStatus('Sin conexión','var(--danger)');
+    }
   });
 } // end startDataLayer
 
